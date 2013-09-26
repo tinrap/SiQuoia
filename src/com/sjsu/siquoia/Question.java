@@ -15,6 +15,7 @@ public class Question {
 	private ArrayList<String> choices = new ArrayList<String>();
 	private int correctChoice;
 	private int status;
+	private int questionId;
 
 	/**
 	 * @param args
@@ -108,6 +109,24 @@ public class Question {
 	    public int getAnswered()
 	    {
 	    	return status;
+	    }
+	    
+	    /**
+	     * sets  id of the question
+	     * @param id id of question
+	     */
+	    public void setQuestionId(int id)
+	    {
+	    	questionId = id;
+	    }
+	    
+	    
+	    /**
+	     * @return question id
+	     */
+	    public int getQuestionId()
+	    {
+	    	return questionId;
 	    }
 	    
 	    
