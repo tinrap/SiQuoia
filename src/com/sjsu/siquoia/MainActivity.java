@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
     {
     	String message ="";
     	HttpClient httpclient = new DefaultHttpClient();
-    	HttpPost httppost = new HttpPost("http://192.168.1.7/siquoia/create.php");
+    	HttpPost httppost = new HttpPost("http://XXX.XXX.X.X/siquoia/create.php");
     	
     	try {
 

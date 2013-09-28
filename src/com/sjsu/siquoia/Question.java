@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * @author Parnit Sainion
- * @since 19 September 2013
+ * @since 28 September 2013
  * Class is used to create a question object with its question, answer choices, correct answer, and the current status of 
  * whether it was answer or not.
  *
@@ -16,6 +16,9 @@ public class Question {
 	private int correctChoice;
 	private int status;
 	private int questionId;
+	protected static final int UNANSWERED = 0;
+	protected static final int CORRECT = 1;	
+	protected static final int INCORRECT = 2;
 
 	/**
 	 * @param args
@@ -31,7 +34,7 @@ public class Question {
 	 public Question()
 	    {
 	    	//sets status to unanswered
-	    	status = 0;
+	    	status = UNANSWERED;
 	    }
 	 
 	 /**
