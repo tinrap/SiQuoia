@@ -55,6 +55,16 @@ public class MainActivity extends Activity {
     	return databaseConnect(sql);
      }
     
+    public String updateUserAccount()
+    {
+    	String sql = "UPDATE users "+
+    				"SET fname='monkey', lname='blaner' " +
+    				"WHERE userID="+3;
+    	
+    	return databaseConnect(sql);
+    			
+    }
+    
     public String getQuestions(String topic, int currentNumber)
     {
     	String sql = "select * from " + topic +" Limit "+currentNumber+","+(currentNumber+25); 
@@ -65,7 +75,7 @@ public class MainActivity extends Activity {
     {
     	String message ="";
     	HttpClient httpclient = new DefaultHttpClient();
-    	HttpPost httppost = new HttpPost("http://XXX.XXX.X.X/siquoia/create.php");
+    	HttpPost httppost = new HttpPost("http://XXX.XXX.X.X/siquoia/createUser.php");
     	
     	try {
 
@@ -99,7 +109,8 @@ public class MainActivity extends Activity {
 		protected String doInBackground(String... params) 
 		{
 			//Log.i("JSON",getQuestions("questionsanswers",0));
-			Log.i("UserI Info",createUserAccount("mark22", "Mark", "Polo", "password1"));
+			//Log.i("UserI Info",createUserAccount("mark22", "Mark", "Polo", "password1"));
+			Log.i("UserI Info",updateUserAccount());
 			return null;
 		}
     	
