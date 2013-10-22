@@ -14,7 +14,7 @@
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:textSize="22sp" />
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/loginButton"
@@ -23,7 +23,8 @@
         android:layout_alignRight="@+id/passwordField"
         android:layout_below="@+id/passwordField"
         android:layout_marginTop="36dp"
-        android:text="@string/login" />
+        android:text="@string/login" 
+        android:textSize="22sp"/>
 
     <EditText
         android:id="@+id/usernameField"
@@ -31,13 +32,10 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/passwordField"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="335dp"
+        android:layout_marginTop="327dp"
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textPersonName"
-        android:textSize="22sp" >
-
-        <requestFocus />
-    </EditText>
+        android:textSize="24sp" />
 
 </RelativeLayout>
