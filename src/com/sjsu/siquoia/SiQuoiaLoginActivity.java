@@ -4,6 +4,21 @@
 package com.sjsu.siquoia;
 
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,7 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- * @author parnit
+ * @author Parnit Sainion
  *
  */
 public class SiQuoiaLoginActivity extends Activity 
@@ -31,7 +46,7 @@ public class SiQuoiaLoginActivity extends Activity
         setContentView(R.layout.login_screen);
         
         //dummy variable for now
-        boolean logggedIn= true;
+        boolean logggedIn= false;
         
         if(logggedIn)//logged in
         {
@@ -63,7 +78,7 @@ public class SiQuoiaLoginActivity extends Activity
     }
 
     /**
-     * This is the background task that will log th user into the application by check user credentials on a database.
+     * This is the background task that will log the user into the application by check user credentials on a database.
      * @author Parnit Sainion
      *
      */
@@ -80,16 +95,15 @@ public class SiQuoiaLoginActivity extends Activity
 		}
     	
     	@Override
-		protected String doInBackground(String... arg0) {
-			// TODO Auto-generated method stub
-			return null;
+		protected String doInBackground(String... input) {
+    		
+			return " ";
 		}
 		
-		protected void OnPostExecute(String result) {
+		protected void onPostExecute(String result) {
 			
 			//close progress dialog
 			progressBar.dismiss();
-			
 		}    	
     }
     
@@ -116,12 +130,42 @@ public class SiQuoiaLoginActivity extends Activity
 			return null;
 		}
 		
-		protected void OnPostExecute(String result) {
+		protected void onPostExecute(String result) {
 			
 			//close progress dialog
 			progressBar.dismiss();
 			
 		}    	
+    }
+    
+    public String login(String sql)
+    {
+    	String message ="";
+    	HttpClient httpclient = new DefaultHttpClient();
+    	HttpPost httppost = new HttpPost("http://XXX.XXX.X.X/siquoia/createUser.php");
+    	
+    	try {
+
+        	List<NameValuePair> sqlCommand = new ArrayList<NameValuePair>(1);    	
+        	sqlCommand.add(new BasicNameValuePair("sql",sql));
+			httppost.setEntity(new UrlEncodedFormEntity(sqlCommand));
+			
+			//HttpResponse response = httpclient.execute(httppost);
+			
+			ResponseHandler<String> handler = new BasicResponseHandler();
+			message = httpclient.execute(httppost,handler);
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+    	return message;
     }
 
     @Override
