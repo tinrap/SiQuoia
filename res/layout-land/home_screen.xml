@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/continueButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/submitQuesButton"
+            android:layout_alignLeft="@+id/submitQuesButton"
+            android:layout_alignRight="@+id/submitQuesButton"
+            android:layout_marginBottom="14dp"
+            android:padding="10dp"
+            android:text="@string/continueString" />
+
+        <Button
+            android:id="@+id/newGameButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/continueButton"
+            android:layout_alignBottom="@+id/continueButton"
+            android:layout_alignLeft="@+id/leaderboardButton"
+            android:layout_alignRight="@+id/leaderboardButton"
+            android:padding="10dp"
+            android:text="@string/newGame" />
+
+        <Button
+            android:id="@+id/leaderboardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/continueButton"
+            android:layout_marginLeft="96dp"
+            android:layout_toRightOf="@+id/submitQuesButton"
+            android:padding="10dp"
+            android:text="@string/leaderboard" />
+
+        <Button
+            android:id="@+id/quitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="28dp"
+            android:layout_toLeftOf="@+id/newGameButton"
+            android:layout_toRightOf="@+id/submitQuesButton"
+            android:padding="10dp"
+            android:text="@string/quit" />
+
+        <Button
+            android:id="@+id/submitQuesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="76dp"
+            android:padding="10dp"
+            android:text="@string/submitQuestion" />
+
+</RelativeLayout>
