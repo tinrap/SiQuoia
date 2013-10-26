@@ -2,12 +2,12 @@ package com.sjsu.siquoia;
 
 /**
  * @author Parnit Sainion
- * @since 19 September 2013
+ * @since 25 October 2013
  * Class create a user object and store his information.
  */
 public class User {
 
-	private String name;
+	private String username;
 	private int userId;
 	private int siquoiaBucks;
 	private String answers;
@@ -34,7 +34,7 @@ public class User {
 	 */
 	public String getName()
 	{
-		return name;
+		return username;
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class User {
 	 */
 	public void setName(String name)
 	{
-		this.name = name;
+		this.username = name;
 	}
 	
 	/**

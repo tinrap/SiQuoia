@@ -35,7 +35,8 @@ import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
- *
+ * @since 25 October 2013
+ *	Description: This activity is used for a user to login or create a new account.
  */
 public class SiQuoiaLoginActivity extends Activity 
 {
@@ -74,8 +75,7 @@ public class SiQuoiaLoginActivity extends Activity
 				public void onClick(View arg0) 
 				{
 					new SiQuoiaLoginTask().execute(userNameInput.getText().toString(),passwordInput.getText().toString());
-				}
-        		
+				}        		
         	});
         	
         	userCreationField.setOnClickListener(new OnClickListener(){
@@ -84,10 +84,8 @@ public class SiQuoiaLoginActivity extends Activity
 					Toast toast = Toast.makeText(getApplicationContext(), "Cannot Create Account Now", Toast.LENGTH_SHORT);
 					toast.setGravity(Gravity.CENTER,0,0);
 					toast.show();
-				}
-        		
-        	});
-        	
+				}        		
+        	});        	
         }
     }
 
@@ -137,7 +135,7 @@ public class SiQuoiaLoginActivity extends Activity
     {
     	@Override
 		protected void onPreExecute() {
-			//create the login in progress dialog and display it
+			//creates a progress dialog and displays it
     		progressBar = new ProgressDialog(SiQuoiaLoginActivity.this);
 			progressBar.setIndeterminate(true);
 			progressBar.setCancelable(false);
@@ -152,7 +150,7 @@ public class SiQuoiaLoginActivity extends Activity
 		
 		protected void onPostExecute(String result) {
 			
-			//close progress dialog
+			//closes progress dialog
 			progressBar.dismiss();		
 		}    	
     }
