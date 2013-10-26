@@ -24,12 +24,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
@@ -40,6 +42,7 @@ public class SiQuoiaLoginActivity extends Activity
 	private Button loginButton;
 	private ProgressDialog progressBar;
 	private EditText userNameInput, passwordInput;
+	private TextView userCreationField;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +61,11 @@ public class SiQuoiaLoginActivity extends Activity
         }
         else
         {
-        	//get
+        	//Variable Initialization
         	loginButton = (Button) findViewById(R.id.loginButton);
         	userNameInput = (EditText) findViewById(R.id.usernameField);
         	passwordInput = (EditText) findViewById(R.id.passwordField);
+        	userCreationField = (TextView) findViewById(R.id.userCreationField);
         	
         	//set up the login button's onClickListener
         	loginButton.setOnClickListener(new OnClickListener(){
@@ -70,6 +74,16 @@ public class SiQuoiaLoginActivity extends Activity
 				public void onClick(View arg0) 
 				{
 					new SiQuoiaLoginTask().execute(userNameInput.getText().toString(),passwordInput.getText().toString());
+				}
+        		
+        	});
+        	
+        	userCreationField.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					Toast toast = Toast.makeText(getApplicationContext(), "Cannot Create Account Now", Toast.LENGTH_SHORT);
+					toast.setGravity(Gravity.CENTER,0,0);
+					toast.show();
 				}
         		
         	});
@@ -105,6 +119,8 @@ public class SiQuoiaLoginActivity extends Activity
 			
 			//close progress dialog
 			progressBar.dismiss();
+			
+			//go to home screen activity
 			Intent intent = new Intent();
 			intent.setClass(SiQuoiaLoginActivity.this, SiQuoiaHomeActivity.class);
 			startActivity(intent);

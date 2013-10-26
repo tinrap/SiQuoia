@@ -13,6 +13,7 @@
     <string name = "leaderboard"> LeaderBoard </string>
     <string name = "logout"> Logout </string>
     <string name = "quit"> Quit </string>
+    <string name = "createUser"> Create New Account </string>
     
 
 </resources>

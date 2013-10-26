@@ -27,8 +27,6 @@
         android:inputType="textPassword" 
         android:hint="@string/password"
         android:textSize="22sp">
-
-        <requestFocus />
     </EditText>
 
     <Button
@@ -39,5 +37,18 @@
         android:layout_alignRight="@+id/passwordField"
         android:layout_marginBottom="173dp"
         android:text="@string/login" />
+
+    <TextView
+        android:id="@+id/userCreationField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="51dp"
+        android:ems="10"
+        android:text="@string/createUser"
+        android:textSize="22sp" 
+        android:gravity="center"
+        android:textColor="@color/lightBlue"/>
 
 </RelativeLayout>
