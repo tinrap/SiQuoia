@@ -24,6 +24,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -64,7 +65,6 @@ public class SiQuoiaLoginActivity extends Activity
         	
         	//set up the login button's onClickListener
         	loginButton.setOnClickListener(new OnClickListener(){
-
         		//attempts to login the user
 				@Override
 				public void onClick(View arg0) 
@@ -96,7 +96,8 @@ public class SiQuoiaLoginActivity extends Activity
     	
     	@Override
 		protected String doInBackground(String... input) {
-    		
+    		//input[0] = username
+    		//input[1] = password
 			return " ";
 		}
 		
@@ -104,6 +105,10 @@ public class SiQuoiaLoginActivity extends Activity
 			
 			//close progress dialog
 			progressBar.dismiss();
+			Intent intent = new Intent();
+			intent.setClass(SiQuoiaLoginActivity.this, SiQuoiaHomeActivity.class);
+			startActivity(intent);
+			finish();
 		}    	
     }
     
@@ -125,16 +130,14 @@ public class SiQuoiaLoginActivity extends Activity
 		}
     	
     	@Override
-		protected String doInBackground(String... arg0) {
-			// TODO Auto-generated method stub
+		protected String doInBackground(String... params) {			
 			return null;
 		}
 		
 		protected void onPostExecute(String result) {
 			
 			//close progress dialog
-			progressBar.dismiss();
-			
+			progressBar.dismiss();		
 		}    	
     }
     
