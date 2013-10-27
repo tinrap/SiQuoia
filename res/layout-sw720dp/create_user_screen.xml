@@ -12,6 +12,7 @@
         android:layout_marginTop="14dp"
         android:ems="10" 
         android:hint="@string/username"
+        android:textSize="26sp"
         android:inputType="textPersonName">
     </EditText>
 
@@ -23,7 +24,21 @@
         android:layout_alignRight="@+id/passwordOne"
         android:layout_below="@+id/userNameField"
         android:layout_marginTop="28dp"
-        android:text="@string/enterPass" />
+        android:text="@string/enterPass" 
+        android:textSize="26sp"/>
+
+    <EditText
+        android:id="@+id/passwordOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/userNameField"
+        android:layout_below="@+id/enterPass1"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:inputType="textPassword" 
+        android:hint="@string/password"
+        android:textSize="26sp">
+    </EditText>
 
     <TextView
         android:id="@+id/enterPass2"
@@ -32,41 +47,8 @@
         android:layout_alignLeft="@+id/enterPass1"
         android:layout_below="@+id/passwordOne"
         android:layout_marginTop="26dp"
-        android:text="@string/reEnterPass" />
-
-    <Button
-        android:id="@+id/createButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/passwordOne"
-        android:layout_below="@+id/passwordTwo"
-        android:layout_marginTop="35dp"
-        android:text="@string/create" />
-
-    <TextView
-        android:id="@+id/enterUserText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="60dp"
-        android:ems="10"
-        android:text="@string/enterUserName" />
-
-    <EditText
-        android:id="@+id/passwordOne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/userNameField"
-        android:layout_below="@+id/enterPass1"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword" >
-
-        <requestFocus />
-    </EditText>
+        android:text="@string/reEnterPass" 
+        android:textSize="26sp"/>
 
     <EditText
         android:id="@+id/passwordTwo"
@@ -74,9 +56,32 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/enterPass2"
         android:layout_below="@+id/enterPass2"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="18dp"
         android:ems="10"
+        android:inputType="textPassword" 
         android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:textSize="26sp">
+    </EditText>
+
+    <Button
+        android:id="@+id/createButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/passwordTwo"
+        android:layout_below="@+id/passwordTwo"
+        android:layout_marginTop="36dp"
+        android:text="@string/create"
+        android:textSize="26sp" />
+
+    <TextView
+        android:id="@+id/enterUserText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="219dp"
+        android:ems="10"
+        android:text="@string/enterUserName"
+        android:textSize="26sp" />
 
 </RelativeLayout>
