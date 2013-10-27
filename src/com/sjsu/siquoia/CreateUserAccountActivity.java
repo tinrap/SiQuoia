@@ -21,7 +21,6 @@ import org.apache.http.message.BasicNameValuePair;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,20 +28,24 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
- * @since 26 October 2013
+ * @since 27 October 2013
  * Description: Users can create a user account to play the game.
  */
 public class CreateUserAccountActivity extends Activity{
 	//declare variables
 	private ProgressDialog progressBar;
-	private EditText userName, passOne, passTwo;
+	private EditText userName, passOne, passTwo, email;
 	private TextView passOneString, passTwoString;
+	private Button createButton;
 	private boolean passwordMatch;
 
 	@Override
@@ -51,28 +54,33 @@ public class CreateUserAccountActivity extends Activity{
 		setContentView(R.layout.create_user_screen);
 		
 		//Initialize Variables
+		userName = (EditText) findViewById(R.id.userNameField);
+		email = (EditText) findViewById(R.id.emailField);
 		passOne = (EditText) findViewById(R.id.passwordOne);
 		passTwo = (EditText) findViewById(R.id.passwordTwo);
 		passOneString = (TextView) findViewById(R.id.enterPass1);
 		passTwoString = (TextView) findViewById(R.id.enterPass2);
+		createButton = (Button) findViewById(R.id.createButton);
 		
+		/*
+		 * Add a listener to the second password field. If passwords do not match change color to red, else green.
+		 */
 		passTwo.addTextChangedListener(new TextWatcher(){
 			@Override
 			public void afterTextChanged(Editable s) {
 				if(passOne.getText().toString().equals(passTwo.getText().toString()))
 				{
+					//passwords match
 					passOneString.setTextColor(Color.GREEN);
 					passTwoString.setTextColor(Color.GREEN);
 					passwordMatch = true;
 				}
 				else
 				{
+					//password do not match
 					passOneString.setTextColor(Color.RED);
 					passTwoString.setTextColor(Color.RED);
 					passwordMatch = false;
-					Toast toast = Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT);
-					toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-					toast.show();
 				}			
 			}
 
@@ -91,8 +99,22 @@ public class CreateUserAccountActivity extends Activity{
 			}
 			
 		});
-		
-		
+				
+		//Add a listener to the createButton
+		createButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				//In case passwords not not match display a message
+				if(!passwordMatch)
+	    		{
+					Toast toast = Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT);
+					toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+					toast.show();
+	    		}
+				else
+					new SiQuoiaCreateUserTask().execute(userName.getText().toString(),email.getText().toString(), passOne.getText().toString());				
+			}			
+		});	
 	}
 	
     @Override
@@ -102,6 +124,9 @@ public class CreateUserAccountActivity extends Activity{
         return true;
     }
     
+    /**
+     * Override back button to go to Login Activity
+     */
     @Override
     public void onBackPressed()
     {
@@ -114,6 +139,7 @@ public class CreateUserAccountActivity extends Activity{
     /**
      * This is the background task that will create a new user in the database
      * @author Parnit Sainion
+     * @since 27 October 2013
      *
      */
     class SiQuoiaCreateUserTask extends AsyncTask<String, String, String>
@@ -129,14 +155,19 @@ public class CreateUserAccountActivity extends Activity{
 		}
     	
     	@Override
-		protected String doInBackground(String... params) {			
+		protected String doInBackground(String... params) {	 		
 			return null;
 		}
 		
 		protected void onPostExecute(String result) {
-			
 			//closes progress dialog
 			progressBar.dismiss();		
+			
+			//go to home screen activity
+			Intent intent = new Intent();
+			intent.setClass(CreateUserAccountActivity.this, SiQuoiaHomeActivity.class);
+			startActivity(intent);
+			finish();
 		}    	
     }
     
