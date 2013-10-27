@@ -7,7 +7,7 @@ package com.sjsu.siquoia;
  */
 public class User {
 
-	private String username;
+	private String username;	
 	private int userId;
 	private int siquoiaBucks;
 	private String answers;

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/enterUserText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="60dp"
+        android:ems="10" 
+        android:text="@string/enterUserName">
+    </TextView>
+
+    <EditText
+        android:id="@+id/userNameField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/enterUserText"
+        android:layout_below="@+id/enterUserText"
+        android:layout_marginTop="14dp"
+        android:ems="10" 
+        android:hint="@string/username">
+    </EditText>
+
+    <TextView
+        android:id="@+id/enterPass1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userNameField"
+        android:layout_alignRight="@+id/passwordOne"
+        android:layout_below="@+id/userNameField"
+        android:layout_marginTop="28dp"
+        android:text="@string/enterPass" />
+
+    <EditText
+        android:id="@+id/passwordOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/userNameField"
+        android:layout_below="@+id/enterPass1"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:inputType="textPassword" 
+        android:hint="@string/password">
+    </EditText>
+
+    <TextView
+        android:id="@+id/enterPass2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/enterPass1"
+        android:layout_below="@+id/passwordOne"
+        android:layout_marginTop="26dp"
+        android:text="@string/reEnterPass" />
+
+    <EditText
+        android:id="@+id/passwordTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/enterPass2"
+        android:layout_below="@+id/enterPass2"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:inputType="textPassword" 
+        android:hint="@string/password">
+    </EditText>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwordTwo"
+        android:layout_marginTop="34dp"
+        android:layout_toRightOf="@+id/enterUserText"
+        android:text="@string/create" />
+
+</RelativeLayout>
