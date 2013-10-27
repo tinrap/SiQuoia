@@ -8,12 +8,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
@@ -56,7 +58,18 @@ public class SiQuoiaLoginActivity extends Activity
 				@Override
 				public void onClick(View arg0) 
 				{
-					new SiQuoiaLoginTask().execute(userNameInput.getText().toString(),passwordInput.getText().toString());
+					String username = userNameInput.getText().toString().trim();
+					String password = passwordInput.getText().toString().trim();
+					
+					//confirms user has entered both fields
+					if(username.equals("")||password.equals(""))
+					{
+						Toast toast = Toast.makeText(getApplicationContext(), "Please enter both fields", Toast.LENGTH_SHORT);
+						toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+						toast.show();
+					}
+					else
+						new SiQuoiaLoginTask().execute(username,password);
 				}        		
         	});
         	
