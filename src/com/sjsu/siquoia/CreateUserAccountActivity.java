@@ -43,7 +43,7 @@ import android.widget.Toast;
 public class CreateUserAccountActivity extends Activity{
 	//declare variables
 	private ProgressDialog progressBar;
-	private EditText userName, passOne, passTwo, email;
+	private EditText userName, passOne, passTwo, emailField;
 	private TextView passOneString, passTwoString;
 	private Button createButton;
 	private boolean passwordMatch;
@@ -55,7 +55,7 @@ public class CreateUserAccountActivity extends Activity{
 		
 		//Initialize Variables
 		userName = (EditText) findViewById(R.id.userNameField);
-		email = (EditText) findViewById(R.id.emailField);
+		emailField = (EditText) findViewById(R.id.emailField);
 		passOne = (EditText) findViewById(R.id.passwordOne);
 		passTwo = (EditText) findViewById(R.id.passwordTwo);
 		passOneString = (TextView) findViewById(R.id.enterPass1);
@@ -87,17 +87,14 @@ public class CreateUserAccountActivity extends Activity{
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
-				
+				// TODO Auto-generated method stub				
 			}
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				// TODO Auto-generated method stub
-				
-			}
-			
+				// TODO Auto-generated method stub				
+			}			
 		});
 				
 		//Add a listener to the createButton
@@ -105,16 +102,64 @@ public class CreateUserAccountActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				//In case passwords not not match display a message
-				if(!passwordMatch)
-	    		{
-					Toast toast = Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT);
-					toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-					toast.show();
-	    		}
-				else
-					new SiQuoiaCreateUserTask().execute(userName.getText().toString(),email.getText().toString(), passOne.getText().toString());				
+				
+				String username = userName.getText().toString();
+				String email = emailField.getText().toString();
+				String password = passOne.getText().toString();
+				
+				if(validUsername(username) && vaildEmail(email) && validPassword())
+				{
+					new SiQuoiaCreateUserTask().execute(username,email, password);				
+				}
 			}			
 		});	
+	}
+	
+	/**
+	 * @param name username 
+	 * @return whether username is valid
+	 */
+	public boolean validUsername(String name)
+	{
+		if(name.trim().equals(""))
+		{
+			Toast toast = Toast.makeText(getApplicationContext(), "Please enter valid username", Toast.LENGTH_SHORT);
+			toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+			toast.show();
+			return false;
+		}		
+		return true;
+	}
+	
+	/**
+	 * @param email user's email
+	 * @return whether email is valid or not
+	 */
+	public boolean vaildEmail(String email)
+	{
+		if(email.trim().equals("") || !(email.contains(".")&& email.contains("@")))
+		{
+			Toast toast = Toast.makeText(getApplicationContext(), "Please enter valid email", Toast.LENGTH_SHORT);
+			toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+			toast.show();
+			return false;
+		}		
+		return true;
+	}
+	
+	/**
+	 * @return Whether email is valid and two emails match each other
+	 */
+	public boolean validPassword()
+	{
+		if(!passwordMatch)
+		{
+			Toast toast = Toast.makeText(getApplicationContext(), "Passwords do not match.", Toast.LENGTH_SHORT);
+			toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+			toast.show();
+			return false;
+		}		
+		return true;
 	}
 	
     @Override
