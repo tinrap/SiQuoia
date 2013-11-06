@@ -46,6 +46,14 @@ public class Question {
 	    }
 	    
 	    /**
+	     * @param text Question text
+	     */
+	    public void setQuestion(String text)
+	    {
+	    	this.text = text;
+	    }
+	    
+	    /**
 	     * Adds a possible answer to the list of choices
 	     * @param choice possible answer to the question
 	     */
