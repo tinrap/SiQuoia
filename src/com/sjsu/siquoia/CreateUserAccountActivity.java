@@ -21,13 +21,13 @@ import org.apache.http.message.BasicNameValuePair;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -47,6 +47,7 @@ public class CreateUserAccountActivity extends Activity{
 	private TextView passOneString, passTwoString;
 	private Button createButton;
 	private boolean passwordMatch;
+	
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,14 +162,7 @@ public class CreateUserAccountActivity extends Activity{
 		}		
 		return true;
 	}
-	
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    
+
     /**
      * Override back button to go to Login Activity
      */
@@ -205,6 +199,15 @@ public class CreateUserAccountActivity extends Activity{
 		}
 		
 		protected void onPostExecute(String result) {
+			//update user info
+			SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);			
+			SharedPreferences.Editor perferenceUpdater = preferences.edit();
+			perferenceUpdater.putBoolean(SiQuoiaHomeActivity.LOGGED_IN, true);
+			
+			//commit preference changes
+			perferenceUpdater.commit();
+			
+			
 			//closes progress dialog
 			progressBar.dismiss();		
 			

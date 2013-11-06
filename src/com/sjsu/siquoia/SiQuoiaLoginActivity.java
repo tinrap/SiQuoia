@@ -6,10 +6,10 @@ package com.sjsu.siquoia;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -28,14 +28,19 @@ public class SiQuoiaLoginActivity extends Activity
 	private ProgressDialog progressBar;
 	private EditText userNameInput, passwordInput;
 	private TextView userCreationField;
+	private SharedPreferences preferences;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen);
+
+        //get users info from app
+        preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
         
-        //dummy variable for now
-        boolean logggedIn= false;
+        
+        //get login status 
+        boolean logggedIn= preferences.getBoolean(SiQuoiaHomeActivity.LOGGED_IN, false);
         
         if(logggedIn)//logged in
         {
@@ -112,6 +117,13 @@ public class SiQuoiaLoginActivity extends Activity
 		
 		protected void onPostExecute(String result) {
 			
+			//update user info
+			SharedPreferences.Editor perferenceUpdater = preferences.edit();
+			perferenceUpdater.putBoolean(SiQuoiaHomeActivity.LOGGED_IN, true);
+			
+			//commit preference changes
+			perferenceUpdater.commit();
+			
 			//close progress dialog
 			progressBar.dismiss();
 			
@@ -121,14 +133,5 @@ public class SiQuoiaLoginActivity extends Activity
 			startActivity(intent);
 			finish();
 		}    	
-    }
-    
-    
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
     }
 }

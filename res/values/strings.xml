@@ -20,6 +20,8 @@
     <string name = "enterPass"> Enter Password: </string>
     <string name = "reEnterPass"> Re-enter Password: </string>
     <string name = "enterEmail"> Enter Email: </string>
+    <string name = "action_logout"> Logout </string>
+    <string name = "action_redeem"> Redeem Code </string>
     
 
 </resources>

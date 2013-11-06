@@ -4,12 +4,17 @@
 package com.sjsu.siquoia;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
@@ -22,7 +27,11 @@ public class SiQuoiaHomeActivity extends Activity {
 	
 	//Variable Declaration
 	Button continueButton, newGameButton, leaderboardButton, submitQuestionButton, quitButton;
-
+	
+	//preferences
+	protected static final String SIQUOIA_PREF = "SiquoiaPref";
+	protected static final String LOGGED_IN = "loggedIn";
+	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,11 +86,42 @@ public class SiQuoiaHomeActivity extends Activity {
         });
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+		switch(item.getItemId())
+		{
+			case R.id.action_logout:
+				//update user info
+				SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
+				SharedPreferences.Editor perferenceUpdater = preferences.edit();
+				perferenceUpdater.putBoolean(SiQuoiaHomeActivity.LOGGED_IN, false);
+				
+				//commit preference changes
+				perferenceUpdater.commit();
+				
+				Intent intent = new Intent();
+	        	intent.setClass(SiQuoiaHomeActivity.this, SiQuoiaLoginActivity.class);
+	        	startActivity(intent);
+	        	finish();
+				break;
+			case R.id.action_redeem:
+				Toast toast = Toast.makeText(getApplicationContext(), "To Be Implemented", Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+				toast.show();
+				break;
+				
+			default:
+				break;
+		}
+    	return false;
+    	
     }
 }
