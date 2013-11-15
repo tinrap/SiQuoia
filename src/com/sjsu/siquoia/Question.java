@@ -16,6 +16,7 @@ public class Question {
 	private int correctChoice;
 	private int status;
 	private int questionId;
+	private int rank;
 	protected static final int UNANSWERED = 0;
 	protected static final int CORRECT = 1;	
 	protected static final int INCORRECT = 2;
@@ -138,6 +139,23 @@ public class Question {
 	    public int getQuestionId()
 	    {
 	    	return questionId;
+	    }
+	    
+	    /**
+	     * sets the ranks of the question
+	     * @param rank rank of question
+	     */
+	    public void setRank(int rank)
+	    {
+	    	this.rank = rank;
+	    }
+	    
+	    /**
+	     * @return rank of question
+	     */
+	    public int getRank()
+	    {
+	    	return rank;
 	    }
 	    
 	    

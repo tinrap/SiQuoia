@@ -7,10 +7,14 @@ package com.sjsu.siquoia;
  */
 public class User {
 
-	private String username;	
+	private String email;	
 	private int userId;
 	private int siquoiaBucks;
-	private String answers;
+	private String currentQuiz;
+	private String currentAnswers;
+	private int packetsBought;
+	private int memorabiliaBought;
+	private int totalPointsSpent;
 	
 	
 	
@@ -32,18 +36,18 @@ public class User {
 	/**
 	 * @return user's name
 	 */
-	public String getName()
+	public String getEmail()
 	{
-		return username;
+		return email;
 	}
 	
 	/**
 	 * sets user's name
 	 * @param name new name 
 	 */
-	public void setName(String name)
+	public void setEmail(String email)
 	{
-		this.username = name;
+		this.email = email;
 	}
 	
 	/**
@@ -86,15 +90,84 @@ public class User {
 	 */
 	public String getAnswers()
 	{
-		return answers;
+		return currentAnswers;
 	}
+	
+	/**
+	 * Store current quiz user is taking. 
+	 * @param quiz current quiz in JSON format
+	 */
+	public void setCurrentQuiz(String quiz)
+	{
+		this.currentQuiz = quiz;
+	}
+	
+	/**
+	 * @return current quiz user is taking
+	 */
+	public String getCurrentQuiz()
+	{
+		return currentQuiz;
+	}
+	
+	/**
+	 *  set the number of packets bought by user
+	 * @param packetBought number of packets
+	 */
+	public void setPacketsBought( int packetsBought)
+	{
+		this.packetsBought = packetsBought;
+	}
+	
+	/**
+	 * @return the number of packets bought by user
+	 */
+	public int getPacketsBougth()
+	{
+		return packetsBought;
+	}
+	
+	/**
+	 *  set the number of packets bought by user
+	 * @param packetBought number of packets
+	 */
+	public void setMemorabiliaBought( int memorabiliaBought)
+	{
+		this.memorabiliaBought = memorabiliaBought;
+	}
+	
+	/**
+	 * @return the number of packets bought by user
+	 */
+	public int getMemorabiliaBougth()
+	{
+		return memorabiliaBought;
+	}
+	
+	/**
+	 * sets number of points spent by user
+	 * @param pointsSpent points spent by users
+	 */
+	public void setTotalPointsSpent(int pointsSpent)
+	{
+		this.totalPointsSpent = pointsSpent;
+	}
+	
+	/**
+	 * @return total number of points spent by user
+	 */
+	public int getTotalPointsSpent()
+	{
+		return totalPointsSpent;
+	}
+	
 	
 	/**
 	 * sets the answers the  user has already answered for the quiz
 	 * @param answers
 	 */
-	public void setAnswers(String answers)
+	public void setAnswers(String currentAnswers)
 	{
-		this.answers = answers;
+		this.currentAnswers = currentAnswers;
 	}
 }
