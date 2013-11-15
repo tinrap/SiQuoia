@@ -33,6 +33,18 @@ public class User {
 		
 	}
 	
+	public User(String email, int id)
+	{
+		this.userId = id;
+		this.email = email;
+		currentQuiz = "";
+		currentAnswers = "";
+		packetsBought = 0 ;
+		memorabiliaBought = 0;
+		siquoiaBucks = 10;
+		totalPointsSpent = 0;
+	}
+	
 	/**
 	 * @return user's name
 	 */
