@@ -37,58 +37,44 @@ public class SiQuoiaLoginActivity extends Activity
 
         //get users info from app
         preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
-        
-        
-        //get login status 
-        boolean logggedIn= preferences.getBoolean(SiQuoiaHomeActivity.LOGGED_IN, false);
-        
-        if(logggedIn)//logged in
-        {
-        	Intent intent = new Intent();
-        	intent.setClass(SiQuoiaLoginActivity.this, SiQuoiaHomeActivity.class);
-        	startActivity(intent);
-        	finish();
-        }
-        else
-        {
-        	//Variable Initialization
-        	loginButton = (Button) findViewById(R.id.loginButton);
-        	userNameInput = (EditText) findViewById(R.id.usernameField);
-        	passwordInput = (EditText) findViewById(R.id.passwordField);
-        	userCreationField = (TextView) findViewById(R.id.userCreationField);
-        	
-        	//set up the login button's onClickListener
-        	loginButton.setOnClickListener(new OnClickListener(){
-        		//attempts to login the user
-				@Override
-				public void onClick(View arg0) 
+       
+    	//Variable Initialization
+    	loginButton = (Button) findViewById(R.id.loginButton);
+    	userNameInput = (EditText) findViewById(R.id.usernameField);
+    	passwordInput = (EditText) findViewById(R.id.passwordField);
+    	userCreationField = (TextView) findViewById(R.id.userCreationField);
+    	
+    	//set up the login button's onClickListener
+    	loginButton.setOnClickListener(new OnClickListener(){
+    		//attempts to login the user
+			@Override
+			public void onClick(View arg0) 
+			{
+				String username = userNameInput.getText().toString().trim();
+				String password = passwordInput.getText().toString().trim();
+				
+				//confirms user has entered both fields
+				if(username.equals("")||password.equals(""))
 				{
-					String username = userNameInput.getText().toString().trim();
-					String password = passwordInput.getText().toString().trim();
-					
-					//confirms user has entered both fields
-					if(username.equals("")||password.equals(""))
-					{
-						Toast toast = Toast.makeText(getApplicationContext(), "Please enter both fields", Toast.LENGTH_SHORT);
-						toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-						toast.show();
-					}
-					else
-						new SiQuoiaLoginTask().execute(username,password);
-				}        		
-        	});
-        	
-        	userCreationField.setOnClickListener(new OnClickListener(){
-				@Override
-				public void onClick(View v) {
-					//go to home screen activity
-					Intent intent = new Intent();
-					intent.setClass(SiQuoiaLoginActivity.this, CreateUserAccountActivity.class);
-					startActivity(intent);
-					finish();
-				}        		
-        	});        	
-        }
+					Toast toast = Toast.makeText(getApplicationContext(), "Please enter both fields", Toast.LENGTH_SHORT);
+					toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+					toast.show();
+				}
+				else
+					new SiQuoiaLoginTask().execute(username,password);
+			}        		
+    	});
+    	
+    	userCreationField.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				//go to home screen activity
+				Intent intent = new Intent();
+				intent.setClass(SiQuoiaLoginActivity.this, CreateUserAccountActivity.class);
+				startActivity(intent);
+				finish();
+			}        		
+    	});        	
     }
 
     /**

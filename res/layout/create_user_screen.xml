@@ -4,96 +4,74 @@
     android:layout_height="match_parent" >
 
     <EditText
-        android:id="@+id/userNameField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/enterUserText"
-        android:layout_below="@+id/enterUserText"
-        android:layout_marginTop="14dp"
-        android:ems="10" 
-        android:hint="@string/username"
-        android:inputType="textPersonName">
-    </EditText>
-
-    <TextView
-        android:id="@+id/enterPass2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/enterPass1"
-        android:layout_below="@+id/passwordOne"
-        android:layout_marginTop="26dp"
-        android:text="@string/reEnterPass" />
-
-    <Button
-        android:id="@+id/createButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/passwordOne"
-        android:layout_below="@+id/passwordTwo"
-        android:layout_marginTop="35dp"
-        android:text="@string/create" />
-
-    <EditText
         android:id="@+id/passwordOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/userNameField"
         android:layout_below="@+id/enterPass1"
-        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword" >
-
-        <requestFocus />
-    </EditText>
+        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/passwordTwo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/enterPass2"
         android:layout_below="@+id/enterPass2"
-        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword" />
-
-    <TextView
-        android:id="@+id/enterEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/userNameField"
-        android:layout_below="@+id/userNameField"
-        android:layout_marginTop="19dp"
-        android:text="@string/enterEmail" />
 
     <EditText
         android:id="@+id/emailField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/enterEmail"
+        android:layout_alignLeft="@+id/passwordOne"
         android:layout_below="@+id/enterEmail"
+        android:layout_marginTop="15dp"
         android:ems="10"
-        android:inputType="textEmailAddress" 
-        android:hint="@string/email"/>
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/createButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/passwordTwo"
+        android:layout_below="@+id/passwordTwo"
+        android:layout_marginTop="28dp"
+        android:text="@string/create" />
+
+    <TextView
+        android:id="@+id/enterEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/emailField"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="89dp"
+        android:text="@string/enterEmail" />
+
+    <TextView
+        android:id="@+id/enterPass2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/enterEmail"
+        android:layout_below="@+id/passwordOne"
+        android:layout_marginTop="47dp"
+        android:text="@string/reEnterPass" />
 
     <TextView
         android:id="@+id/enterPass1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/passwordOne"
+        android:layout_alignLeft="@+id/enterEmail"
         android:layout_below="@+id/emailField"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="25dp"
         android:text="@string/enterPass" />
-
-    <TextView
-        android:id="@+id/enterUserText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
-        android:ems="10"
-        android:text="@string/enterUserName" />
 
 </RelativeLayout>

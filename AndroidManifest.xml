@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme" >
         
         <activity
-            android:name="com.sjsu.siquoia.SiQuoiaLoginActivity"
+            android:name="com.sjsu.siquoia.SiQuoiaSplashActivity"
             android:label="@string/app_name" 
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
@@ -27,13 +27,20 @@
             </intent-filter>
         </activity>
         
-          <activity
-            android:name="com.sjsu.siquoia.SiQuoiaHomeActivity"
-            android:label="@string/app_name" >
+        <activity
+            android:name="com.sjsu.siquoia.SiQuoiaLoginActivity"
+            android:label="@string/app_name" 
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        
+          <activity
+            android:name="com.sjsu.siquoia.SiQuoiaHomeActivity"
+            android:label="@string/app_name" >
         </activity>
         
           <activity

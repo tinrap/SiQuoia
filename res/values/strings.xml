@@ -22,6 +22,7 @@
     <string name = "enterEmail"> Enter Email: </string>
     <string name = "action_logout"> Logout </string>
     <string name = "action_redeem"> Redeem Code </string>
+    <string name = "splashImage"> Splash Screen Image </string>
     
 
 </resources>

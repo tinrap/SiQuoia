@@ -43,7 +43,7 @@ import android.widget.Toast;
 public class CreateUserAccountActivity extends Activity{
 	//declare variables
 	private ProgressDialog progressBar;
-	private EditText userName, passOne, passTwo, emailField;
+	private EditText passOne, passTwo, emailField;
 	private TextView passOneString, passTwoString;
 	private Button createButton;
 	private boolean passwordMatch;
@@ -55,7 +55,6 @@ public class CreateUserAccountActivity extends Activity{
 		setContentView(R.layout.create_user_screen);
 		
 		//Initialize Variables
-		userName = (EditText) findViewById(R.id.userNameField);
 		emailField = (EditText) findViewById(R.id.emailField);
 		passOne = (EditText) findViewById(R.id.passwordOne);
 		passTwo = (EditText) findViewById(R.id.passwordTwo);
@@ -104,33 +103,18 @@ public class CreateUserAccountActivity extends Activity{
 			public void onClick(View v) {
 				//In case passwords not not match display a message
 				
-				String username = userName.getText().toString();
 				String email = emailField.getText().toString();
 				String password = passOne.getText().toString();
 				
-				if(validUsername(username) && vaildEmail(email) && validPassword())
+				if(vaildEmail(email) && validPassword())
 				{
-					new SiQuoiaCreateUserTask().execute(username,email, password);				
+					new SiQuoiaCreateUserTask().execute(email, password);				
 				}
 			}			
 		});	
 	}
 	
-	/**
-	 * @param name username 
-	 * @return whether username is valid
-	 */
-	public boolean validUsername(String name)
-	{
-		if(name.trim().equals(""))
-		{
-			Toast toast = Toast.makeText(getApplicationContext(), "Please enter valid username", Toast.LENGTH_SHORT);
-			toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-			toast.show();
-			return false;
-		}		
-		return true;
-	}
+
 	
 	/**
 	 * @param email user's email
