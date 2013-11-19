@@ -27,6 +27,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,7 +38,7 @@ import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
- * @since 27 October 2013
+ * @since 19 November 2013
  * Description: Users can create a user account to play the game.
  */
 public class CreateUserAccountActivity extends Activity{
@@ -46,8 +47,7 @@ public class CreateUserAccountActivity extends Activity{
 	private EditText passOne, passTwo, emailField;
 	private TextView passOneString, passTwoString;
 	private Button createButton;
-	private boolean passwordMatch;
-	
+	private boolean passwordMatch;	
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +105,7 @@ public class CreateUserAccountActivity extends Activity{
 				
 				String email = emailField.getText().toString();
 				String password = passOne.getText().toString();
+				password = (password+password).hashCode()+"";
 				
 				if(vaildEmail(email) && validPassword())
 				{
@@ -113,8 +114,6 @@ public class CreateUserAccountActivity extends Activity{
 			}			
 		});	
 	}
-	
-
 	
 	/**
 	 * @param email user's email
@@ -163,10 +162,10 @@ public class CreateUserAccountActivity extends Activity{
      * This is the background task that will create a new user in the database
      * @author Parnit Sainion
      * @since 27 October 2013
-     *
      */
     class SiQuoiaCreateUserTask extends AsyncTask<String, String, String>
     {
+    	private String email;
     	@Override
 		protected void onPreExecute() {
 			//creates a progress dialog and displays it
@@ -178,47 +177,70 @@ public class CreateUserAccountActivity extends Activity{
 		}
     	
     	@Override
-		protected String doInBackground(String... params) {	 		
-			return null;
+		protected String doInBackground(String... params) {	 
+    		String response = createUser(params[0], params[1]);
+    		email = params[0];
+    		Log.i("Response",response);
+    		
+			return response;
 		}
 		
-		protected void onPostExecute(String result) {
-			//update user info
-			SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);			
-			SharedPreferences.Editor perferenceUpdater = preferences.edit();
-			perferenceUpdater.putBoolean(SiQuoiaHomeActivity.LOGGED_IN, true);
+		protected void onPostExecute(String result) {			
 			
-			//commit preference changes
-			perferenceUpdater.commit();
-			
-			
-			//closes progress dialog
-			progressBar.dismiss();		
-			
-			//go to home screen activity
-			Intent intent = new Intent();
-			intent.setClass(CreateUserAccountActivity.this, SiQuoiaHomeActivity.class);
-			startActivity(intent);
-			finish();
+			if(result.equalsIgnoreCase("true"))
+			{
+				//update user info to logged in
+				SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);			
+				SharedPreferences.Editor perferenceUpdater = preferences.edit();
+				perferenceUpdater.putBoolean(SiQuoiaHomeActivity.LOGGED_IN, true);
+				
+				//commit preference changes
+				perferenceUpdater.commit();	
+				
+				//closes progress dialog
+				progressBar.dismiss();		
+				
+				//go to home screen activity
+				Intent intent = new Intent();
+				intent.setClass(CreateUserAccountActivity.this, SiQuoiaHomeActivity.class);
+				
+				//store status as new user and pass user email
+				intent.putExtra(SiQuoiaHomeActivity.NEW_USER, true);
+				intent.putExtra(SiQuoiaHomeActivity.EMAIL, email);
+				startActivity(intent);
+				finish();
+			}			
+			else
+			{
+				//closes progress dialog
+				progressBar.dismiss();	
+				
+				Toast toast= Toast.makeText(getApplicationContext(), "Email is already used.", Toast.LENGTH_SHORT);
+				toast.show();
+			}
 		}    	
     }
     
-    public String login(String sql)
+    public String createUser(String email, String pass)
     {
     	String message ="";
     	HttpClient httpclient = new DefaultHttpClient();
-    	HttpPost httppost = new HttpPost("http://XXX.XXX.X.X/siquoia/createUser.php");
+    	HttpPost httppost = new HttpPost("http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/createUser.php");
     	
     	try {
 
-        	List<NameValuePair> sqlCommand = new ArrayList<NameValuePair>(1);    	
-        	sqlCommand.add(new BasicNameValuePair("sql",sql));
-			httppost.setEntity(new UrlEncodedFormEntity(sqlCommand));
+        	List<NameValuePair> data = new ArrayList<NameValuePair>(1);    	
+        	data.add(new BasicNameValuePair("email",email));
+        	data.add(new BasicNameValuePair("password",pass));
+        	
+        	UrlEncodedFormEntity entity = new UrlEncodedFormEntity(data);
+        	httppost.setEntity(entity);
 			
 			//HttpResponse response = httpclient.execute(httppost);
 			
 			ResponseHandler<String> handler = new BasicResponseHandler();
 			message = httpclient.execute(httppost,handler);
+			
 			
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block

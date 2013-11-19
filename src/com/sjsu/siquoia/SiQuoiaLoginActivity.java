@@ -3,6 +3,21 @@
  */
 package com.sjsu.siquoia;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,7 +34,7 @@ import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
- * @since 25 October 2013
+ * @since 19 November 2013
  *	Description: This activity is used for a user to login or create a new account.
  */
 public class SiQuoiaLoginActivity extends Activity 
@@ -53,6 +68,8 @@ public class SiQuoiaLoginActivity extends Activity
 				String username = userNameInput.getText().toString().trim();
 				String password = passwordInput.getText().toString().trim();
 				
+				password= (password+password).hashCode()+"";
+				
 				//confirms user has entered both fields
 				if(username.equals("")||password.equals(""))
 				{
@@ -76,6 +93,38 @@ public class SiQuoiaLoginActivity extends Activity
 			}        		
     	});        	
     }
+    
+    public String login(String email, String password)
+    {
+
+    	String message ="";
+    	HttpClient httpclient = new DefaultHttpClient();
+    	HttpPost httppost = new HttpPost("http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/createUser.php");
+    	
+    	try {
+
+        	List<NameValuePair> data = new ArrayList<NameValuePair>(1);    	
+        	data.add(new BasicNameValuePair("email",email));
+        	data.add(new BasicNameValuePair("password",password));
+			httppost.setEntity(new UrlEncodedFormEntity(data));
+			
+			//HttpResponse response = httpclient.execute(httppost);
+			
+			ResponseHandler<String> handler = new BasicResponseHandler();
+			message = httpclient.execute(httppost,handler);
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+    	return message;
+    }
 
     /**
      * This is the background task that will log the user into the application by check user credentials on a database.
@@ -98,7 +147,7 @@ public class SiQuoiaLoginActivity extends Activity
 		protected String doInBackground(String... input) {
     		//input[0] = username
     		//input[1] = password
-			return " ";
+			return "";//login(input[0], input[1]);
 		}
 		
 		protected void onPostExecute(String result) {
@@ -116,6 +165,7 @@ public class SiQuoiaLoginActivity extends Activity
 			//go to home screen activity
 			Intent intent = new Intent();
 			intent.setClass(SiQuoiaLoginActivity.this, SiQuoiaHomeActivity.class);
+			intent.putExtra(SiQuoiaHomeActivity.NEW_USER, false);
 			startActivity(intent);
 			finish();
 		}    	

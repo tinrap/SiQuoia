@@ -1,12 +1,15 @@
 package com.sjsu.siquoia;
 
+import java.io.Serializable;
+
 /**
  * @author Parnit Sainion
  * @since 25 October 2013
  * Class create a user object and store his information.
  */
-public class User {
+public class User implements Serializable{
 
+	private static final long serialVersionUID = 397625286527811769L;
 	private String email;	
 	private int userId;
 	private int siquoiaBucks;
@@ -33,9 +36,8 @@ public class User {
 		
 	}
 	
-	public User(String email, int id)
+	public User(String email)
 	{
-		this.userId = id;
 		this.email = email;
 		currentQuiz = "";
 		currentAnswers = "";

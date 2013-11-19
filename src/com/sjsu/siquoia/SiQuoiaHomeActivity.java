@@ -31,6 +31,8 @@ public class SiQuoiaHomeActivity extends Activity {
 	//preferences
 	protected static final String SIQUOIA_PREF = "SiquoiaPref";
 	protected static final String LOGGED_IN = "loggedIn";
+	protected static final String NEW_USER = "newUser";
+	protected static final String EMAIL = "email";
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
