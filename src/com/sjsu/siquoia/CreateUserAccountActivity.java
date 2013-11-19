@@ -30,6 +30,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -113,6 +114,9 @@ public class CreateUserAccountActivity extends Activity{
 				}
 			}			
 		});	
+		
+		//hide keyboard on start up
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}
 	
 	/**
@@ -182,7 +186,7 @@ public class CreateUserAccountActivity extends Activity{
     		email = params[0];
     		Log.i("Response",response);
     		
-			return response;
+			return response.trim();
 		}
 		
 		protected void onPostExecute(String result) {			

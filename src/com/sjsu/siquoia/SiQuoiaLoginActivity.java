@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -39,10 +40,11 @@ import android.widget.Toast;
  */
 public class SiQuoiaLoginActivity extends Activity 
 {
+	//variables declared
 	private Button loginButton;
 	private ProgressDialog progressBar;
 	private EditText userNameInput, passwordInput;
-	private TextView userCreationField;
+	private TextView createUserText;
 	private SharedPreferences preferences;
 	
     @Override
@@ -57,7 +59,7 @@ public class SiQuoiaLoginActivity extends Activity
     	loginButton = (Button) findViewById(R.id.loginButton);
     	userNameInput = (EditText) findViewById(R.id.usernameField);
     	passwordInput = (EditText) findViewById(R.id.passwordField);
-    	userCreationField = (TextView) findViewById(R.id.userCreationField);
+    	createUserText = (TextView) findViewById(R.id.createUserText);
     	
     	//set up the login button's onClickListener
     	loginButton.setOnClickListener(new OnClickListener(){
@@ -82,7 +84,7 @@ public class SiQuoiaLoginActivity extends Activity
 			}        		
     	});
     	
-    	userCreationField.setOnClickListener(new OnClickListener(){
+    	createUserText.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				//go to home screen activity
@@ -92,6 +94,9 @@ public class SiQuoiaLoginActivity extends Activity
 				finish();
 			}        		
     	});        	
+    	
+    	//hide keyboard on start up
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
     
     public String login(String email, String password)

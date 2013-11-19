@@ -1,16 +1,18 @@
 package com.sjsu.siquoia;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * @author Parnit Sainion
- * @since 28 September 2013
+ * @since 19 November 2013
  * Class is used to create a question object with its question, answer choices, correct answer, and the current status of 
  * whether it was answer or not.
- *
  */
-public class Question {
+public class Question implements Serializable{	
 	
+	//variable declared	
+	private static final long serialVersionUID = -5638936389786689366L;
 	private String text;
 	private ArrayList<String> choices = new ArrayList<String>();
 	private int correctChoice;
