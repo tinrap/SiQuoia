@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sjsu.siquoia;
 
 import java.io.IOException;
@@ -67,14 +64,17 @@ public class SiQuoiaLoginActivity extends Activity
 			@Override
 			public void onClick(View arg0) 
 			{
+				//get inputer username and password
 				String username = userNameInput.getText().toString().trim();
 				String password = passwordInput.getText().toString().trim();
 				
+				//hash the password
 				password= (password+password).hashCode()+"";
 				
 				//confirms user has entered both fields
 				if(username.equals("")||password.equals(""))
 				{
+					//display message to tell user to fill both fields
 					Toast toast = Toast.makeText(getApplicationContext(), "Please enter both fields", Toast.LENGTH_SHORT);
 					toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
 					toast.show();
@@ -84,10 +84,11 @@ public class SiQuoiaLoginActivity extends Activity
 			}        		
     	});
     	
+    	//creates a listener to allow users click on "create account"
     	createUserText.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				//go to home screen activity
+				//go to Create user activity
 				Intent intent = new Intent();
 				intent.setClass(SiQuoiaLoginActivity.this, CreateUserAccountActivity.class);
 				startActivity(intent);
@@ -99,15 +100,21 @@ public class SiQuoiaLoginActivity extends Activity
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
     
+    /**
+     * checks user credentials to database
+     * @param email user's email
+     * @param password user's password
+     * @return user information or nothing
+     */
     public String login(String email, String password)
     {
-
+    	//variables declared
     	String message ="";
     	HttpClient httpclient = new DefaultHttpClient();
     	HttpPost httppost = new HttpPost("http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/createUser.php");
     	
     	try {
-
+    		//add user information to post
         	List<NameValuePair> data = new ArrayList<NameValuePair>(1);    	
         	data.add(new BasicNameValuePair("email",email));
         	data.add(new BasicNameValuePair("password",password));

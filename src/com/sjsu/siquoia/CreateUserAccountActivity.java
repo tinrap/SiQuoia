@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sjsu.siquoia;
 
 import java.io.IOException;
@@ -27,7 +24,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -101,13 +97,12 @@ public class CreateUserAccountActivity extends Activity{
 		//Add a listener to the createButton
 		createButton.setOnClickListener(new OnClickListener(){
 			@Override
-			public void onClick(View v) {
-				//In case passwords not not match display a message
-				
+			public void onClick(View v) {			
 				String email = emailField.getText().toString();
 				String password = passOne.getText().toString();
 				password = (password+password).hashCode()+"";
 				
+				//check if email is inputed correctly and a password is provided
 				if(vaildEmail(email) && validPassword())
 				{
 					new SiQuoiaCreateUserTask().execute(email, password);				
@@ -165,7 +160,7 @@ public class CreateUserAccountActivity extends Activity{
     /**
      * This is the background task that will create a new user in the database
      * @author Parnit Sainion
-     * @since 27 October 2013
+     * @since 19 September 2013
      */
     class SiQuoiaCreateUserTask extends AsyncTask<String, String, String>
     {
@@ -182,18 +177,19 @@ public class CreateUserAccountActivity extends Activity{
     	
     	@Override
 		protected String doInBackground(String... params) {	 
+    		//try to create new user
     		String response = createUser(params[0], params[1]);
-    		email = params[0];
-    		Log.i("Response",response);
     		
+    		//store email of user
+    		email = params[0];
 			return response.trim();
 		}
 		
-		protected void onPostExecute(String result) {			
+		protected void onPostExecute(String result) {
 			
-			if(result.equalsIgnoreCase("true"))
+			if(result.equalsIgnoreCase("true")) //user has been created
 			{
-				//update user info to logged in
+				//update user status to logged in
 				SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);			
 				SharedPreferences.Editor perferenceUpdater = preferences.edit();
 				perferenceUpdater.putBoolean(SiQuoiaHomeActivity.LOGGED_IN, true);
@@ -201,51 +197,56 @@ public class CreateUserAccountActivity extends Activity{
 				//commit preference changes
 				perferenceUpdater.commit();	
 				
-				//closes progress dialog
+				//close progress dialog
 				progressBar.dismiss();		
 				
-				//go to home screen activity
+				//start home screen activity
 				Intent intent = new Intent();
 				intent.setClass(CreateUserAccountActivity.this, SiQuoiaHomeActivity.class);
 				
-				//store status as new user and pass user email
+				//store status as new user and pass user email to homeactivity
 				intent.putExtra(SiQuoiaHomeActivity.NEW_USER, true);
 				intent.putExtra(SiQuoiaHomeActivity.EMAIL, email);
 				startActivity(intent);
 				finish();
 			}			
-			else
-			{
+			else //user has not been created in db
+			{	
 				//closes progress dialog
 				progressBar.dismiss();	
 				
+				//let user know that the email id is in use
 				Toast toast= Toast.makeText(getApplicationContext(), "Email is already used.", Toast.LENGTH_SHORT);
 				toast.show();
 			}
 		}    	
     }
     
+    /**
+     * Sends an HTTP post to create user account in db
+     * @param email user's email
+     * @param pass user's pass
+     * @return true if account has been created else false
+     */
     public String createUser(String email, String pass)
     {
+    	//initialize variables
     	String message ="";
     	HttpClient httpclient = new DefaultHttpClient();
     	HttpPost httppost = new HttpPost("http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/createUser.php");
     	
     	try {
-
+    		//Add user email and pass to post
         	List<NameValuePair> data = new ArrayList<NameValuePair>(1);    	
         	data.add(new BasicNameValuePair("email",email));
         	data.add(new BasicNameValuePair("password",pass));
         	
         	UrlEncodedFormEntity entity = new UrlEncodedFormEntity(data);
-        	httppost.setEntity(entity);
-			
-			//HttpResponse response = httpclient.execute(httppost);
-			
+        	httppost.setEntity(entity);			
 			ResponseHandler<String> handler = new BasicResponseHandler();
-			message = httpclient.execute(httppost,handler);
 			
-			
+			//executes post and stores response
+			message = httpclient.execute(httppost,handler);			
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
