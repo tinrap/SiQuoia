@@ -18,6 +18,11 @@ if (isset($_POST['txtQuestion'])) {
      values (?, ?, ?, ?, ?, ?, ?, ?, ?);");
   $stmt->bind_param('sssssdssd', $questionText, $choice1, $choice2, $choice3, $choice4, $correctAnswer, $topic, $subTopic, $rank);
   $stmt->execute();
-  echo "Row inserted into Question table.";
+  if ($link->affected_rows === 1) {
+    echo "Row inserted into Question table.";
+  }
+  else {
+    echo "ERROR: Row NOT entered! Double check if you're not submitting the same form twice!";
+  }
 }
 ?>
