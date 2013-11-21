@@ -14,7 +14,7 @@ if (isset($_POST['email'])) {
     $result = $link->query($query);
 
     if ($result->num_rows !== false) {
-        while ($row = $result->fetch_array()) {
+        while ($row = $result->fetch_assoc()) {
             array_push($json, $row);
         }
 
