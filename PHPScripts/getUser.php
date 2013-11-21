@@ -17,7 +17,7 @@ if (isset($_POST['email'])) {
             array_push($json, $row);
         }
 
-        echo "<pre>" . json_encode($json) . "</pre><br/>";
+        echo json_encode($json);
     }
 }
 ?>
