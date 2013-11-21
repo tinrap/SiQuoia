@@ -37,5 +37,18 @@
         android:hint="@string/username"
         android:inputType="textPersonName"
         android:textSize="26sp" />
+    
+   <TextView
+        android:id="@+id/createUserText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="51dp"
+        android:ems="10"
+        android:text="@string/createUser"
+        android:textSize="26sp" 
+        android:gravity="center"
+        android:textColor="@color/lightBlue"/>
 
 </RelativeLayout>

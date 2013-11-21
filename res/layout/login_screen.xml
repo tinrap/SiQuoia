@@ -39,7 +39,7 @@
         android:text="@string/login" />
 
     <TextView
-        android:id="@+id/userCreationField"
+        android:id="@+id/createUserText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sjsu.siquoia;
 
 import java.io.IOException;
@@ -29,6 +26,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +35,7 @@ import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
- * @since 27 October 2013
+ * @since 19 November 2013
  * Description: Users can create a user account to play the game.
  */
 public class CreateUserAccountActivity extends Activity{
@@ -46,8 +44,7 @@ public class CreateUserAccountActivity extends Activity{
 	private EditText passOne, passTwo, emailField;
 	private TextView passOneString, passTwoString;
 	private Button createButton;
-	private boolean passwordMatch;
-	
+	private boolean passwordMatch;	
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,21 +97,22 @@ public class CreateUserAccountActivity extends Activity{
 		//Add a listener to the createButton
 		createButton.setOnClickListener(new OnClickListener(){
 			@Override
-			public void onClick(View v) {
-				//In case passwords not not match display a message
-				
+			public void onClick(View v) {			
 				String email = emailField.getText().toString();
 				String password = passOne.getText().toString();
+				password = (password+password).hashCode()+"";
 				
+				//check if email is inputed correctly and a password is provided
 				if(vaildEmail(email) && validPassword())
 				{
 					new SiQuoiaCreateUserTask().execute(email, password);				
 				}
 			}			
 		});	
+		
+		//hide keyboard on start up
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}
-	
-
 	
 	/**
 	 * @param email user's email
@@ -162,11 +160,11 @@ public class CreateUserAccountActivity extends Activity{
     /**
      * This is the background task that will create a new user in the database
      * @author Parnit Sainion
-     * @since 27 October 2013
-     *
+     * @since 19 September 2013
      */
     class SiQuoiaCreateUserTask extends AsyncTask<String, String, String>
     {
+    	private String email;
     	@Override
 		protected void onPreExecute() {
 			//creates a progress dialog and displays it
@@ -178,48 +176,77 @@ public class CreateUserAccountActivity extends Activity{
 		}
     	
     	@Override
-		protected String doInBackground(String... params) {	 		
-			return null;
+		protected String doInBackground(String... params) {	 
+    		//try to create new user
+    		String response = createUser(params[0], params[1]);
+    		
+    		//store email of user
+    		email = params[0];
+			return response.trim();
 		}
 		
 		protected void onPostExecute(String result) {
-			//update user info
-			SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);			
-			SharedPreferences.Editor perferenceUpdater = preferences.edit();
-			perferenceUpdater.putBoolean(SiQuoiaHomeActivity.LOGGED_IN, true);
 			
-			//commit preference changes
-			perferenceUpdater.commit();
-			
-			
-			//closes progress dialog
-			progressBar.dismiss();		
-			
-			//go to home screen activity
-			Intent intent = new Intent();
-			intent.setClass(CreateUserAccountActivity.this, SiQuoiaHomeActivity.class);
-			startActivity(intent);
-			finish();
+			if(result.equalsIgnoreCase("true")) //user has been created
+			{
+				//update user status to logged in
+				SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);			
+				SharedPreferences.Editor perferenceUpdater = preferences.edit();
+				perferenceUpdater.putBoolean(SiQuoiaHomeActivity.LOGGED_IN, true);
+				
+				//commit preference changes
+				perferenceUpdater.commit();	
+				
+				//close progress dialog
+				progressBar.dismiss();		
+				
+				//start home screen activity
+				Intent intent = new Intent();
+				intent.setClass(CreateUserAccountActivity.this, SiQuoiaHomeActivity.class);
+				
+				//store status as new user and pass user email to homeactivity
+				intent.putExtra(SiQuoiaHomeActivity.NEW_USER, true);
+				intent.putExtra(SiQuoiaHomeActivity.EMAIL, email);
+				startActivity(intent);
+				finish();
+			}			
+			else //user has not been created in db
+			{	
+				//closes progress dialog
+				progressBar.dismiss();	
+				
+				//let user know that the email id is in use
+				Toast toast= Toast.makeText(getApplicationContext(), "Email is already used.", Toast.LENGTH_SHORT);
+				toast.show();
+			}
 		}    	
     }
     
-    public String login(String sql)
+    /**
+     * Sends an HTTP post to create user account in db
+     * @param email user's email
+     * @param pass user's pass
+     * @return true if account has been created else false
+     */
+    public String createUser(String email, String pass)
     {
+    	//initialize variables
     	String message ="";
     	HttpClient httpclient = new DefaultHttpClient();
-    	HttpPost httppost = new HttpPost("http://XXX.XXX.X.X/siquoia/createUser.php");
+    	HttpPost httppost = new HttpPost("http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/createUser.php");
     	
     	try {
-
-        	List<NameValuePair> sqlCommand = new ArrayList<NameValuePair>(1);    	
-        	sqlCommand.add(new BasicNameValuePair("sql",sql));
-			httppost.setEntity(new UrlEncodedFormEntity(sqlCommand));
-			
-			//HttpResponse response = httpclient.execute(httppost);
-			
+    		//Add user email and pass to post
+        	List<NameValuePair> data = new ArrayList<NameValuePair>(1);    	
+        	data.add(new BasicNameValuePair("email",email));
+        	data.add(new BasicNameValuePair("password",pass));
+        	
+        	UrlEncodedFormEntity entity = new UrlEncodedFormEntity(data);
+        	httppost.setEntity(entity);			
 			ResponseHandler<String> handler = new BasicResponseHandler();
-			message = httpclient.execute(httppost,handler);
 			
+			//executes post and stores response
+			message = httpclient.execute(httppost,handler);			
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

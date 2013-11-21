@@ -13,7 +13,7 @@
             android:layout_marginTop="22dp"
             android:text="@string/newGame"
             android:padding="25dp" 
-            android:textSize="32sp" />
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/submitQuesButton"
@@ -24,7 +24,7 @@
             android:layout_marginTop="36dp"
             android:text="@string/submitQuestion"
             android:padding="25dp"            
-            android:textSize="32sp"  />
+            android:textSize="24sp"  />
 
         <Button
             android:id="@+id/leaderboardButton"
@@ -36,7 +36,7 @@
             android:layout_marginTop="33dp"
             android:text="@string/leaderboard"
             android:padding="25dp"
-            android:textSize="32sp"  />
+            android:textSize="24sp"  />
 
         <Button
             android:id="@+id/quitButton"
@@ -48,7 +48,7 @@
             android:layout_marginTop="26dp"
             android:padding="25dp"
             android:text="@string/quit"            
-            android:textSize="32sp" />
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/continueButton"
@@ -60,6 +60,6 @@
             android:layout_marginTop="205dp"
             android:padding="25dp"
             android:text="@string/continueString"
-            android:textSize="32sp" />
+            android:textSize="24sp" />
 
 </RelativeLayout>

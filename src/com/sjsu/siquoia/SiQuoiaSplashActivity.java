@@ -65,8 +65,7 @@ public class SiQuoiaSplashActivity extends Activity {
 			        	finish();
 			        }
 			        else
-			        {
-
+			        { //not logged in
 						Intent intent = new Intent(getApplicationContext(), SiQuoiaLoginActivity.class);
 						startActivity(intent);
 						finish();

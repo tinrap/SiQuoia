@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
- * @since 25 October 2013
+ * @since 19 November 2013
  * Description: This app is the home landing screen for the app. Users can: continue a previous quiz, start a new quiz,
  * 				check the leader-board, submit a question to put into the same, and quit the app.
  *
@@ -31,6 +31,8 @@ public class SiQuoiaHomeActivity extends Activity {
 	//preferences
 	protected static final String SIQUOIA_PREF = "SiquoiaPref";
 	protected static final String LOGGED_IN = "loggedIn";
+	protected static final String NEW_USER = "newUser";
+	protected static final String EMAIL = "email";
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,7 @@ public class SiQuoiaHomeActivity extends Activity {
     {
 		switch(item.getItemId())
 		{
+			//user wantsto log out
 			case R.id.action_logout:
 				//update user info
 				SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
@@ -112,6 +115,8 @@ public class SiQuoiaHomeActivity extends Activity {
 	        	startActivity(intent);
 	        	finish();
 				break;
+				
+			//user is redeeming a code
 			case R.id.action_redeem:
 				Toast toast = Toast.makeText(getApplicationContext(), "To Be Implemented", Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
