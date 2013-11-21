@@ -43,6 +43,8 @@ public class SiQuoiaLoginActivity extends Activity
 	private EditText userNameInput, passwordInput;
 	private TextView createUserText;
 	private SharedPreferences preferences;
+	private String loginUrl = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/login.php";
+	private String email;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +67,14 @@ public class SiQuoiaLoginActivity extends Activity
 			public void onClick(View arg0) 
 			{
 				//get inputer username and password
-				String username = userNameInput.getText().toString().trim();
+				email = userNameInput.getText().toString().trim();
 				String password = passwordInput.getText().toString().trim();
 				
 				//hash the password
 				password= (password+password).hashCode()+"";
 				
 				//confirms user has entered both fields
-				if(username.equals("")||password.equals(""))
+				if(email.equals("")||password.equals(""))
 				{
 					//display message to tell user to fill both fields
 					Toast toast = Toast.makeText(getApplicationContext(), "Please enter both fields", Toast.LENGTH_SHORT);
@@ -80,7 +82,7 @@ public class SiQuoiaLoginActivity extends Activity
 					toast.show();
 				}
 				else
-					new SiQuoiaLoginTask().execute(username,password);
+					new SiQuoiaLoginTask().execute(email,password);
 			}        		
     	});
     	
@@ -111,7 +113,7 @@ public class SiQuoiaLoginActivity extends Activity
     	//variables declared
     	String message ="";
     	HttpClient httpclient = new DefaultHttpClient();
-    	HttpPost httppost = new HttpPost("http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/createUser.php");
+    	HttpPost httppost = new HttpPost(loginUrl);
     	
     	try {
     		//add user information to post
@@ -159,27 +161,39 @@ public class SiQuoiaLoginActivity extends Activity
 		protected String doInBackground(String... input) {
     		//input[0] = username
     		//input[1] = password
-			return "";//login(input[0], input[1]);
+			return login(input[0], input[1]);
 		}
 		
 		protected void onPostExecute(String result) {
 			
-			//update user info
-			SharedPreferences.Editor perferenceUpdater = preferences.edit();
-			perferenceUpdater.putBoolean(SiQuoiaHomeActivity.LOGGED_IN, true);
-			
-			//commit preference changes
-			perferenceUpdater.commit();
-			
-			//close progress dialog
-			progressBar.dismiss();
-			
-			//go to home screen activity
-			Intent intent = new Intent();
-			intent.setClass(SiQuoiaLoginActivity.this, SiQuoiaHomeActivity.class);
-			intent.putExtra(SiQuoiaHomeActivity.NEW_USER, false);
-			startActivity(intent);
-			finish();
+			if (result.equalsIgnoreCase("true")) //correct Credentials
+			{
+				//update user info
+				SharedPreferences.Editor perferenceUpdater = preferences.edit();
+				perferenceUpdater.putBoolean(SiQuoiaHomeActivity.LOGGED_IN, true);
+				perferenceUpdater.putString(SiQuoiaHomeActivity.EMAIL, email);
+				
+				//commit preference changes
+				perferenceUpdater.commit();
+				
+				//close progress dialog
+				progressBar.dismiss();
+				
+				//go to home screen activity
+				Intent intent = new Intent();
+				intent.setClass(SiQuoiaLoginActivity.this, SiQuoiaHomeActivity.class);
+				intent.putExtra(SiQuoiaHomeActivity.NEW_USER, false);
+				startActivity(intent);
+				finish();			
+			}
+			else //incorrect credentials
+			{
+				Toast toast = Toast.makeText(getApplicationContext(), "Incorrect Credentials" , Toast.LENGTH_SHORT);
+				toast.show();
+				
+				//close progress dialog
+				progressBar.dismiss();
+			}			
 		}    	
     }
 }

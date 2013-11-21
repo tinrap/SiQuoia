@@ -3,9 +3,26 @@
  */
 package com.sjsu.siquoia;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,7 +35,7 @@ import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
- * @since 19 November 2013
+ * @since 20 November 2013
  * Description: This app is the home landing screen for the app. Users can: continue a previous quiz, start a new quiz,
  * 				check the leader-board, submit a question to put into the same, and quit the app.
  *
@@ -26,7 +43,11 @@ import android.widget.Toast;
 public class SiQuoiaHomeActivity extends Activity {
 	
 	//Variable Declaration
-	Button continueButton, newGameButton, leaderboardButton, submitQuestionButton, quitButton;
+	private Button continueButton, newGameButton, leaderboardButton, submitQuestionButton, quitButton;
+	private ProgressDialog progressBar;
+	private SharedPreferences preferences;
+	private String userInfoUrl ="http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getUser.php";
+	protected User user;
 	
 	//preferences
 	protected static final String SIQUOIA_PREF = "SiquoiaPref";
@@ -45,6 +66,21 @@ public class SiQuoiaHomeActivity extends Activity {
         leaderboardButton = (Button) findViewById(R.id.leaderboardButton);
         submitQuestionButton = (Button) findViewById(R.id.submitQuesButton);
         quitButton = (Button) findViewById(R.id.quitButton);
+        
+       //get users info from app
+        preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
+        
+        Intent intent = getIntent();
+        boolean newUser = intent.getBooleanExtra(SiQuoiaHomeActivity.NEW_USER, true);
+        
+        if(newUser)
+        {
+        	String email = intent.getStringExtra(SiQuoiaHomeActivity.EMAIL);
+        	user =  new User(email);
+        }
+        {
+        	new SiQuoiaGetUserTask().execute(preferences.getString(EMAIL, EMAIL));
+        }
         
         //Set Listener for continue
         continueButton.setOnClickListener(new OnClickListener(){
@@ -100,12 +136,13 @@ public class SiQuoiaHomeActivity extends Activity {
     {
 		switch(item.getItemId())
 		{
-			//user wantsto log out
+			//user wants to log out
 			case R.id.action_logout:
 				//update user info
 				SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
 				SharedPreferences.Editor perferenceUpdater = preferences.edit();
 				perferenceUpdater.putBoolean(SiQuoiaHomeActivity.LOGGED_IN, false);
+				perferenceUpdater.putString(SiQuoiaHomeActivity.EMAIL, "");
 				
 				//commit preference changes
 				perferenceUpdater.commit();
@@ -128,5 +165,82 @@ public class SiQuoiaHomeActivity extends Activity {
 		}
     	return false;
     	
+    }    
+    
+    /**
+     * get user's information from the database
+     * @param email user's email
+     * @return user information or nothing
+     */
+    public String getUser(String email)
+    {
+    	//variables declared
+    	String message ="";
+    	HttpClient httpclient = new DefaultHttpClient();
+    	HttpPost httppost = new HttpPost(userInfoUrl);
+    	
+    	try {
+    		//add user information to post
+        	List<NameValuePair> data = new ArrayList<NameValuePair>(1);    	
+        	data.add(new BasicNameValuePair("email",email));
+			httppost.setEntity(new UrlEncodedFormEntity(data));
+			
+			//HttpResponse response = httpclient.execute(httppost);
+			
+			ResponseHandler<String> handler = new BasicResponseHandler();
+			message = httpclient.execute(httppost,handler);
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+    	return message;
+    }
+    
+    /**
+     * This is the background task that will get the user's current information from the database.
+     * @author Parnit Sainion
+     *
+     */
+    class SiQuoiaGetUserTask extends AsyncTask<String, String, String>
+    {
+    	@Override
+		protected void onPreExecute() {
+			//create the progress dialog and display it
+    		progressBar = new ProgressDialog(SiQuoiaHomeActivity.this);
+			progressBar.setIndeterminate(true);
+			progressBar.setCancelable(false);
+			progressBar.setMessage("Getting User Info");
+			progressBar.show();			
+		}
+    	
+    	@Override
+		protected String doInBackground(String... input) {
+    		//input[0] = username
+			return getUser(input[0]);
+		}
+		
+		protected void onPostExecute(String result) {
+		
+				//get preferences
+				//SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
+				
+				//update user info
+				//SharedPreferences.Editor perferenceUpdater = preferences.edit();
+				
+				//commit preference changes
+				//perferenceUpdater.commit();
+				
+				user = SiQuoiaJSONParser.parseUser(result);
+				
+				//close progress dialog
+				progressBar.dismiss();
+		}    	
     }
 }

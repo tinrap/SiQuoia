@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 /**
  * @author Parnit Sainion
- * @since 5 November 2013
+ * @since 20 November 2013
  * Description: This class obtains the JSON and parsers it accordingly for subjects,topics,subtopics or the quiz itself.
  */
 public class SiQuoiaJSONParser {
@@ -55,6 +55,38 @@ public class SiQuoiaJSONParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * parses JSON into User object
+	 * @param json JSON contain user information
+	 */
+	public static User parseUser(String json)
+	{
+		User user = new User();
+		JSONObject jsonObj = new JSONObject();
+		
+		System.out.println(json);
+		try {		
+			//convert JSON string to JSONArrya
+			JSONArray jsonArray = new JSONArray(json);
+			
+			//get User JSON Object
+			jsonObj = jsonArray.getJSONObject(0);
+			
+			//set user information
+			user.setEmail(jsonObj.get("email").toString());
+			user.setCurrentQuiz(jsonObj.getString("currentQuiz").toString());
+			user.setAnswers(jsonObj.get("currentAns").toString());
+			user.setSequoiaBucks(Integer.parseInt(jsonObj.getString("siquoiaPoints").toString()));
+			user.setPacketsBought(Integer.parseInt(jsonObj.getString("packetsBought").toString()));
+			user.setMemorabiliaBought(Integer.parseInt(jsonObj.getString("memorabilia").toString()));
+			user.setTotalPointsSpent(Integer.parseInt(jsonObj.getString("totalPointsSpent").toString()));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return user;
 	}
 	
 	/**

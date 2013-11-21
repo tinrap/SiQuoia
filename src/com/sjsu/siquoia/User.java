@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author Parnit Sainion
- * @since 25 October 2013
+ * @since 20 Novemeber 2013
  * Class create a user object and store his information.
  */
 public class User implements Serializable{
@@ -43,7 +43,7 @@ public class User implements Serializable{
 		currentAnswers = "";
 		packetsBought = 0 ;
 		memorabiliaBought = 0;
-		siquoiaBucks = 10;
+		siquoiaBucks = 20;
 		totalPointsSpent = 0;
 	}
 	
@@ -93,7 +93,7 @@ public class User implements Serializable{
 	 * sets user's siquoia bucks value
 	 * @param siquoiaBucks
 	 */
-	public void setSequoiaBUcks(int siquoiaBucks)
+	public void setSequoiaBucks(int siquoiaBucks)
 	{
 		this.siquoiaBucks = siquoiaBucks;
 	}

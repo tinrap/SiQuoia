@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 /**
  * @author Parnit Sainion
- * @since 14 November 2013
+ * @since 20 November 2013
  * Description: This activity displays a splash image before proceeding to login or home screen.
  */
 public class SiQuoiaSplashActivity extends Activity {
@@ -61,6 +61,7 @@ public class SiQuoiaSplashActivity extends Activity {
 			        {
 			        	Intent intent = new Intent();
 			        	intent.setClass(getApplicationContext(), SiQuoiaHomeActivity.class);
+			        	intent.putExtra(SiQuoiaHomeActivity.NEW_USER, false);
 			        	startActivity(intent);
 			        	finish();
 			        }
