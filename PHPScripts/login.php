@@ -11,7 +11,7 @@ if (isset($_POST['email'])) {
     $query .= " WHERE email = '" . "$email" . "'AND password = '" . "$password" . "'";
     $result = $link->query($query);
 
-    if ($result->num_rows !== false) {
+    if ($link->affected_rows === 1) {
         echo "true";
     }
     else {
