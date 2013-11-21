@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Add Questions to Siquoia</title>
+        <style type="text/css">
+            * {
+                font-family: Helvetica, Arial, sans-serif;
+            }
+
+            #mainContainer {
+                width: 900px;
+                margin: 0 auto;
+            }
+
+            #results {
+                color: #ff0000;
+            }
+        </style>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#txtQuestion').focus();
+                var results = $('#results')
+
+                // Submit question to Database on submit button click
+                $('#submitButton').click(function() {
+                    $.ajax({
+                        url: 'addQuestion.php',
+                        type: 'POST',
+                        data: $('#questionForm').serialize(),
+                        success: function(result) {
+                            results.innerHTML(result);
+                        }
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="mainContainer">
+            <h2>Add a Question to the Siquoia Database</h2>
+            <br/>
+            <form action="addQuestion.php" name="questionForm" id="questionForm" method="post">
+                <label for="txtQuestion">Question Text:</label>
+                <input type="textfield" name="txtQuestion" id="txtQuestion" size="50"/>
+                <div id="results"></div>
+                <br/><br/>
+                <label for="txtAnswerOne">Answer 1:</label>
+                <input type="textfield" name="txtAnswerOne" id="txtAnswerOne" size="30"/>
+                <br/><br/>
+                <label for="txtAnswerTwo">Answer 2:</label>
+                <input type="textfield" name="txtAnswerTwo" id="txtAnswerTwo" size="30"/>
+                <br/><br/>
+                <label for="txtAnswerThree">Answer 3:</label>
+                <input type="textfield" name="txtAnswerThree" id="txtAnswerThree" size="30"/>
+                <br/><br/>
+                <label for="txtAnswerFour">Answer 4:</label>
+                <input type="textfield" name="txtAnswerFour" id="txtAnswerFour" size="30"/>
+                <br/><br/>
+                <label for="correctAns">Correct Answer:</label>
+                <select id="correctAns" name="correctAns">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <br/><br/>
+                <label for="txtSubject">Subject: </label>
+                <input type="textfield" name="txtSubject" id="txtSubject" size="30"/>
+                <br/><br/>
+                <label for="txtTopic">Topic: </label>
+                <input type="textfield" name="txtTopic" id="txtTopic" size="30"/>
+                <br/><br/>
+                <label for="txtSubTopic">SubTopic:</label>
+                <input type="textfield" name="txtSubTopic" id="txtSubTopic" size="30"/>
+                <br/><br/>
+                <label for="txtRank">Rank:</label>
+                <input type="textfield" name="txtRank" id="txtRank" size="30"/>
+                <br/><br/><br/>
+                <button id="submitButton" type="button" value="Submit!">Submit!</button>
+            </form>
+        </div>
+    </body>
+</html>
