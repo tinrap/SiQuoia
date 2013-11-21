@@ -2,15 +2,14 @@
 require_once('database_info.php');
 
 if (isset($_POST['email'])) {
-    $email     = $_POST['email'];
+    $email    = $_POST['email'];
     $password = $_POST['password'];
     $json     = array();
 
     // TODO: Will prepare the query to prevent injection later. 
-    $query = "SELECT email, password, currentQuiz, currentAns, siquoiaPoints, packetsBought,";
+    $query = "SELECT email, currentQuiz, currentAns, siquoiaPoints, packetsBought,";
     $query .= "memorabilia, totalPointsSpent FROM `Users`";
     $query .= " WHERE email = '" . "$email" . "'AND password = '" . "$password" . "'";
-
     $result = $link->query($query);
 
     if ($result->num_rows !== false) {
@@ -18,8 +17,7 @@ if (isset($_POST['email'])) {
             array_push($json, $row);
         }
 
-        echo "<pre>" . json_encode($json) . "</pre>";
-        echo "<br/>";
+        echo "<pre>" . json_encode($json) . "</pre><br/>";
     }
 }
 ?>
