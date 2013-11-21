@@ -18,8 +18,8 @@ if (isset($_POST['email'])) {
             array_push($json, $row);
         }
 
-        echo json_encode($json);
-        echo "\n";
+        echo "<pre>" . json_encode($json) . "</pre>";
+        echo "<br/>";
     }
 }
 ?>
