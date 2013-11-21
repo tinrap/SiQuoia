@@ -23,6 +23,11 @@
     <string name = "action_logout"> Logout </string>
     <string name = "action_redeem"> Redeem Code </string>
     <string name = "splashImage"> Splash Screen Image </string>
+    <string name = "selectSubject">Select \nSubject:</string>
+    <string name = "selectTopic">Select \nTopic:</string>
+    <string name = "selectSubTopic">Select \nSub-Topic:</string>
+    <string name = "createQuiz">Create Quiz</string>
+    <string name = "newGameDescription"> Please select Subject, Topic, Subtopic, or any combination of the three create desired quiz.</string>
     
 
 </resources>

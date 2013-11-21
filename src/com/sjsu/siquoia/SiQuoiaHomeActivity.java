@@ -94,7 +94,10 @@ public class SiQuoiaHomeActivity extends Activity {
         newGameButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				Log.i("homeScreenButtons", "new game clicked");				
+				Log.i("homeScreenButtons", "new game clicked");	
+				Intent intent = new Intent();
+				intent.setClass(SiQuoiaHomeActivity.this, NewQuizActivity.class);
+				startActivity(intent);
 			}        	
         });
         
