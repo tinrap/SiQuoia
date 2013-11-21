@@ -4,7 +4,6 @@ require_once('database_info.php');
 if (isset($_POST['email'])) {
     $email    = $_POST['email'];
     $password = $_POST['password'];
-    $json     = array();
 
     // TODO: Will prepare the query to prevent injection later. 
     $query = "SELECT email, currentQuiz, currentAns, siquoiaPoints, packetsBought,";
