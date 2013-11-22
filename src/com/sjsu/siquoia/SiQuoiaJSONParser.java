@@ -66,7 +66,6 @@ public class SiQuoiaJSONParser {
 		User user = new User();
 		JSONObject jsonObj = new JSONObject();
 		
-		System.out.println(json);
 		try {		
 			//convert JSON string to JSONArrya
 			JSONArray jsonArray = new JSONArray(json);
@@ -87,6 +86,96 @@ public class SiQuoiaJSONParser {
 			e.printStackTrace();
 		}
 		return user;
+	}
+	
+	/**
+	 * parses JSON into User object
+	 * @param json JSON contain user information
+	 */
+	public static ArrayList<String> parseSubject(String json)
+	{
+		//declare variables
+		ArrayList<String> subjects = new ArrayList<String>();
+		subjects.add("All");
+		JSONObject jsonObj = new JSONObject();
+		int size =0;
+		
+		try {		
+			//convert JSON string to JSONArrya
+			JSONArray jsonArray = new JSONArray(json);
+			
+			size = jsonArray.length();
+			
+			for( int count =0; count < size; count++)
+			{
+				jsonObj = (JSONObject) jsonArray.get(count);
+				subjects.add(jsonObj.getString("subjectText").toString());
+			}			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return subjects;
+	}
+	
+	/**
+	 * parses JSON into topics list
+	 * @param json JSON contain topics
+	 */
+	public static ArrayList<String> parseTopics(String json)
+	{
+		//declare variables
+		ArrayList<String> topics = new ArrayList<String>();
+		topics.add("All");
+		JSONObject jsonObj = new JSONObject();
+		int size =0;
+		
+		try {		
+			//convert JSON string to JSONArrya
+			JSONArray jsonArray = new JSONArray(json);
+			
+			size = jsonArray.length();
+			
+			for( int count =0; count < size; count++)
+			{
+				jsonObj = (JSONObject) jsonArray.get(count);
+				topics.add(jsonObj.getString("topic").toString());
+			}			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return topics;
+	}
+	
+	/**
+	 * parses JSON into subtopics list
+	 * @param json JSON contain subtopics
+	 */
+	public static ArrayList<String> parseSubtopics(String json)
+	{
+		//declare variables
+		ArrayList<String> subtopics = new ArrayList<String>();
+		subtopics.add("All");
+		JSONObject jsonObj = new JSONObject();
+		int size =0;
+		
+		try {		
+			//convert JSON string to JSONArrya
+			JSONArray jsonArray = new JSONArray(json);
+			
+			size = jsonArray.length();
+			
+			for( int count =0; count < size; count++)
+			{
+				jsonObj = (JSONObject) jsonArray.get(count);
+				subtopics.add(jsonObj.getString("subtopic").toString());
+			}			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return subtopics;
 	}
 	
 	/**
