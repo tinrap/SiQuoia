@@ -4,7 +4,7 @@ require_once('database_info.php');
 if (isset($_POST['subject'])) {
     $subject = $_POST['subject'];
     $topic = $_POST['topic'];
-    $query = "SELECT * FROM `SubTopic` WHERE subject = '". "$subject" . "' AND WHERE topic = '" . "$topic" . "'";
+    $query = "SELECT * FROM `SubTopic` WHERE subject = '". "$subject" . "' AND topic = '" . "$topic" . "'";
     $result = $link->query($query);
     $json = array();
 
