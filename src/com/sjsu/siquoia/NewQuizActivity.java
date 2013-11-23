@@ -23,9 +23,11 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 /**
@@ -38,6 +40,7 @@ public class NewQuizActivity extends Activity {
 	private ArrayList<String> subjects, topics, subtopics;
 	private Spinner subjectSpinner, topicSpinner, subtopicSpinner;
 	private ArrayAdapter <String> subjectAdapter, topicAdapter, subtopicAdapter ;
+	private Button createButton;
 	private NewQuizActivity newQuizActivity = this;
 	private ProgressDialog progressBar;
 	private final String SUBJECT = "subject";
@@ -59,16 +62,26 @@ public class NewQuizActivity extends Activity {
 		topics = new ArrayList<String>();
 		subtopics = new ArrayList<String>();
 		
-		//get different spinners
+		//get different spinners and create button
 		subjectSpinner= (Spinner) findViewById(R.id.subjectSpinner);
 		topicSpinner= (Spinner) findViewById(R.id.topicSpinner);
 		subtopicSpinner= (Spinner) findViewById(R.id.subtopicSpinner);
+		createButton = (Button) findViewById(R.id.createQuizButton);
 		
 		//add initial values to arrays
 		new SiQuoiaGetInfoTask().execute(SUBJECT);
 		
 		//set listeners for  spinners
-		setItemChangeListeners();		
+		setItemChangeListeners();
+		createButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				//String subject = subjectSpinner.getSelectedItem().toString();
+				//String topic = topicSpinner.getSelectedItem().toString();
+				//String subtopic = subtopicSpinner.getSelectedItem().toString();		
+			}
+			
+		});
 	}
 
 	
@@ -119,7 +132,16 @@ public class NewQuizActivity extends Activity {
 				if(!topic.equalsIgnoreCase("All"))
 				{
 					new SiQuoiaGetInfoTask().execute(SUBTOPIC,subjectSpinner.getSelectedItem().toString(),topic);
-				}			
+				}		
+				else
+				{
+					//set adapters subtopic
+					subtopics.clear();
+					subtopics.add("All");
+					subtopicAdapter = new ArrayAdapter<String>(newQuizActivity, android.R.layout.simple_list_item_1, subtopics);
+					subtopicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					subtopicSpinner.setAdapter(subtopicAdapter);	
+				}
 			}
 
 			@Override
