@@ -32,7 +32,7 @@ import android.widget.Spinner;
 
 /**
  * @author Parnit Sainion
- *
+ * @since 24 November 2013
  */
 public class NewQuizActivity extends Activity {
 	
@@ -51,6 +51,7 @@ public class NewQuizActivity extends Activity {
 	private final String  SUBJECT_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getSubject.php";
 	private final String  TOPIC_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getTopic.php";
 	private final String  SUBTOPIC_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getSubtopic.php";
+	private final String  QUIZ_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getQuestions.php";
 	
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -76,9 +77,12 @@ public class NewQuizActivity extends Activity {
 		createButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				//String subject = subjectSpinner.getSelectedItem().toString();
-				//String topic = topicSpinner.getSelectedItem().toString();
-				//String subtopic = subtopicSpinner.getSelectedItem().toString();		
+				String subject = subjectSpinner.getSelectedItem().toString().trim();
+				String topic = topicSpinner.getSelectedItem().toString().trim();
+				String subtopic = subtopicSpinner.getSelectedItem().toString().trim();	
+				
+				//execute background task
+				new SiQuoiaGetQuizTask().execute(subject, topic, subtopic);
 			}
 			
 		});
@@ -95,7 +99,7 @@ public class NewQuizActivity extends Activity {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				String subject = subjectSpinner.getSelectedItem().toString();
-				if(!subject.equalsIgnoreCase("All"))
+				if(!subject.equalsIgnoreCase("Any"))
 				{
 					new SiQuoiaGetInfoTask().execute(TOPIC,subject);
 				}	
@@ -103,14 +107,14 @@ public class NewQuizActivity extends Activity {
 				{
 					//set adapters topics
 					topics.clear();
-					topics.add("All");
+					topics.add("Any");
 					topicAdapter = new ArrayAdapter<String>(newQuizActivity, android.R.layout.simple_list_item_1, topics);
 					topicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					topicSpinner.setAdapter(topicAdapter);
 					
 					//set adapters subtopic
 					subtopics.clear();
-					subtopics.add("All");
+					subtopics.add("Any");
 					subtopicAdapter = new ArrayAdapter<String>(newQuizActivity, android.R.layout.simple_list_item_1, subtopics);
 					subtopicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					subtopicSpinner.setAdapter(subtopicAdapter);		
@@ -129,7 +133,7 @@ public class NewQuizActivity extends Activity {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				String topic = topicSpinner.getSelectedItem().toString();
-				if(!topic.equalsIgnoreCase("All"))
+				if(!topic.equalsIgnoreCase("Any"))
 				{
 					new SiQuoiaGetInfoTask().execute(SUBTOPIC,subjectSpinner.getSelectedItem().toString(),topic);
 				}		
@@ -137,7 +141,7 @@ public class NewQuizActivity extends Activity {
 				{
 					//set adapters subtopic
 					subtopics.clear();
-					subtopics.add("All");
+					subtopics.add("Any");
 					subtopicAdapter = new ArrayAdapter<String>(newQuizActivity, android.R.layout.simple_list_item_1, subtopics);
 					subtopicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					subtopicSpinner.setAdapter(subtopicAdapter);	
@@ -238,7 +242,7 @@ public class NewQuizActivity extends Activity {
     	
     	try {
     		//add user information to post
-        	List<NameValuePair> data = new ArrayList<NameValuePair>(1);    	
+        	List<NameValuePair> data = new ArrayList<NameValuePair>(2);    	
         	data.add(new BasicNameValuePair(SUBJECT,subject));
         	data.add(new BasicNameValuePair(TOPIC,topic));
 			httppost.setEntity(new UrlEncodedFormEntity(data));
@@ -248,6 +252,36 @@ public class NewQuizActivity extends Activity {
 			ResponseHandler<String> handler = new BasicResponseHandler();
 			message = httpclient.execute(httppost,handler);
 			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+    	return message;
+    }
+	
+	public String getQuiz(String subject, String topic, String subtopic)
+    {
+    	//variables declared
+    	String message ="";    	HttpClient httpclient = new DefaultHttpClient();
+    	HttpPost httppost = new HttpPost(QUIZ_URL);
+    	
+    	try {
+    		//add user information to post
+        	List<NameValuePair> data = new ArrayList<NameValuePair>(3);    	
+        	data.add(new BasicNameValuePair(SUBJECT,subject));
+        	data.add(new BasicNameValuePair(TOPIC,topic));
+        	data.add(new BasicNameValuePair(SUBTOPIC,subtopic));
+			httppost.setEntity(new UrlEncodedFormEntity(data));
+			
+			//HttpResponse response = httpclient.execute(httppost);			
+			ResponseHandler<String> handler = new BasicResponseHandler();
+			message = httpclient.execute(httppost,handler);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -301,7 +335,6 @@ public class NewQuizActivity extends Activity {
 				//commit preference changes
 				//perferenceUpdater.commit();
 
-    		System.out.println(result);
 				if(task.equalsIgnoreCase(SUBJECT))
     			{
 					//set subject topics
@@ -313,14 +346,14 @@ public class NewQuizActivity extends Activity {
 
 					//set adapters topics
 					topics.clear();
-					topics.add("All");
+					topics.add("Any");
 					topicAdapter = new ArrayAdapter<String>(newQuizActivity, android.R.layout.simple_list_item_1, topics);
 					topicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					topicSpinner.setAdapter(topicAdapter);
 					
 					//set adapters subtopic
 					subtopics.clear();
-					subtopics.add("All");
+					subtopics.add("Any");
 					subtopicAdapter = new ArrayAdapter<String>(newQuizActivity, android.R.layout.simple_list_item_1, subtopics);
 					subtopicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					subtopicSpinner.setAdapter(subtopicAdapter);					
@@ -333,7 +366,7 @@ public class NewQuizActivity extends Activity {
 	    			topicSpinner.setAdapter(topicAdapter);
 	    			
 	    			subtopics.clear();
-	    			subtopics.add("All");
+	    			subtopics.add("Any");
 	    			subtopicAdapter = new ArrayAdapter<String>(newQuizActivity, android.R.layout.simple_list_item_1, subtopics);
 	    			subtopicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    			subtopicSpinner.setAdapter(subtopicAdapter);
@@ -346,6 +379,50 @@ public class NewQuizActivity extends Activity {
 	    			subtopicSpinner.setAdapter(subtopicAdapter);
 	    		}
 			
+				//close progress dialog
+				progressBar.dismiss();
+		}    	
+    }
+    
+    /**
+     * This is the background task that will get either the subject,topic or sub-topics from the database.
+     * @author Parnit Sainion
+     *
+     */
+    class SiQuoiaGetQuizTask extends AsyncTask<String, String, String>
+    {
+    	String task;
+    	@Override
+		protected void onPreExecute() {
+			//create the progress dialog and display it
+    		progressBar = new ProgressDialog(NewQuizActivity.this);
+			progressBar.setIndeterminate(true);
+			progressBar.setCancelable(false);
+			progressBar.setMessage("Please Wait");
+			progressBar.show();			
+		}
+    	
+    	@Override
+		protected String doInBackground(String... input) {
+    		return getQuiz(input[0],input[1],input[2]);
+		}
+		
+		protected void onPostExecute(String result) {
+		
+				//get preferences
+				//SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
+				
+				//update user info
+				//SharedPreferences.Editor perferenceUpdater = preferences.edit();
+				
+				//commit preference changes
+				//perferenceUpdater.commit();
+			
+				ArrayList<Question> quiz = SiQuoiaJSONParser.parseQuiz(result);
+				for(Question q : quiz)
+				{
+					System.out.println(q.getQuestion());
+				}
 				//close progress dialog
 				progressBar.dismiss();
 		}    	

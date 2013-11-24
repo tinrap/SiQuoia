@@ -239,7 +239,7 @@ public class SiQuoiaHomeActivity extends Activity {
 				
 				//commit preference changes
 				//perferenceUpdater.commit();
-				
+				System.out.println(result);
 				user = SiQuoiaJSONParser.parseUser(result);
 				
 				//close progress dialog
