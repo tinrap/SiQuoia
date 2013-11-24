@@ -2,9 +2,9 @@
 require_once('database_info.php');
 
 if (isset($_POST['subject'])) {
-    $subject  = $POST['subject'];
-    $topic    = $POST['topic'];
-    $subtopic = $POST['subtopic'];
+    $subject  = $_POST['subject'];
+    $topic    = $_POST['topic'];
+    $subtopic = $_POST['subtopic'];
     $query = "";
     $json = array();
 
