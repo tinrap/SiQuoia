@@ -6,6 +6,7 @@ if (isset($_POST['subject'])) {
     $topic    = $POST['topic'];
     $subtopic = $POST['subtopic'];
     $query = "";
+    $json = array();
 
     // Subject not specified in request.
     if ($subject === "Any") {
