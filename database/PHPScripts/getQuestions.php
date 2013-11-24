@@ -9,20 +9,20 @@ if (isset($_POST['subject'])) {
     $json     = array();
 
     // All fields specified
-    if (strcmp($sbtopic, "Any") !== 0) {
+    if ($subtopic !== "Any") {
         $query = "select * from `Question` where subject = '";
         $query .= "$subject" . "' and topic = '" . "$topic" . "'";
         $query .= "and subtopic = '" . "$subtopic" . "'";
         $query .= " order by rand() limit 20";
     }
     // Subject and Topic are specified
-    else if (strcmp($topic, "Any") !== 0) {
+    else if ($topic !== "Any") {
         $query = "select * from `Question` where subject = '";
         $query .= "$subject" . "' and topic = '" . "$topic" . "'";
         $query .= " order by rand() limit 20";
     }
     // Topic is specified.
-    else if (strcmp($subject, "Any") !== 0) {
+    else if ($subject !== "Any") {
         $query = "select * from `Question` where topic = '";
         $query .= "$topic" . "' order by rand() limit 20";
     }
