@@ -42,8 +42,10 @@ public class QuizActivity extends Activity {
 		//get preferences
 		SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
 		
-		quiz = SiQuoiaJSONParser.parseQuiz(preferences.getString(SiQuoiaHomeActivity.QUIZ, ""));
-		
+		String quizJson = preferences.getString(SiQuoiaHomeActivity.QUIZ, "");
+		String currentAnswers = preferences.getString(SiQuoiaHomeActivity.ANSWERS, "");
+		quiz = SiQuoiaJSONParser.parseQuiz(quizJson,currentAnswers);
+		Log.i("quiz", currentAnswers);
 		//sets my listAdapter to the list
 		quizAdapter = new SiQuoiaQuizAdapter(this,R.layout.quiz_row,quiz);
 		quizList = (ListView) findViewById(R.id.quizList);

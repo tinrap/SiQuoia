@@ -6,6 +6,7 @@ import com.sjsu.siquoia.model.Question;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +21,7 @@ public class SiQuoiaQuestionActivity extends Activity
     private Question selectedQuestion;
     private int correctAnswer;
     private TextView questionText;
+	private SharedPreferences preferences;
         
     
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +60,27 @@ public class SiQuoiaQuestionActivity extends Activity
 					long id) {
 				// intent returns the chosen answer to the callign activity
 				Intent intent=new Intent();	
+				
+				//get current answers
+		        preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
+		        String currentAnswers = preferences.getString(SiQuoiaHomeActivity.ANSWERS, "");
+
+		        //update current answers
+				SharedPreferences.Editor perferenceUpdater = preferences.edit();
+				
 				if(position==correctAnswer)
+				{
 					selectedQuestion.setStatus(Question.CORRECT);
+					perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, currentAnswers.concat(""+Question.CORRECT));
+				}
 				else
+				{
 					selectedQuestion.setStatus(Question.INCORRECT);
+					perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, currentAnswers.concat(""+Question.INCORRECT));
+				}
+				
+				//commit preference changes
+				perferenceUpdater.commit();
 				
 				if(position==correctAnswer)
 					intent.putExtra("chosenAnswer", 1);

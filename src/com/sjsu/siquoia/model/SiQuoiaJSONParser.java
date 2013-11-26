@@ -151,16 +151,17 @@ public class SiQuoiaJSONParser {
 	 * parses JSON into quiz list
 	 * @param json JSON contain quiz
 	 */
-	public static ArrayList<Question> parseQuiz(String json)
+	public static ArrayList<Question> parseQuiz(String json, String currentAnswers)
 	{
 		//declare variables
 		ArrayList<Question> quiz = new ArrayList<Question>();
 		JSONObject jsonObj = new JSONObject();
 		int size;
 		Question question;
+		int numOfAnswers = currentAnswers.length();
 		
 		try {		
-			//convert JSON string to JSONArrya
+			//convert JSON string to JSONArray
 			JSONArray jsonArray = new JSONArray(json);
 			
 			size = jsonArray.length();
@@ -169,17 +170,24 @@ public class SiQuoiaJSONParser {
 			{
 				question = new Question();
 				jsonObj = (JSONObject) jsonArray.get(count);
-				question.setQuestion(jsonObj.getString("questionText").toString());
-				
-				//increment count and set question title
-				question.setTitle("Question "+ (++count));
+				question.setQuestion(jsonObj.getString("questionText").toString());		
 				
 				question.addChoice(jsonObj.getString("answerOne").toString());
 				question.addChoice(jsonObj.getString("answerTwo").toString());
 				question.addChoice(jsonObj.getString("answerThree").toString());
 				question.addChoice(jsonObj.getString("answerFour").toString());
 				question.setCorrectChoice(jsonObj.getInt("correctAns") -1);
-				question.setRank(jsonObj.getInt("rank"));
+				question.setRank(jsonObj.getInt("rank"));				
+				
+				if(count < numOfAnswers)
+				{
+					String answer = currentAnswers.charAt(count)+"";
+					question.setStatus(Integer.parseInt(answer));
+				}
+				
+				//increment count and set question title
+				question.setTitle("Question "+ (++count));
+				
 				quiz.add(question);
 			}			
 		} catch (JSONException e) {

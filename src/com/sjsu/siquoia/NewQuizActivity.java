@@ -412,7 +412,8 @@ public class NewQuizActivity extends Activity {
 				//update user's quiz
 				SharedPreferences.Editor perferenceUpdater = preferences.edit();
 				perferenceUpdater.putString(SiQuoiaHomeActivity.QUIZ, quiz);
-				
+				perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, "");
+			
 				//commit preference changes
 				perferenceUpdater.commit();
 			
