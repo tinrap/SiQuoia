@@ -5,6 +5,7 @@ if (isset($_POST['subject'])) {
     $subject  = $_POST['subject'];
     $topic    = $_POST['topic'];
     $subtopic = $_POST['subtopic'];
+    $email = $_POST['email'];
     $query = "";
     $json = array();
 
@@ -30,6 +31,25 @@ if (isset($_POST['subject'])) {
     else {
         $query = "select * from `Question` order by rand() limit 20";
     }
+
+    // Update the User's siquoia Points
+    $stmt = $link->prepare("update Users set siquoiaPoints = siquoiaPoints - ? where email = ?");
+    // php is dumb
+    $sillyVar = 5;
+    $stmt->bind_param("ds", $sillyVar, $email);
+    $stmt->execute();
+
+    // Update the user's total packets bought
+    $stmt = $link->prepare("update Users set packetsBought = packetsBought + ? where email = ?");
+    $sillyVar = 1;
+    $stmt->bind_param("ds", $sillyVar, $email);
+    $stmt->execute();
+
+    // Update the User's total Points Spent
+    $stmt = $link->prepare("update Users set totalPointsSpent = totalPointsSpent + ? where email = ?");
+    $sillyVar = 5;
+    $stmt->bind_param("ds", $sillyVar, $email);
+    $stmt->execute();
 
     $result = $link->query($query);
     if ($result->num_rows !== false) {
