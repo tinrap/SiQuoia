@@ -119,14 +119,22 @@ public class CreateUserAccountActivity extends Activity{
 	 * @return whether email is valid or not
 	 */
 	public boolean vaildEmail(String email)
-	{
+	{ //checks if email has @ and .
+		Toast toast;
 		if(email.trim().equals("") || !(email.contains(".")&& email.contains("@")))
 		{
-			Toast toast = Toast.makeText(getApplicationContext(), "Please enter valid email", Toast.LENGTH_SHORT);
+			toast = Toast.makeText(getApplicationContext(), "Please enter valid email", Toast.LENGTH_SHORT);
 			toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
 			toast.show();
 			return false;
-		}		
+		}
+		else if(email.trim().contains(" ")) 
+		{ //checks if  inputed email has  extra white spaces
+			toast = Toast.makeText(getApplicationContext(), "Invalid White Space", Toast.LENGTH_SHORT);
+			toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+			toast.show();
+			return false;
+		}
 		return true;
 	}
 	
