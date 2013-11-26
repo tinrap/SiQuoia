@@ -191,6 +191,10 @@ public class SiQuoiaLoginActivity extends Activity
 				Toast toast = Toast.makeText(getApplicationContext(), "Incorrect Credentials" , Toast.LENGTH_SHORT);
 				toast.show();
 				
+				//empty both fields
+				passwordInput.setText("");
+				userNameInput.setText("");
+				
 				//close progress dialog
 				progressBar.dismiss();
 			}			

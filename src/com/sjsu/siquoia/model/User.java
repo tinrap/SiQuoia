@@ -184,4 +184,21 @@ public class User implements Serializable{
 	{
 		this.currentAnswers = currentAnswers;
 	}
+	
+	
+
+	/**
+	 * @return true if user has enough points ot buys a quiz, else false
+	 */	
+	public boolean buyPacket()
+	{
+		if(siquoiaBucks <5)
+			return false;
+		else
+		{
+			siquoiaBucks -= 5;
+			packetsBought++;
+			return true;
+		}
+	}
 }

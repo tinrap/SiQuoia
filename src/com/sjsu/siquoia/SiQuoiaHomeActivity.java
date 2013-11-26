@@ -22,7 +22,9 @@ import com.sjsu.siquoia.model.SiQuoiaJSONParser;
 import com.sjsu.siquoia.model.User;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -34,11 +36,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
- * @since 20 November 2013
+ * @since 25 November 2013
  * Description: This app is the home landing screen for the app. Users can: continue a previous quiz, start a new quiz,
  * 				check the leader-board, submit a question to put into the same, and quit the app.
  *
@@ -50,7 +53,9 @@ public class SiQuoiaHomeActivity extends Activity {
 	private ProgressDialog progressBar;
 	private SharedPreferences preferences;
 	private String userInfoUrl ="http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getUser.php";
+	private TextView currentPointsTextView; 
 	protected User user;
+	private AlertDialog alertDialog;
 	
 	//preferences
 	protected static final String SIQUOIA_PREF = "SiquoiaPref";
@@ -71,6 +76,7 @@ public class SiQuoiaHomeActivity extends Activity {
         leaderboardButton = (Button) findViewById(R.id.leaderboardButton);
         submitQuestionButton = (Button) findViewById(R.id.submitQuesButton);
         quitButton = (Button) findViewById(R.id.quitButton);
+        currentPointsTextView = (TextView) findViewById(R.id.currentPointsText);
         
        //get users info from app
         preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
@@ -85,7 +91,7 @@ public class SiQuoiaHomeActivity extends Activity {
         }
         {
         	new SiQuoiaGetUserTask().execute(preferences.getString(EMAIL, EMAIL));
-        }
+        }        
         
         //Set Listener for continue
         continueButton.setOnClickListener(new OnClickListener(){
@@ -104,8 +110,7 @@ public class SiQuoiaHomeActivity extends Activity {
 					Toast toast = Toast.makeText(getApplicationContext(), "No Saved Quiz", Toast.LENGTH_SHORT);
 					toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
 					toast.show();
-				}
-				
+				}				
 			}        	
         });
         
@@ -113,10 +118,7 @@ public class SiQuoiaHomeActivity extends Activity {
         newGameButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				Log.i("homeScreenButtons", "new game clicked");	
-				Intent intent = new Intent();
-				intent.setClass(SiQuoiaHomeActivity.this, NewQuizActivity.class);
-				startActivity(intent);
+				showNewGameAlert();
 			}        	
         });
         
@@ -145,6 +147,44 @@ public class SiQuoiaHomeActivity extends Activity {
 			}        	
         });
     }
+	
+	public void showNewGameAlert()
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		
+		alertDialogBuilder.setTitle("Start New Game");
+		
+		alertDialogBuilder.setMessage("A new game cost 5 SiQuoia points and will override any uncompleted Quiz. Do you want to start a new Quiz?");
+		alertDialogBuilder.setCancelable(false);
+		alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {						
+				if(user.buyPacket())
+				{
+					Intent intent = new Intent();
+					intent.setClass(SiQuoiaHomeActivity.this, NewQuizActivity.class);
+					startActivity(intent);
+				}
+				else
+				{
+					Toast toast = Toast.makeText(getApplicationContext(), "Not Enough SiQuoia Points", Toast.LENGTH_SHORT);
+					toast.show();
+				}
+			}
+		});
+		
+		alertDialogBuilder.setNegativeButton("No",  new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();						
+			}					
+		});				
+		
+		alertDialog = alertDialogBuilder.create();
+		alertDialog.show();	
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -188,9 +228,18 @@ public class SiQuoiaHomeActivity extends Activity {
 			default:
 				break;
 		}
-    	return false;
-    	
+    	return false;    	
     }    
+    
+    @Override
+    public void onResume()
+    {
+    	super.onResume();
+    	
+    	//set Current points
+    	if(currentPointsTextView != null && user != null)
+        currentPointsTextView.setText("Current Points: " + user.getSiquoiaBucks());
+    }
     
     /**
      * get user's information from the database
@@ -262,7 +311,18 @@ public class SiQuoiaHomeActivity extends Activity {
 				//commit preference changes
 				//perferenceUpdater.commit();
 				System.out.println(result);
-				user = SiQuoiaJSONParser.parseUser(result);
+				user = SiQuoiaJSONParser.parseUser(result);	
+				
+			
+				//update user's quiz
+				preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
+				SharedPreferences.Editor perferenceUpdater = preferences.edit();
+				perferenceUpdater.putString(SiQuoiaHomeActivity.QUIZ, user.getCurrentQuiz());
+				perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, user.getAnswers());
+				perferenceUpdater.commit();
+
+		        //set Current points
+		        currentPointsTextView.setText("Current Points: " + user.getSiquoiaBucks());
 				
 				//close progress dialog
 				progressBar.dismiss();
