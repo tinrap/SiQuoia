@@ -64,6 +64,7 @@ public class SiQuoiaHomeActivity extends Activity {
 	protected static final String EMAIL = "email";
 	protected static final String QUIZ = "currentQuiz";
 	protected static final String ANSWERS = "currentAnswers";
+	protected static final String CURRENT_SCORE = "currentScore";
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,9 +97,7 @@ public class SiQuoiaHomeActivity extends Activity {
         //Set Listener for continue
         continueButton.setOnClickListener(new OnClickListener(){
 			@Override
-			public void onClick(View arg0) {
-				Log.i("homeScreenButtons", "continue clicked");		
-				
+			public void onClick(View arg0) {			
 				if(!preferences.getString(QUIZ, "").equalsIgnoreCase(""))
 				{
 					Intent intent = new Intent();
@@ -310,7 +309,7 @@ public class SiQuoiaHomeActivity extends Activity {
 				
 				//commit preference changes
 				//perferenceUpdater.commit();
-				System.out.println(result);
+			
 				user = SiQuoiaJSONParser.parseUser(result);	
 				
 			

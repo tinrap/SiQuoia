@@ -32,8 +32,8 @@ public class SiQuoiaQuestionActivity extends Activity
 	private ListView myListView;
     private static ArrayAdapter<String> myAdapter;
     private Question selectedQuestion;
-    private int correctAnswer;
-    private TextView questionText;
+    private int correctAnswer, currentScore;
+    private TextView questionText, currentScoreTextView;
 	private SharedPreferences preferences;
 	private final String UPDATE_ANSWERS_URL ="http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/updateCurrentAns.php";
         
@@ -45,8 +45,13 @@ public class SiQuoiaQuestionActivity extends Activity
 		//retrieves the questions
 		Intent intent = getIntent();
 		selectedQuestion = (Question) intent.getSerializableExtra("question");
+		currentScore =  intent.getIntExtra(SiQuoiaHomeActivity.CURRENT_SCORE,0);
 		final int selectedPosition = intent.getIntExtra( "selectedPosition",101);
 		correctAnswer = selectedQuestion.getCorrectChoice();
+		
+		//set current Score
+		currentScoreTextView = (TextView) findViewById(R.id.currentScore);
+		currentScoreTextView.setText("Current Score: " + currentScore + "/20");
 		
 		//gets the listview
 		myListView = (ListView) findViewById(R.id.answerList);

@@ -43,7 +43,7 @@ public class SiQuoiaQuizAdapter extends ArrayAdapter<Question>
 			text.setText(question.getTitle());
 			
 			//gets the question's answered status
-			int answered = question.getStatus();
+			int answered = question.getAnswered();
 			
 			//sets rows background based on question's status
 			switch(answered){

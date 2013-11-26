@@ -134,16 +134,9 @@ public class Question implements Serializable{
 	    	status = num;
 	    }
 	    
+	    	    
 	    /**
 	     * 0 = unanswered, 1 = correct, 2 = incorrect
-	     * @return status of the question
-	     */
-	    public int getStatus ()
-	    {
-	    	return status;
-	    }
-	    
-	    /**
 	     * @return status of question
 	     */
 	    public int getAnswered()
