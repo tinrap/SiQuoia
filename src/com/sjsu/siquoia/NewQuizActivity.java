@@ -18,8 +18,12 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.sjsu.siquoia.model.SiQuoiaJSONParser;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +37,7 @@ import android.widget.Spinner;
 /**
  * @author Parnit Sainion
  * @since 24 November 2013
+ * Description: THis activity allow the user to create a new quiz based on subject, topic, or subtopic.
  */
 public class NewQuizActivity extends Activity {
 	
@@ -46,6 +51,7 @@ public class NewQuizActivity extends Activity {
 	private final String SUBJECT = "subject";
 	private final String TOPIC = "topic";
 	private final String SUBTOPIC ="subtopic";
+	private String quiz;
 	
 	//url to get data from database
 	private final String  SUBJECT_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getSubject.php";
@@ -268,7 +274,7 @@ public class NewQuizActivity extends Activity {
 	public String getQuiz(String subject, String topic, String subtopic)
     {
     	//variables declared
-    	String message ="";    	HttpClient httpclient = new DefaultHttpClient();
+    	HttpClient httpclient = new DefaultHttpClient();
     	HttpPost httppost = new HttpPost(QUIZ_URL);
     	
     	try {
@@ -281,7 +287,7 @@ public class NewQuizActivity extends Activity {
 			
 			//HttpResponse response = httpclient.execute(httppost);			
 			ResponseHandler<String> handler = new BasicResponseHandler();
-			message = httpclient.execute(httppost,handler);
+			quiz = httpclient.execute(httppost,handler);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -292,7 +298,7 @@ public class NewQuizActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
-    	return message;
+    	return quiz;
     }
 	
     /**
@@ -325,15 +331,6 @@ public class NewQuizActivity extends Activity {
 		}
 		
 		protected void onPostExecute(String result) {
-		
-				//get preferences
-				//SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
-				
-				//update user info
-				//SharedPreferences.Editor perferenceUpdater = preferences.edit();
-				
-				//commit preference changes
-				//perferenceUpdater.commit();
 
 				if(task.equalsIgnoreCase(SUBJECT))
     			{
@@ -407,24 +404,25 @@ public class NewQuizActivity extends Activity {
     		return getQuiz(input[0],input[1],input[2]);
 		}
 		
-		protected void onPostExecute(String result) {
-		
+		protected void onPostExecute(String result) 
+		{
 				//get preferences
-				//SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
+				SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
 				
-				//update user info
-				//SharedPreferences.Editor perferenceUpdater = preferences.edit();
+				//update user's quiz
+				SharedPreferences.Editor perferenceUpdater = preferences.edit();
+				perferenceUpdater.putString(SiQuoiaHomeActivity.QUIZ, quiz);
 				
 				//commit preference changes
-				//perferenceUpdater.commit();
+				perferenceUpdater.commit();
 			
-				ArrayList<Question> quiz = SiQuoiaJSONParser.parseQuiz(result);
-				for(Question q : quiz)
-				{
-					System.out.println(q.getQuestion());
-				}
 				//close progress dialog
 				progressBar.dismiss();
+				
+				Intent intent = new Intent();
+				intent.setClass(newQuizActivity, QuizActivity.class);
+				startActivity(intent);
+				finish();
 		}    	
     }
 }

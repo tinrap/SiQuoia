@@ -18,6 +18,9 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.sjsu.siquoia.model.SiQuoiaJSONParser;
+import com.sjsu.siquoia.model.User;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -54,6 +57,8 @@ public class SiQuoiaHomeActivity extends Activity {
 	protected static final String LOGGED_IN = "loggedIn";
 	protected static final String NEW_USER = "newUser";
 	protected static final String EMAIL = "email";
+	protected static final String QUIZ = "currentQuiz";
+	protected static final String ANSWERS = "currentAnswers";
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +91,21 @@ public class SiQuoiaHomeActivity extends Activity {
         continueButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				Log.i("homeScreenButtons", "continue clicked");				
+				Log.i("homeScreenButtons", "continue clicked");		
+				
+				if(!preferences.getString(QUIZ, "").equalsIgnoreCase(""))
+				{
+					Intent intent = new Intent();
+					intent.setClass(SiQuoiaHomeActivity.this, QuizActivity.class);
+					startActivity(intent);
+				}
+				else
+				{
+					Toast toast = Toast.makeText(getApplicationContext(), "No Saved Quiz", Toast.LENGTH_SHORT);
+					toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+					toast.show();
+				}
+				
 			}        	
         });
         
@@ -146,6 +165,9 @@ public class SiQuoiaHomeActivity extends Activity {
 				SharedPreferences.Editor perferenceUpdater = preferences.edit();
 				perferenceUpdater.putBoolean(SiQuoiaHomeActivity.LOGGED_IN, false);
 				perferenceUpdater.putString(SiQuoiaHomeActivity.EMAIL, "");
+				perferenceUpdater.putString(SiQuoiaHomeActivity.QUIZ, "");
+				perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, "");
+				
 				
 				//commit preference changes
 				perferenceUpdater.commit();
