@@ -1,13 +1,26 @@
 package com.sjsu.siquoia;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.sjsu.siquoia.model.Question;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +35,7 @@ public class SiQuoiaQuestionActivity extends Activity
     private int correctAnswer;
     private TextView questionText;
 	private SharedPreferences preferences;
+	private final String UPDATE_ANSWERS_URL ="http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/updateCurrentAns.php";
         
     
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,16 +85,20 @@ public class SiQuoiaQuestionActivity extends Activity
 				if(position==correctAnswer)
 				{
 					selectedQuestion.setStatus(Question.CORRECT);
-					perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, currentAnswers.concat(""+Question.CORRECT));
+					currentAnswers =currentAnswers.concat(""+Question.CORRECT);
+					perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, currentAnswers);
 				}
 				else
 				{
 					selectedQuestion.setStatus(Question.INCORRECT);
-					perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, currentAnswers.concat(""+Question.INCORRECT));
+					currentAnswers =currentAnswers.concat(""+Question.INCORRECT);
+					perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, currentAnswers);
 				}
 				
 				//commit preference changes
 				perferenceUpdater.commit();
+				
+				new SiQuoiaUpdateAnswerTask().execute(preferences.getString(SiQuoiaHomeActivity.EMAIL,""),currentAnswers);
 				
 				if(position==correctAnswer)
 					intent.putExtra("chosenAnswer", 1);
@@ -92,6 +110,65 @@ public class SiQuoiaQuestionActivity extends Activity
 				
 			}
         });
-
 	}
+	
+	public void updateAnswers(String email, String answers)
+    {
+    	//variables declared
+    	HttpClient httpclient = new DefaultHttpClient();
+    	HttpPost httppost = new HttpPost(UPDATE_ANSWERS_URL);
+    	
+    	try {
+    		//add user information to post
+        	List<NameValuePair> data = new ArrayList<NameValuePair>(1); 
+           	
+        	data.add(new BasicNameValuePair(SiQuoiaHomeActivity.EMAIL,email));
+        	data.add(new BasicNameValuePair(SiQuoiaHomeActivity.ANSWERS,answers));
+			httppost.setEntity(new UrlEncodedFormEntity(data));
+			
+			//HttpResponse response = httpclient.execute(httppost);
+			
+			httpclient.execute(httppost);
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+    }
+	
+	 /**
+     * This is the background task that will get the user's current information from the database.
+     * @author Parnit Sainion
+     *
+     */
+    class SiQuoiaUpdateAnswerTask extends AsyncTask<String, String, String>
+    {
+    	
+    	@Override
+		protected String doInBackground(String... input) {
+    		//input[0] = username
+			updateAnswers(input[0], input[1]);
+			Log.i("user", input[0]);
+			Log.i("ans", input[1]);
+			return "";
+		}
+		
+		protected void onPostExecute(String result) {
+		
+				//get preferences
+				//SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
+				
+				//update user info
+				//SharedPreferences.Editor perferenceUpdater = preferences.edit();
+				
+				//commit preference changes
+				//perferenceUpdater.commit();				
+		}    	
+    }
 }

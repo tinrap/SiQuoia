@@ -29,6 +29,7 @@
     <string name = "createQuiz">Create Quiz</string>
     <string name = "newGameDescription"> Please select Subject, Topic, Subtopic, or any combination of the three create desired quiz.</string>
     <string name = "currentScore">Current Score: 0/20</string>
+    <string name = "currentPoints">Current Points:</string>
     <string name = "question">Question Text</string>
     
 

@@ -36,7 +36,7 @@ import android.widget.Spinner;
 
 /**
  * @author Parnit Sainion
- * @since 24 November 2013
+ * @since 25 November 2013
  * Description: THis activity allow the user to create a new quiz based on subject, topic, or subtopic.
  */
 public class NewQuizActivity extends Activity {
@@ -65,6 +65,7 @@ public class NewQuizActivity extends Activity {
 		//set view
 		setContentView(R.layout.new_quiz_layout);
 		
+		//intialize arrays
 		subjects = new ArrayList<String>();
 		topics = new ArrayList<String>();
 		subtopics = new ArrayList<String>();
@@ -277,12 +278,16 @@ public class NewQuizActivity extends Activity {
     	HttpClient httpclient = new DefaultHttpClient();
     	HttpPost httppost = new HttpPost(QUIZ_URL);
     	
+    	//get preferences
+		SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
+    	
     	try {
     		//add user information to post
         	List<NameValuePair> data = new ArrayList<NameValuePair>(3);    	
         	data.add(new BasicNameValuePair(SUBJECT,subject));
         	data.add(new BasicNameValuePair(TOPIC,topic));
         	data.add(new BasicNameValuePair(SUBTOPIC,subtopic));
+        	data.add(new BasicNameValuePair(SiQuoiaHomeActivity.EMAIL,preferences.getString(SiQuoiaHomeActivity.EMAIL, "")));
 			httppost.setEntity(new UrlEncodedFormEntity(data));
 			
 			//HttpResponse response = httpclient.execute(httppost);			

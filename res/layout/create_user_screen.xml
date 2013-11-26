@@ -11,7 +11,8 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+         android:maxLength="32"/>
 
     <EditText
         android:id="@+id/passwordTwo"
@@ -21,7 +22,8 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:maxLength="32" />
 
     <EditText
         android:id="@+id/emailField"
@@ -32,7 +34,8 @@
         android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="@string/email"
-        android:inputType="textEmailAddress" >
+        android:inputType="textEmailAddress"
+        android:maxLength="32" >
 
         <requestFocus />
     </EditText>
