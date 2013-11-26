@@ -58,6 +58,17 @@ if (isset($_POST['subject'])) {
         }
         echo json_encode($json) . "\n";
     }
+
+    // Update current Quiz
+    $stmt = $link->prepare("update Users set currentQuiz = ? where email = ?");
+    $stmt->bind_param("ss", json_encode($json), $email);
+    $stmt->execute();
+
+    // Finally, update current Ans
+    $stmt = $link->prepare("update Users set currentAns = ? where email = ?");
+    $sillyVar = "";
+    $stmt->bind_param("ss", $sillyVar, $email);
+    $stmt->execute();
 }
 ?>
 
