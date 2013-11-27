@@ -2,6 +2,8 @@ package com.sjsu.siquoia;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,16 +18,26 @@ import org.apache.http.message.BasicNameValuePair;
 import com.sjsu.siquoia.model.Question;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author Parnit Sainion
+ * @since 27 November 2013
+ *  Description: This activity displays the question for the user to answer.
+ */
 public class SiQuoiaQuestionActivity extends Activity 
 {
 	private ListView myListView;
@@ -34,13 +46,13 @@ public class SiQuoiaQuestionActivity extends Activity
     private int correctAnswer, currentScore;
     private TextView questionText, currentScoreTextView;
 	private SharedPreferences preferences;
+	private ProgressDialog progressDialog;
 	private final String UPDATE_ANSWERS_URL ="http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/updateCurrentAns.php";
 	private final String UPDATE_RANK_URL ="http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/updateRank.php";
         
     
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.question_layout);
 		
 		//retrieves the questions
 		Intent intent = getIntent();
@@ -49,18 +61,43 @@ public class SiQuoiaQuestionActivity extends Activity
 		final int selectedPosition = intent.getIntExtra( "selectedPosition",101);
 		correctAnswer = selectedQuestion.getCorrectChoice();
 		
+		//get question text
+		String question = selectedQuestion.getQuestion();
+		
+		//set layout based on type of question
+		if(question.contains(".png"))
+		{
+			//set layout to image layout
+			setContentView(R.layout.picture_question_layout);
+			
+			//test url
+			question = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/images/branded9.png";
+			
+			new SiQuoiaDownloadImageTask().execute(question);				
+		}
+		else if(question.contains(".mp4"))
+		{
+			//set layout to video layout
+			setContentView(R.layout.picture_question_layout);
+		}
+		else
+		{
+			//set layout to question text
+			setContentView(R.layout.question_layout);
+
+		    //Sets the question textview
+		    questionText = (TextView) findViewById(R.id.questionText);
+		    questionText.setText(selectedQuestion.getQuestion());			    
+		}
+		
 		//set current Score
 		currentScoreTextView = (TextView) findViewById(R.id.currentScore);
-		currentScoreTextView.setText("Current Score: " + currentScore + "/20");
-		
+		currentScoreTextView.setText("Current Score: " + currentScore + "/20");		
+				
 		//gets the listview
 		myListView = (ListView) findViewById(R.id.answerList);
 	    myAdapter = new ArrayAdapter<String>(this,  android.R.layout.simple_list_item_1, android.R.id.text1);
         
-	    //Sets the question textview
-	    questionText = (TextView) findViewById(R.id.questionText);
-	    questionText.setText(selectedQuestion.getQuestion());
-	    
 	    //sets the answers choices list and adds them to the adapter
 	    List<String> choices= selectedQuestion.getChoices()	;    
 	    int size =choices.size();
@@ -109,10 +146,10 @@ public class SiQuoiaQuestionActivity extends Activity
 				
 				new SiQuoiaUpdateTask().execute(SiQuoiaHomeActivity.ANSWERS, preferences.getString(SiQuoiaHomeActivity.EMAIL,""),currentAnswers);
 				
+				//prepare intent to send back to homw activity
 			    intent.putExtra("position", selectedPosition);
 			    setResult(RESULT_OK, intent);
-			    finish();
-				
+			    finish();				
 			}
         });
 	}
@@ -135,8 +172,6 @@ public class SiQuoiaQuestionActivity extends Activity
         	data.add(new BasicNameValuePair(SiQuoiaHomeActivity.EMAIL,email));
         	data.add(new BasicNameValuePair(SiQuoiaHomeActivity.ANSWERS,answers));
 			httppost.setEntity(new UrlEncodedFormEntity(data));
-			
-			//HttpResponse response = httpclient.execute(httppost);
 			
 			httpclient.execute(httppost);
 			
@@ -198,5 +233,49 @@ public class SiQuoiaQuestionActivity extends Activity
     			updateQuestionRank(input[1]);
 			return "";
 		} 	
+    }
+    
+    /**
+     * This is the background task that will get the user's current information from the database.
+     * @author Parnit Sainion
+     *
+     */
+    class SiQuoiaDownloadImageTask extends AsyncTask<String, String, String>
+    {
+    	Bitmap bitmap = null;
+    	
+    	@Override
+		protected void onPreExecute() {
+			//creates a progress dialog and displays it
+    		progressDialog = new ProgressDialog(SiQuoiaQuestionActivity.this);
+    		progressDialog.setIndeterminate(true);
+    		progressDialog.setCancelable(false);
+    		progressDialog.setMessage("Getting Image");
+    		progressDialog.show();			
+		}
+    	
+    	@Override
+		protected String doInBackground(String... input) {    		
+			try {
+				URL url = new URL(input[0]);
+				bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+			return "";
+		}
+    	
+    	protected void onPostExecute(String result) {
+    		ImageView picture = (ImageView) findViewById(R.id.questionImage);
+			if(bitmap != null)
+				picture.setImageBitmap(bitmap);
+			
+			//dismiss progress dialog
+			progressDialog.dismiss();
+    	}
     }
 }
