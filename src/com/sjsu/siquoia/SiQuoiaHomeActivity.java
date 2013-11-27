@@ -41,7 +41,7 @@ import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
- * @since 25 November 2013
+ * @since 26 November 2013
  * Description: This app is the home landing screen for the app. Users can: continue a previous quiz, start a new quiz,
  * 				check the leader-board, submit a question to put into the same, and quit the app.
  *
@@ -52,7 +52,7 @@ public class SiQuoiaHomeActivity extends Activity {
 	private Button continueButton, newGameButton, leaderboardButton, submitQuestionButton, quitButton;
 	private ProgressDialog progressBar;
 	private SharedPreferences preferences;
-	private String userInfoUrl ="http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getUser.php";
+	private final String USER_INFO_URL ="http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getUser.php";
 	private TextView currentPointsTextView; 
 	protected User user;
 	private AlertDialog alertDialog;
@@ -85,12 +85,13 @@ public class SiQuoiaHomeActivity extends Activity {
         Intent intent = getIntent();
         boolean newUser = intent.getBooleanExtra(SiQuoiaHomeActivity.NEW_USER, true);
         
-        if(newUser)
+        if(newUser) //if user is a new user
         {
         	String email = intent.getStringExtra(SiQuoiaHomeActivity.EMAIL);
         	user =  new User(email);
         }
         {
+        	//get user info from database
         	new SiQuoiaGetUserTask().execute(preferences.getString(EMAIL, EMAIL));
         }        
         
@@ -147,6 +148,9 @@ public class SiQuoiaHomeActivity extends Activity {
         });
     }
 	
+	/**
+	 * Displays a alert dialog for user to confirm creating a new game
+	 */
 	public void showNewGameAlert()
 	{
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -155,12 +159,15 @@ public class SiQuoiaHomeActivity extends Activity {
 		
 		alertDialogBuilder.setMessage("A new game cost 5 SiQuoia points and will override any uncompleted Quiz. Do you want to start a new Quiz?");
 		alertDialogBuilder.setCancelable(false);
+		
+		//create "Yes" button
 		alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {						
 				if(user.buyPacket())
 				{
+					//if user has enough points to buy quiz, start New Quiz Activity
 					Intent intent = new Intent();
 					intent.setClass(SiQuoiaHomeActivity.this, NewQuizActivity.class);
 					startActivity(intent);
@@ -173,6 +180,7 @@ public class SiQuoiaHomeActivity extends Activity {
 			}
 		});
 		
+		//create "No" button
 		alertDialogBuilder.setNegativeButton("No",  new DialogInterface.OnClickListener() {
 
 			@Override
@@ -181,6 +189,7 @@ public class SiQuoiaHomeActivity extends Activity {
 			}					
 		});				
 		
+		//create and display alert dialog
 		alertDialog = alertDialogBuilder.create();
 		alertDialog.show();	
 	}
@@ -211,6 +220,7 @@ public class SiQuoiaHomeActivity extends Activity {
 				//commit preference changes
 				perferenceUpdater.commit();
 				
+				//finish this activity and take user to login screen
 				Intent intent = new Intent();
 	        	intent.setClass(SiQuoiaHomeActivity.this, SiQuoiaLoginActivity.class);
 	        	startActivity(intent);
@@ -250,7 +260,7 @@ public class SiQuoiaHomeActivity extends Activity {
     	//variables declared
     	String message ="";
     	HttpClient httpclient = new DefaultHttpClient();
-    	HttpPost httppost = new HttpPost(userInfoUrl);
+    	HttpPost httppost = new HttpPost(USER_INFO_URL);
     	
     	try {
     		//add user information to post
@@ -258,8 +268,7 @@ public class SiQuoiaHomeActivity extends Activity {
         	data.add(new BasicNameValuePair("email",email));
 			httppost.setEntity(new UrlEncodedFormEntity(data));
 			
-			//HttpResponse response = httpclient.execute(httppost);
-			
+			//set up response handler and execute post
 			ResponseHandler<String> handler = new BasicResponseHandler();
 			message = httpclient.execute(httppost,handler);
 			
@@ -310,6 +319,7 @@ public class SiQuoiaHomeActivity extends Activity {
 				//commit preference changes
 				//perferenceUpdater.commit();
 			
+				//parser user Json into user object
 				user = SiQuoiaJSONParser.parseUser(result);	
 				
 			

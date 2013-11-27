@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * @author Parnit Sainion
- * @since 19 November 2013
+ * @since  November 2013
  * Class is used to create a question object with its question, answer choices, correct answer, and the current status of 
  * whether it was answer or not.
  */

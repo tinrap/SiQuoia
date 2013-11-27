@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -22,12 +21,12 @@ import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
- * @since 25 October 2013
+ * @since 26 November 2013
  * Description: This activity displays a list of questions the use can select to answer
  */
 public class QuizActivity extends Activity {
 
-	//variable
+	//declare variable
 	private ArrayList<Question> quiz;
 	private SiQuoiaQuizAdapter quizAdapter;
 	private ListView quizList;
@@ -44,6 +43,7 @@ public class QuizActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.quiz_list);
 		
+		//get textview
 		currentScoreTextView = (TextView) findViewById(R.id.currentScore);
 		
 		//get preferences
@@ -57,8 +57,7 @@ public class QuizActivity extends Activity {
 		currentScoreTextView.setText("Current Score: "+numberCorrect+"/20");
 		currentScoreTextView.refreshDrawableState();
 		
-		
-		
+		//parses the stored quiz into arraylist
 		quiz = SiQuoiaJSONParser.parseQuiz(quizJson,currentAnswers);
 		
 		//sets my listAdapter to the list
@@ -87,7 +86,7 @@ public class QuizActivity extends Activity {
 						toast.show();
 					}
 					else{
-						//checks if the question has not been answered
+						//start next question
 						Intent intent = new Intent(QuizActivity.this, SiQuoiaQuestionActivity.class);
 						intent.putExtra("question", selectedQuestion);
 						intent.putExtra("selectedPosition", selectedPosition);
@@ -104,6 +103,7 @@ public class QuizActivity extends Activity {
     public void onActivityResult(int requestCode,int resultCode, Intent data)
     {
 		super.onActivityResult(requestCode, resultCode, data);
+		int size;
 
 		//checks if data is not null (in case user pressed back)
 		if(data != null)
@@ -112,6 +112,7 @@ public class QuizActivity extends Activity {
 	     	int position =data.getIntExtra("position", 101);
 			currentAnswers = preferences.getString(SiQuoiaHomeActivity.ANSWERS, "");
 	     	
+			size = currentAnswers.length();
 	     	if(position != 101)
 	     	{
 	     		//gets the question that was answered from list of questions
@@ -130,6 +131,23 @@ public class QuizActivity extends Activity {
 	         	
 	         	//updates GUI to reflect changes
 	         	quizAdapter.notifyDataSetChanged();
+	     	}
+	     	
+	     	/**
+	     	 * If more questions are availble go directly to the next question.
+	     	 */
+	     	if(size < 20) 
+	     	{
+	     		//gets the question at the clicked position
+				selectedQuestion = (Question) quizAdapter.getItem(size);
+				selectedPosition = size;
+	     		
+	     		Intent intent = new Intent(QuizActivity.this, SiQuoiaQuestionActivity.class);
+				intent.putExtra("question", selectedQuestion);
+				intent.putExtra("selectedPosition", selectedPosition);
+				intent.putExtra(SiQuoiaHomeActivity.CURRENT_SCORE, numberCorrect);
+				final int intentMarker = 0;
+				startActivityForResult(intent, intentMarker);
 	     	}
 		}		
     }
@@ -151,13 +169,4 @@ public class QuizActivity extends Activity {
 			}
 		}
 	}
-	
-	
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
 }
