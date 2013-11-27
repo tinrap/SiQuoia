@@ -108,8 +108,7 @@ public class SiQuoiaQuestionActivity extends Activity
         myListView.setAdapter(myAdapter);;
         
         //OnClickListener is set for the list
-        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {           
-			
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {    	
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view, int position,

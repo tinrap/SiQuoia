@@ -16,7 +16,8 @@
         android:hint="@string/password"
         android:inputType="textPassword"
         android:textSize="24sp" 
-        android:background="@color/white"/>
+        android:background="@drawable/rounded_edittext"
+        android:padding="10dp"/>
 
     <Button
         android:id="@+id/loginButton"
@@ -39,7 +40,8 @@
         android:hint="@string/username"
         android:inputType="textPersonName"
         android:textSize="24sp" 
-        android:background="@color/white"/>
+        android:background="@drawable/rounded_edittext"
+        android:padding="10dp"/>
     
     <TextView
         android:id="@+id/createUserText"

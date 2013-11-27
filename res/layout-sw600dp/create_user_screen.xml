@@ -15,7 +15,8 @@
         android:inputType="textPassword"
         android:textSize="24sp" 
         android:maxLength="32"
-        android:background="@color/white"/>
+        android:background="@drawable/rounded_edittext"
+        android:padding="10dp"/>
 
     <EditText
         android:id="@+id/passwordTwo"
@@ -28,7 +29,8 @@
         android:inputType="textPassword"
         android:textSize="24sp" 
         android:maxLength="32"
-        android:background="@color/white"/>
+        android:background="@drawable/rounded_edittext"
+        android:padding="10dp"/>
 
     <EditText
         android:id="@+id/emailField"
@@ -42,7 +44,8 @@
         android:inputType="textEmailAddress"
         android:textSize="24sp" 
         android:maxLength="32"
-        android:background="@color/white">
+        android:background="@drawable/rounded_edittext"
+        android:padding="10dp">
         <requestFocus />
     </EditText>
 

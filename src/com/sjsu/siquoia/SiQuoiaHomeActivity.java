@@ -36,6 +36,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +53,8 @@ public class SiQuoiaHomeActivity extends Activity {
 	private Button continueButton, newGameButton, leaderboardButton, submitQuestionButton, quitButton;
 	private ProgressDialog progressBar;
 	private SharedPreferences preferences;
-	private final String USER_INFO_URL ="http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getUser.php";
+	private final String USER_INFO_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getUser.php";
+	private final String REDEEM_CODE_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getUser.php";
 	private TextView currentPointsTextView; 
 	protected User user;
 	private AlertDialog alertDialog;
@@ -195,6 +197,46 @@ public class SiQuoiaHomeActivity extends Activity {
 		alertDialog.show();	
 	}
 
+	/**
+	 * Displays a alert dialog for user to redeem a code
+	 */
+	public void showRedeemCodeAlert()
+	{
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		
+		alertDialogBuilder.setTitle("Redeem Code");
+		
+		alertDialogBuilder.setMessage("Redeeming a code and will override any uncompleted Quiz. Do you want to redeem a code?");
+		alertDialogBuilder.setCancelable(false);
+		
+		final EditText userInput = new EditText(this);
+		alertDialogBuilder.setView(userInput);
+		
+		//create "Yes" button
+		alertDialogBuilder.setPositiveButton("Enter Code", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {						
+					String input= userInput.getText().toString();
+					
+					new SiQuoiaRedeemCodeTask().execute(input);
+			}
+		});
+		
+		//create "No" button
+		alertDialogBuilder.setNegativeButton("Cancel",  new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();						
+			}					
+		});				
+		
+		//create and display alert dialog
+		alertDialog = alertDialogBuilder.create();
+		alertDialog.show();	
+	}
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -230,9 +272,7 @@ public class SiQuoiaHomeActivity extends Activity {
 				
 			//user is redeeming a code
 			case R.id.action_redeem:
-				Toast toast = Toast.makeText(getApplicationContext(), "To Be Implemented", Toast.LENGTH_SHORT);
-				toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-				toast.show();
+				showRedeemCodeAlert();
 				break;
 				
 			default:
@@ -286,6 +326,36 @@ public class SiQuoiaHomeActivity extends Activity {
     	return message;
     }
     
+    public String redeemCode(String code)
+    {
+    	//variables declared
+    	String message ="";
+    	HttpClient httpclient = new DefaultHttpClient();
+    	HttpPost httppost = new HttpPost(REDEEM_CODE_URL);
+    	
+    	try {
+    		//add user information to post
+        	List<NameValuePair> data = new ArrayList<NameValuePair>(1);    	
+        	data.add(new BasicNameValuePair("code", code));
+			httppost.setEntity(new UrlEncodedFormEntity(data));
+			
+			//set up response handler and execute post
+			ResponseHandler<String> handler = new BasicResponseHandler();
+			message = httpclient.execute(httppost,handler);
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+    	return message;
+    }
+    
     /**
      * This is the background task that will get the user's current information from the database.
      * @author Parnit Sainion
@@ -309,20 +379,8 @@ public class SiQuoiaHomeActivity extends Activity {
 			return getUser(input[0]);
 		}
 		
-		protected void onPostExecute(String result) {
-		
-				//get preferences
-				//SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
-				
-				//update user info
-				//SharedPreferences.Editor perferenceUpdater = preferences.edit();
-				
-				//commit preference changes
-				//perferenceUpdater.commit();
-			
-				//parser user Json into user object
-				user = SiQuoiaJSONParser.parseUser(result);	
-				
+		protected void onPostExecute(String result) {		
+				user = SiQuoiaJSONParser.parseUser(result);					
 			
 				//update user's quiz
 				preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
@@ -333,6 +391,55 @@ public class SiQuoiaHomeActivity extends Activity {
 
 		        //set Current points
 		        currentPointsTextView.setText("Current Points: " + user.getSiquoiaBucks());
+				
+				//close progress dialog
+				progressBar.dismiss();
+		}    	
+    }
+    
+    /**
+     * This is the background task that will get the user's current information from the database.
+     * @author Parnit Sainion
+     *
+     */
+    class SiQuoiaRedeemCodeTask extends AsyncTask<String, String, String>
+    {
+    	@Override
+		protected void onPreExecute() {
+			//create the progress dialog and display it
+    		progressBar = new ProgressDialog(SiQuoiaHomeActivity.this);
+			progressBar.setIndeterminate(true);
+			progressBar.setCancelable(false);
+			progressBar.setMessage("Redeeming Code");
+			progressBar.show();			
+		}
+    	
+    	@Override
+		protected String doInBackground(String... input) {
+    		//input[0] = code
+			return redeemCode(input[0]);
+		}
+		
+		protected void onPostExecute(String result) {		
+			
+				//if(!result.equalsIgnoreCase("[]"))
+				if(false)
+				{
+					//update user's quiz
+					preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
+					SharedPreferences.Editor perferenceUpdater = preferences.edit();
+					perferenceUpdater.putString(SiQuoiaHomeActivity.QUIZ, result);
+					perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, "");
+					perferenceUpdater.commit();
+					
+					Intent intent = new Intent();
+					intent.setClass(SiQuoiaHomeActivity.this, QuizActivity.class);
+					startActivity(intent);
+				}	
+				else{
+					Toast toast = Toast.makeText(getApplicationContext(), "Incorrect Code", Toast.LENGTH_SHORT);
+					toast.show();
+				}
 				
 				//close progress dialog
 				progressBar.dismiss();
