@@ -65,7 +65,7 @@ public class NewQuizActivity extends Activity {
 		//set view
 		setContentView(R.layout.new_quiz_layout);
 		
-		//intialize arrays
+		//initialize arrays
 		subjects = new ArrayList<String>();
 		topics = new ArrayList<String>();
 		subtopics = new ArrayList<String>();
@@ -81,6 +81,8 @@ public class NewQuizActivity extends Activity {
 		
 		//set listeners for  spinners
 		setItemChangeListeners();
+		
+		//create on click listener for the create button
 		createButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
@@ -88,7 +90,7 @@ public class NewQuizActivity extends Activity {
 				String topic = topicSpinner.getSelectedItem().toString().trim();
 				String subtopic = subtopicSpinner.getSelectedItem().toString().trim();	
 				
-				//execute background task
+				//execute background task to get quiz data
 				new SiQuoiaGetQuizTask().execute(subject, topic, subtopic);
 			}
 			
@@ -101,16 +103,19 @@ public class NewQuizActivity extends Activity {
 	 */
 	public void setItemChangeListeners()
 	{
+		//set on item selected listener for the subjects
 		subjectSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				String subject = subjectSpinner.getSelectedItem().toString();
+				
+				//if selected subject is not "Any", get topics for that subject
 				if(!subject.equalsIgnoreCase("Any"))
 				{
 					new SiQuoiaGetInfoTask().execute(TOPIC,subject);
 				}	
-				else
+				else //if selected subject is "Any", reset Topic and Subtopic lists
 				{
 					//set adapters topics
 					topics.clear();
@@ -135,16 +140,19 @@ public class NewQuizActivity extends Activity {
 			}	
 		});
 		
+		//set on item selected listener for the topics
 		topicSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				String topic = topicSpinner.getSelectedItem().toString();
+				
+				//if selected topic is  not "Any", get list of subtopics
 				if(!topic.equalsIgnoreCase("Any"))
 				{
 					new SiQuoiaGetInfoTask().execute(SUBTOPIC,subjectSpinner.getSelectedItem().toString(),topic);
 				}		
-				else
+				else //if selected topic is "Any"
 				{
 					//set adapters subtopic
 					subtopics.clear();
@@ -160,24 +168,12 @@ public class NewQuizActivity extends Activity {
 				// TODO Auto-generated method stub
 				
 			}			
-		});
-		
-		subtopicSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-				
-			}			
-		});
+		});		
 	}
 	
+	/**
+	 * @return JSON string containing subjects
+	 */
 	public String getSubject()
     {
     	//variables declared
@@ -190,9 +186,7 @@ public class NewQuizActivity extends Activity {
         	List<NameValuePair> data = new ArrayList<NameValuePair>(1);    	
         	data.add(new BasicNameValuePair("",""));
 			httppost.setEntity(new UrlEncodedFormEntity(data));
-			
-			//HttpResponse response = httpclient.execute(httppost);
-			
+						
 			ResponseHandler<String> handler = new BasicResponseHandler();
 			message = httpclient.execute(httppost,handler);
 			
@@ -209,6 +203,10 @@ public class NewQuizActivity extends Activity {
     	return message;
     }
 	
+	/**
+	 * @param subject subjects whose topic are required
+	 * @return JSON containing topics for given subject
+	 */
 	public String getTopic(String subject)
     {
     	//variables declared
@@ -222,8 +220,6 @@ public class NewQuizActivity extends Activity {
         	data.add(new BasicNameValuePair(SUBJECT,subject));
 			httppost.setEntity(new UrlEncodedFormEntity(data));
 			
-			//HttpResponse response = httpclient.execute(httppost);
-			
 			ResponseHandler<String> handler = new BasicResponseHandler();
 			message = httpclient.execute(httppost,handler);
 			
@@ -240,6 +236,12 @@ public class NewQuizActivity extends Activity {
     	return message;
     }
 	
+	/**
+	 * Gets subtopics based on subject and topi
+	 * @param subject over-arching subject whose subtopics are desired
+	 * @param topic topics whose subtopics are desired
+	 * @return JSON contain subtopics based on subject and topic
+	 */
 	public String getSubtopic(String subject, String topic)
     {
     	//variables declared
@@ -253,9 +255,7 @@ public class NewQuizActivity extends Activity {
         	data.add(new BasicNameValuePair(SUBJECT,subject));
         	data.add(new BasicNameValuePair(TOPIC,topic));
 			httppost.setEntity(new UrlEncodedFormEntity(data));
-			
-			//HttpResponse response = httpclient.execute(httppost);
-			
+						
 			ResponseHandler<String> handler = new BasicResponseHandler();
 			message = httpclient.execute(httppost,handler);
 			
@@ -272,6 +272,13 @@ public class NewQuizActivity extends Activity {
     	return message;
     }
 	
+	/**
+	 * gets quiz based on subject, topic and subtopic
+	 * @param subject subject of quiz
+	 * @param topic topic of quiz
+	 * @param subtopic subtopic of quiz
+	 * @return JSON  of quiz based on subject, topic and subtopic
+	 */
 	public String getQuiz(String subject, String topic, String subtopic)
     {
     	//variables declared
@@ -282,15 +289,14 @@ public class NewQuizActivity extends Activity {
 		SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
     	
     	try {
-    		//add user information to post
+    		//add user information  and subject, topic, and subtopic to post
         	List<NameValuePair> data = new ArrayList<NameValuePair>(3);    	
         	data.add(new BasicNameValuePair(SUBJECT,subject));
         	data.add(new BasicNameValuePair(TOPIC,topic));
         	data.add(new BasicNameValuePair(SUBTOPIC,subtopic));
         	data.add(new BasicNameValuePair(SiQuoiaHomeActivity.EMAIL,preferences.getString(SiQuoiaHomeActivity.EMAIL, "")));
 			httppost.setEntity(new UrlEncodedFormEntity(data));
-			
-			//HttpResponse response = httpclient.execute(httppost);			
+				
 			ResponseHandler<String> handler = new BasicResponseHandler();
 			quiz = httpclient.execute(httppost,handler);
 		} catch (UnsupportedEncodingException e) {
@@ -337,7 +343,7 @@ public class NewQuizActivity extends Activity {
 		
 		protected void onPostExecute(String result) {
 
-				if(task.equalsIgnoreCase(SUBJECT))
+				if(task.equalsIgnoreCase(SUBJECT)) //case where subject is changeg
     			{
 					//set subject topics
 					subjects = SiQuoiaJSONParser.parseSubject(result);
@@ -345,7 +351,6 @@ public class NewQuizActivity extends Activity {
 					subjectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					subjectSpinner.setAdapter(subjectAdapter);
 					
-
 					//set adapters topics
 					topics.clear();
 					topics.add("Any");
@@ -360,7 +365,7 @@ public class NewQuizActivity extends Activity {
 					subtopicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					subtopicSpinner.setAdapter(subtopicAdapter);					
     			}
-	    		else if(task.equalsIgnoreCase(TOPIC))
+	    		else if(task.equalsIgnoreCase(TOPIC)) //case where topic is changed
 	    		{
 	    			topics = SiQuoiaJSONParser.parseTopics(result);
 	    			topicAdapter = new ArrayAdapter<String>(newQuizActivity, android.R.layout.simple_list_item_1, topics);
@@ -373,8 +378,8 @@ public class NewQuizActivity extends Activity {
 	    			subtopicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    			subtopicSpinner.setAdapter(subtopicAdapter);
 	    		}
-	    		else
-	    		{
+	    		else //case where subtopic is changed
+	    		{ 
 	    			subtopics = SiQuoiaJSONParser.parseSubtopics(result);
 	    			subtopicAdapter = new ArrayAdapter<String>(newQuizActivity, android.R.layout.simple_list_item_1, subtopics);
 	    			subtopicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -387,8 +392,8 @@ public class NewQuizActivity extends Activity {
     }
     
     /**
-     * This is the background task that will get either the subject,topic or sub-topics from the database.
-     * @author Parnit Sainion
+     * This task gets a new quiz for the user based on user input of subject, topic, subtopic.
+     *  @author Parnit Sainion
      *
      */
     class SiQuoiaGetQuizTask extends AsyncTask<String, String, String>
