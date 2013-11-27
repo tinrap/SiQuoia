@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/home_background" >
 
         <Button
             android:id="@+id/newGameButton"
@@ -61,17 +62,17 @@
             android:padding="25dp"
             android:text="@string/continueString"
             android:textSize="32sp" />
-        
+
                 <TextView
-            android:id="@+id/currentPointsText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="13dp"
-            android:textSize="32sp"
-            android:textColor="@color/purple"
-            android:text="@string/currentPoints" />
+                    android:id="@+id/currentPointsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/continueButton"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="137dp"
+                    android:layout_marginRight="107dp"
+                    android:text="@string/currentPoints"
+                    android:textColor="@color/purple"
+                    android:textSize="32sp" />
 
 </RelativeLayout>

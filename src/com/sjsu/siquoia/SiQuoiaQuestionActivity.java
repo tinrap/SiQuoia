@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,6 +35,7 @@ public class SiQuoiaQuestionActivity extends Activity
     private TextView questionText, currentScoreTextView;
 	private SharedPreferences preferences;
 	private final String UPDATE_ANSWERS_URL ="http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/updateCurrentAns.php";
+	private final String UPDATE_RANK_URL ="http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/updateRank.php";
         
     
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,23 +92,23 @@ public class SiQuoiaQuestionActivity extends Activity
 					selectedQuestion.setStatus(Question.CORRECT);
 					currentAnswers =currentAnswers.concat(""+Question.CORRECT);
 					perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, currentAnswers);
+					intent.putExtra("chosenAnswer", 1);
+					new SiQuoiaUpdateTask().execute(SiQuoiaHomeActivity.QUESTION_TEXT, selectedQuestion.getQuestion());
+					
 				}
 				else
 				{
 					selectedQuestion.setStatus(Question.INCORRECT);
 					currentAnswers =currentAnswers.concat(""+Question.INCORRECT);
 					perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, currentAnswers);
+					intent.putExtra("chosenAnswer", 2);
 				}
 				
 				//commit preference changes
 				perferenceUpdater.commit();
 				
-				new SiQuoiaUpdateAnswerTask().execute(preferences.getString(SiQuoiaHomeActivity.EMAIL,""),currentAnswers);
+				new SiQuoiaUpdateTask().execute(SiQuoiaHomeActivity.ANSWERS, preferences.getString(SiQuoiaHomeActivity.EMAIL,""),currentAnswers);
 				
-				if(position==correctAnswer)
-					intent.putExtra("chosenAnswer", 1);
-				else
-					intent.putExtra("chosenAnswer", 2);
 			    intent.putExtra("position", selectedPosition);
 			    setResult(RESULT_OK, intent);
 			    finish();
@@ -117,6 +117,11 @@ public class SiQuoiaQuestionActivity extends Activity
         });
 	}
 	
+	/**
+	 * update users answers on database
+	 * @param email email of user
+	 * @param answers new answers of user
+	 */
 	public void updateAnswers(String email, String answers)
     {
     	//variables declared
@@ -147,33 +152,51 @@ public class SiQuoiaQuestionActivity extends Activity
 		}  
     }
 	
+	/**
+	 * updates rank of question on db
+	 * @param questionText question whose rank needs to be updated
+	 */
+	public void updateQuestionRank(String questionText)
+    {
+    	//variables declared
+    	HttpClient httpclient = new DefaultHttpClient();
+    	HttpPost httppost = new HttpPost(UPDATE_RANK_URL);
+    	
+    	try {
+    		//add user information to post
+        	List<NameValuePair> data = new ArrayList<NameValuePair>(1); 
+           	
+        	data.add(new BasicNameValuePair(SiQuoiaHomeActivity.QUESTION_TEXT,questionText));
+			httppost.setEntity(new UrlEncodedFormEntity(data));
+			httpclient.execute(httppost);
+			
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+    }
+	
 	 /**
      * This is the background task that will get the user's current information from the database.
      * @author Parnit Sainion
      *
      */
-    class SiQuoiaUpdateAnswerTask extends AsyncTask<String, String, String>
+    class SiQuoiaUpdateTask extends AsyncTask<String, String, String>
     {
     	
     	@Override
 		protected String doInBackground(String... input) {
-    		//input[0] = username
-			updateAnswers(input[0], input[1]);
-			Log.i("user", input[0]);
-			Log.i("ans", input[1]);
+    		if(input[0].equals(SiQuoiaHomeActivity.ANSWERS))
+    			updateAnswers(input[1], input[2]);
+    		else if(input[0].equals(SiQuoiaHomeActivity.QUESTION_TEXT))
+    			updateQuestionRank(input[1]);
 			return "";
-		}
-		
-		protected void onPostExecute(String result) {
-		
-				//get preferences
-				//SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
-				
-				//update user info
-				//SharedPreferences.Editor perferenceUpdater = preferences.edit();
-				
-				//commit preference changes
-				//perferenceUpdater.commit();				
-		}    	
+		} 	
     }
 }

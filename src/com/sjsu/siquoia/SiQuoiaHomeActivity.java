@@ -65,6 +65,7 @@ public class SiQuoiaHomeActivity extends Activity {
 	protected static final String QUIZ = "currentQuiz";
 	protected static final String ANSWERS = "currentAnswers";
 	protected static final String CURRENT_SCORE = "currentScore";
+	protected static final String QUESTION_TEXT = "questionText";
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {

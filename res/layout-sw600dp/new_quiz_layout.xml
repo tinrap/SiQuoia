@@ -44,16 +44,6 @@
         android:text="@string/selectSubTopic"
         android:textSize="20sp" />
 
-    <Spinner
-        android:id="@+id/subjectSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/newGameDesciption"
-        android:layout_marginTop="30dp"
-        android:layout_toRightOf="@+id/selectSubTopic"
-        android:layout_marginRight="10dp"/>
-
     <TextView
         android:id="@+id/selectTopic"
         android:layout_width="wrap_content"
@@ -82,5 +72,13 @@
         android:layout_marginTop="22dp"
         android:layout_toRightOf="@+id/selectSubTopic"
         android:text="@string/createQuiz" />
+
+    <Spinner
+        android:id="@+id/subjectSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newGameDesciption"
+        android:layout_marginTop="92dp"
+        android:layout_toRightOf="@+id/selectSubTopic" />
 
 </RelativeLayout>

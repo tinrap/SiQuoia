@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background" >
+    android:background="@drawable/home_background" >
 
         <Button
             android:id="@+id/newGameButton"
@@ -54,7 +54,7 @@
             android:layout_alignLeft="@+id/newGameButton"
             android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/newGameButton"
-            android:layout_marginTop="98dp"
+            android:layout_marginTop="105dp"
             android:padding="10dp"
             android:text="@string/continueString" />
 
@@ -62,12 +62,12 @@
             android:id="@+id/currentPointsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/continueButton"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="13dp"
-            android:textSize="18sp"
+            android:layout_marginBottom="51dp"
+            android:layout_marginRight="16dp"
+            android:text="@string/currentPoints"
             android:textColor="@color/purple"
-            android:text="@string/currentPoints" />
+            android:textSize="18sp" />
 
 </RelativeLayout>
