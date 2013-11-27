@@ -32,7 +32,7 @@ import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
- * @since 19 November 2013
+ * @since 26 November 2013
  *	Description: This activity is used for a user to login or create a new account.
  */
 public class SiQuoiaLoginActivity extends Activity 
@@ -191,9 +191,8 @@ public class SiQuoiaLoginActivity extends Activity
 				Toast toast = Toast.makeText(getApplicationContext(), "Incorrect Credentials" , Toast.LENGTH_SHORT);
 				toast.show();
 				
-				//empty both fields
+				//clear password field
 				passwordInput.setText("");
-				userNameInput.setText("");
 				
 				//close progress dialog
 				progressBar.dismiss();
