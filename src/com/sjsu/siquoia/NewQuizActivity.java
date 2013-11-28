@@ -295,6 +295,7 @@ public class NewQuizActivity extends Activity {
         	data.add(new BasicNameValuePair(TOPIC,topic));
         	data.add(new BasicNameValuePair(SUBTOPIC,subtopic));
         	data.add(new BasicNameValuePair(SiQuoiaHomeActivity.EMAIL,preferences.getString(SiQuoiaHomeActivity.EMAIL, "")));
+        	data.add(new BasicNameValuePair(SiQuoiaHomeActivity.PACKET_TYPE, SiQuoiaHomeActivity.NORMAL));
 			httppost.setEntity(new UrlEncodedFormEntity(data));
 				
 			ResponseHandler<String> handler = new BasicResponseHandler();

@@ -54,7 +54,7 @@ public class SiQuoiaHomeActivity extends Activity {
 	private ProgressDialog progressBar;
 	private SharedPreferences preferences;
 	private final String USER_INFO_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getUser.php";
-	private final String REDEEM_CODE_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getUser.php";
+	private final String REDEEM_CODE_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getBrandedQuestion.php";
 	private TextView currentPointsTextView; 
 	protected User user;
 	private AlertDialog alertDialog;
@@ -68,6 +68,9 @@ public class SiQuoiaHomeActivity extends Activity {
 	protected static final String ANSWERS = "currentAnswers";
 	protected static final String CURRENT_SCORE = "currentScore";
 	protected static final String QUESTION_TEXT = "questionText";
+	protected static final String PACKET_TYPE = "packetType";
+	protected static final String NORMAL = "normal";
+	protected static final String BRANDED = "branded";
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +105,7 @@ public class SiQuoiaHomeActivity extends Activity {
         continueButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {			
-				if(!preferences.getString(QUIZ, "").equalsIgnoreCase(""))
+				if(!preferences.getString(QUIZ, "").equalsIgnoreCase("")&&!preferences.getString(QUIZ, "").equalsIgnoreCase("[]"))
 				{
 					Intent intent = new Intent();
 					intent.setClass(SiQuoiaHomeActivity.this, QuizActivity.class);
@@ -258,6 +261,7 @@ public class SiQuoiaHomeActivity extends Activity {
 				perferenceUpdater.putString(SiQuoiaHomeActivity.EMAIL, "");
 				perferenceUpdater.putString(SiQuoiaHomeActivity.QUIZ, "");
 				perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, "");
+				perferenceUpdater.putString(SiQuoiaHomeActivity.PACKET_TYPE, "");
 				
 				
 				//commit preference changes
@@ -342,6 +346,7 @@ public class SiQuoiaHomeActivity extends Activity {
     		//add user information to post
         	List<NameValuePair> data = new ArrayList<NameValuePair>(1);    	
         	data.add(new BasicNameValuePair("code", code));
+        	data.add(new BasicNameValuePair(EMAIL, user.getEmail()));
 			httppost.setEntity(new UrlEncodedFormEntity(data));
 			
 			//set up response handler and execute post
@@ -390,8 +395,9 @@ public class SiQuoiaHomeActivity extends Activity {
 				//update user's quiz
 				preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
 				SharedPreferences.Editor perferenceUpdater = preferences.edit();
-				perferenceUpdater.putString(SiQuoiaHomeActivity.QUIZ, user.getCurrentQuiz());
-				perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, user.getAnswers());
+				perferenceUpdater.putString(QUIZ, user.getCurrentQuiz());
+				perferenceUpdater.putString(ANSWERS, user.getAnswers());
+				perferenceUpdater.putString(PACKET_TYPE, user.getPacketType());
 				perferenceUpdater.commit();
 
 		        //set Current points
@@ -427,14 +433,17 @@ public class SiQuoiaHomeActivity extends Activity {
 		
 		protected void onPostExecute(String result) {		
 			
-				//if(!result.equalsIgnoreCase("[]"))
-				if(false)
+				if(!result.equalsIgnoreCase("[]"))
 				{
 					//update user's quiz
 					preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
 					SharedPreferences.Editor perferenceUpdater = preferences.edit();
-					perferenceUpdater.putString(SiQuoiaHomeActivity.QUIZ, result);
-					perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, "");
+					perferenceUpdater.putString(QUIZ, result);
+					perferenceUpdater.putString(ANSWERS, "");
+					
+					//set packet type to Branded
+					perferenceUpdater.putString(PACKET_TYPE, BRANDED);
+					
 					perferenceUpdater.commit();
 					
 					Intent intent = new Intent();
