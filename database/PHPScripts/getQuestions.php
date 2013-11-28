@@ -51,6 +51,12 @@ if (isset($_POST['subject'])) {
     $stmt->bind_param("ds", $sillyVar, $email);
     $stmt->execute();
 
+    // Update the user's packet type to normal
+    $stmt = $link->prepare("update Users set packetType = ? where email = ?");
+    $type = "normal";
+    $stmt->bind_param("ss", $type, $email);
+    $stmt->execute();
+
     $result = $link->query($query);
     if ($result->num_rows !== false) {
         while ($row = $result->fetch_assoc()) {
