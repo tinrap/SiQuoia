@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@drawable/background">
 
     <TextView
-        android:id="@+id/currentScore"
+        android:id="@+id/leaderboardMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/currentScore"
-        android:textSize="20sp" 
-        android:gravity="right"/>
+        android:text="@string/leaderboardMessage"
+        android:textSize="20sp" />
 
     <ListView
-        android:id="@+id/quizList"
+        android:id="@+id/leaderboardList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/currentScore"
    	    android:padding="5dp"
    	    android:divider="@color/purple" 
    	    android:dividerHeight="1dp" >
-
     </ListView>
 
-</RelativeLayout>
+</LinearLayout>

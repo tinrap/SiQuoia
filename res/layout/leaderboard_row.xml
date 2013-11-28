@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/questionNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/questionNumber"
+        android:gravity="left"
+        android:padding="5dp"
+        android:textSize="20sp" />
+
+	<TextView
+	    android:id="@+id/questionText"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@+id/questionNumber"
+	    android:layout_alignBottom="@+id/questionNumber"
+	    android:layout_toLeftOf="@+id/rankText"
+	    android:layout_toRightOf="@+id/questionNumber"	    
+	    android:text="@string/question"
+        android:padding="5dp"
+	    android:textSize="20sp" />
+
+	<TextView
+	    android:id="@+id/rankText"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBottom="@+id/questionText"
+	    android:layout_alignParentRight="true"
+	    android:text="@string/rank"
+        android:padding="5dp"
+	    android:textSize="20sp" />
+	
+</RelativeLayout>

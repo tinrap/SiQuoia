@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 /**
  * @author Parnit Sainion
- * @since 27 November 2013
+ * @since 28 November 2013
  * Description: This class obtains the JSON and parsers it accordingly for subjects,topics,subtopics or the quiz itself.
  */
 public class SiQuoiaJSONParser {
@@ -199,6 +199,41 @@ public class SiQuoiaJSONParser {
 			e.printStackTrace();
 		}
 		return quiz;
+	}
+	
+	/**
+	 * parse the leader board JSON
+	 * @param json JSON representing leader board
+	 * @return ArrayList of questions for leader board
+	 */
+	public static ArrayList<Question> parseLeaderboard(String json)
+	{
+		//declare variables
+		ArrayList<Question> questions = new ArrayList<Question>();
+		JSONObject jsonObj = new JSONObject();
+		int size;
+		Question question;
+		
+		try {		
+			//convert JSON string to JSONArray
+			JSONArray jsonArray = new JSONArray(json);
+			
+			size = jsonArray.length();
+			
+			for( int count =0; count < size; )
+			{
+				question = new Question();
+				jsonObj = (JSONObject) jsonArray.get(count);
+				question.setQuestion(jsonObj.getString("questionText").toString());
+				question.setRank(jsonObj.getInt("rank"));
+				question.setTitle(count+". ");
+				questions.add(question);
+			}			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return questions;
 	}
 	
 	/**

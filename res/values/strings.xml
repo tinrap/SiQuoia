@@ -33,5 +33,8 @@
     <string name = "currentPoints">Current Points:</string>
     <string name = "question">Question Text</string>
     <string name = "describeVideo">What is shown in Video?</string>
-    <string name = "describeImage">What is shown in Image?</string>
+    <string name = "describeImage">What is shown in Image?</string>    
+    <string name = "questionNumber">X: </string>    
+    <string name = "rank">Rank</string>
+    <string name = "leaderboardMessage">Top Correctly Answered Questions:</string>
 </resources>
