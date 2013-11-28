@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"    
+    android:background="@drawable/home_background" >
 
     <EditText
         android:id="@+id/passwordField"
@@ -14,7 +15,9 @@
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:textSize="26sp" />
+        android:textSize="26sp" 
+        android:background="@drawable/rounded_edittext"
+        android:padding="10dp"/>
 
     <Button
         android:id="@+id/loginButton"
@@ -26,29 +29,34 @@
         android:text="@string/login" 
         android:textSize="22sp"/>
 
-    <EditText
-        android:id="@+id/usernameField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/passwordField"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="308dp"
-        android:ems="10"
-        android:hint="@string/username"
-        android:inputType="textPersonName"
-        android:textSize="26sp" />
-    
+   <EditText
+       android:id="@+id/usernameField"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentTop="true"
+       android:layout_alignRight="@+id/loginButton"
+       android:layout_marginTop="485dp"
+       android:background="@drawable/rounded_edittext"
+       android:padding="10dp"
+       android:ems="10"
+       android:hint="@string/username"
+       android:inputType="textPersonName"
+       android:textSize="26sp" >
+
+       <requestFocus />
+   </EditText>
+
    <TextView
-        android:id="@+id/createUserText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="51dp"
-        android:ems="10"
-        android:text="@string/createUser"
-        android:textSize="26sp" 
-        android:gravity="center"
-        android:textColor="@color/lightBlue"/>
+       android:id="@+id/createUserText"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignRight="@+id/loginButton"
+       android:layout_below="@+id/loginButton"
+       android:layout_marginTop="91dp"
+       android:ems="10"
+       android:gravity="center"
+       android:text="@string/createUser"
+       android:textColor="@color/white"
+       android:textSize="26sp" />
 
 </RelativeLayout>

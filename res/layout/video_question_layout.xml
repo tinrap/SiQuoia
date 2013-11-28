@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1" >    
+    
+    <TextView
+        android:id="@+id/currentScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="20sp"        
+        android:text="@string/currentScore" 
+        android:gravity="right"/>
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+   		android:layout_height="0dip"
+   		android:layout_weight=".5">
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" 
+            android:layout_alignParentBottom="true"/>
+
+        <ProgressBar
+            android:id="@+id/loadingBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />        
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/questionTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:text="@string/describeVideo"/>
+    
+    <ListView
+        android:id="@+id/answerList"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight=".5" 
+   	    android:padding="5dp"
+   	    android:divider="@color/purple" 
+   	    android:dividerHeight="1dp">
+    </ListView>
+
+</LinearLayout>

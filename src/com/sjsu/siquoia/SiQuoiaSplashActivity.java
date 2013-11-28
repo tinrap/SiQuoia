@@ -33,7 +33,7 @@ public class SiQuoiaSplashActivity extends Activity {
 		ImageView splashImageView = (ImageView) findViewById(R.id.splashImageView);
 		
 		//get splash image and set it to image view
-		Bitmap splashImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+		Bitmap splashImage = BitmapFactory.decodeResource(getResources(), R.drawable.splash_image);
 		splashImageView.setImageBitmap(splashImage);
 		
 		//get users info from app
