@@ -326,6 +326,11 @@ public class SiQuoiaHomeActivity extends Activity {
     	return message;
     }
     
+    
+    /**
+     * @param code code to redeem
+     * @return returns JSOn containing branded quiz
+     */
     public String redeemCode(String code)
     {
     	//variables declared

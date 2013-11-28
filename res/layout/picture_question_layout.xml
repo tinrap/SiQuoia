@@ -19,10 +19,17 @@
         android:layout_width="wrap_content"
         android:layout_height="0dip"
         android:layout_weight="0.50"
-        android:contentDescription="@string/questionImage"
-        
+        android:contentDescription="@string/questionImage"        
         android:src="@drawable/background" />
-
+    
+    <TextView
+        android:id="@+id/questionTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:text="@string/describeImage"/>
+    
     <ListView
         android:id="@+id/answerList"
         android:layout_width="match_parent"

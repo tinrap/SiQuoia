@@ -23,6 +23,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -30,7 +32,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.MediaController;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 /**
  * 
@@ -64,21 +69,46 @@ public class SiQuoiaQuestionActivity extends Activity
 		//get question text
 		String question = selectedQuestion.getQuestion();
 		
+		//test url for image
+		//question = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/images/branded9.png";
+		
+		//test url for video
+		question = "http://www.tools4movies.com/dvd_catalyst_profile_samples/Harold%20Kumar%203%20Christmas%20bionic.mp4";
+		
 		//set layout based on type of question
 		if(question.contains(".png"))
 		{
 			//set layout to image layout
-			setContentView(R.layout.picture_question_layout);
-			
-			//test url
-			question = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/images/branded9.png";
+			setContentView(R.layout.picture_question_layout);	
 			
 			new SiQuoiaDownloadImageTask().execute(question);				
 		}
 		else if(question.contains(".mp4"))
 		{
 			//set layout to video layout
-			setContentView(R.layout.picture_question_layout);
+			setContentView(R.layout.video_question_layout);
+			
+			VideoView videoView = (VideoView) findViewById(R.id.videoView);
+			
+			//set media controls
+			MediaController mediaController = new MediaController(this);
+			mediaController.setAnchorView(videoView);
+			videoView.setMediaController(mediaController);
+			
+			//set link to video	
+			Uri videoLink = Uri.parse(question);
+			videoView.setVideoURI(videoLink);
+			
+			videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+				@Override
+				public void onPrepared(MediaPlayer mp) {
+					ProgressBar loadingBar = (ProgressBar) findViewById(R.id.loadingBar);
+					loadingBar.setVisibility(View.INVISIBLE);					
+				}				
+			});			
+
+			//start video
+			videoView.start();
 		}
 		else
 		{

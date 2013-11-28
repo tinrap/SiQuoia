@@ -32,6 +32,6 @@
     <string name = "currentScore">Current Score: 0/20</string>
     <string name = "currentPoints">Current Points:</string>
     <string name = "question">Question Text</string>
-    
-
+    <string name = "describeVideo">What is shown in Video?</string>
+    <string name = "describeImage">What is shown in Image?</string>
 </resources>
