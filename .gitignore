@@ -5,3 +5,7 @@ local.properties
 bin
 gen
 database/PHPScripts/database_info.php
+out/*
+.idea/*
+SiQuoia.iml
+res/drawable
