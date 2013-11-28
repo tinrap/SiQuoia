@@ -73,7 +73,7 @@ public class SiQuoiaQuestionActivity extends Activity
 		//question = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/images/branded9.png";
 		
 		//test url for video
-		question = "http://www.tools4movies.com/dvd_catalyst_profile_samples/Harold%20Kumar%203%20Christmas%20bionic.mp4";
+		//question = "http://www.tools4movies.com/dvd_catalyst_profile_samples/Harold%20Kumar%203%20Christmas%20bionic.mp4";
 		
 		//set layout based on type of question
 		if(question.contains(".png"))
@@ -159,7 +159,10 @@ public class SiQuoiaQuestionActivity extends Activity
 					currentAnswers =currentAnswers.concat(""+Question.CORRECT);
 					perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, currentAnswers);
 					intent.putExtra("chosenAnswer", 1);
-					new SiQuoiaUpdateTask().execute(SiQuoiaHomeActivity.QUESTION_TEXT, selectedQuestion.getQuestion());
+					
+					//if the packet type is normal, update question rank
+					if(preferences.getString(SiQuoiaHomeActivity.PACKET_TYPE, SiQuoiaHomeActivity.NORMAL).equals(SiQuoiaHomeActivity.NORMAL))
+						new SiQuoiaUpdateTask().execute(SiQuoiaHomeActivity.QUESTION_TEXT, selectedQuestion.getQuestion());
 					
 				}
 				else

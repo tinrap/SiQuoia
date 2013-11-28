@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author Parnit Sainion
- * @since 20 Novemeber 2013
+ * @since 27 Novemeber 2013
  * Class create a user object and store his information.
  */
 public class User implements Serializable{
@@ -18,6 +18,7 @@ public class User implements Serializable{
 	private int packetsBought;
 	private int memorabiliaBought;
 	private int totalPointsSpent;
+	private String packetType;
 	
 	
 	
@@ -200,5 +201,22 @@ public class User implements Serializable{
 			packetsBought++;
 			return true;
 		}
+	}
+	
+	/**
+	 * set the packet type for current quiz
+	 * @param packetType type of packet, branded or normal
+	 */
+	public void setPacketType(String packetType)
+	{
+		this.packetType = packetType;
+	}
+	
+	/**
+	 * @return packet type for user's current quiz
+	 */
+	public String getPacketType()
+	{
+		return packetType;
 	}
 }

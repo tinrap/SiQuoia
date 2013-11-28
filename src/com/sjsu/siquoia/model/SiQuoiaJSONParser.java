@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 /**
  * @author Parnit Sainion
- * @since 20 November 2013
+ * @since 27 November 2013
  * Description: This class obtains the JSON and parsers it accordingly for subjects,topics,subtopics or the quiz itself.
  */
 public class SiQuoiaJSONParser {
@@ -45,6 +45,7 @@ public class SiQuoiaJSONParser {
 			user.setEmail(jsonObj.get("email").toString());
 			user.setCurrentQuiz(jsonObj.getString("currentQuiz").toString());
 			user.setAnswers(jsonObj.get("currentAns").toString());
+			user.setPacketType(jsonObj.get("packetType").toString());
 			user.setSequoiaBucks(Integer.parseInt(jsonObj.getString("siquoiaPoints").toString()));
 			user.setPacketsBought(Integer.parseInt(jsonObj.getString("packetsBought").toString()));
 			user.setMemorabiliaBought(Integer.parseInt(jsonObj.getString("memorabilia").toString()));
@@ -151,7 +152,7 @@ public class SiQuoiaJSONParser {
 	 * parses JSON into quiz list
 	 * @param json JSON contain quiz
 	 */
-	public static ArrayList<Question> parseQuiz(String json, String currentAnswers)
+	public static ArrayList<Question> parseQuiz(String json, String currentAnswers, String packetType)
 	{
 		//declare variables
 		ArrayList<Question> quiz = new ArrayList<Question>();
@@ -159,6 +160,7 @@ public class SiQuoiaJSONParser {
 		int size;
 		Question question;
 		int numOfAnswers = currentAnswers.length();
+		boolean isNormal = packetType.equalsIgnoreCase("normal");
 		
 		try {		
 			//convert JSON string to JSONArray
@@ -177,7 +179,9 @@ public class SiQuoiaJSONParser {
 				question.addChoice(jsonObj.getString("answerThree").toString());
 				question.addChoice(jsonObj.getString("answerFour").toString());
 				question.setCorrectChoice(jsonObj.getInt("correctAns") -1);
-				question.setRank(jsonObj.getInt("rank"));				
+				
+				if(isNormal)
+					question.setRank(jsonObj.getInt("rank"));				
 				
 				if(count < numOfAnswers)
 				{
