@@ -6,7 +6,8 @@ if (isset($_POST['points'])) {
     $email  = $_POST['email'];
 
     $stmt = $link->prepare("update Users set siquoiaPoints = siquoiaPoints + ? where email = ?");
-    $stmt->bind_param("ds", $points, $email);
+    $number = (int) $points;
+    $stmt->bind_param('ds', $number, $email);
     $stmt->execute();
 }
 ?>
