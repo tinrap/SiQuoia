@@ -163,7 +163,7 @@ public class SiQuoiaHomeActivity extends Activity {
 		
 		alertDialogBuilder.setTitle("Start New Game");
 		
-		alertDialogBuilder.setMessage("A new game cost 5 SiQuoia points and will override any uncompleted Quiz. Do you want to start a new Quiz?");
+		alertDialogBuilder.setMessage("A new game costs 5 SiQuoia points and will override any uncompleted Quiz. Do you want to start a new Quiz?");
 		alertDialogBuilder.setCancelable(false);
 		
 		//create "Yes" button
