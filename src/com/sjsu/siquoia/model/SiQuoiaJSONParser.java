@@ -220,14 +220,17 @@ public class SiQuoiaJSONParser {
 			
 			size = jsonArray.length();
 			
-			for( int count =0; count < size; )
+			for( int count =0; count < size;)
 			{
 				question = new Question();
 				jsonObj = (JSONObject) jsonArray.get(count);
 				question.setQuestion(jsonObj.getString("questionText").toString());
 				question.setRank(jsonObj.getInt("rank"));
-				question.setTitle(count+". ");
+				
+				//increment count and set title (so it starts with #1)
+				question.setTitle(++count +". ");
 				questions.add(question);
+				System.out.println(question.getTitle());
 			}			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

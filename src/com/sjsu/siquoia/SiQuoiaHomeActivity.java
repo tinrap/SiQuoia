@@ -69,6 +69,7 @@ public class SiQuoiaHomeActivity extends Activity {
 	protected static final String CURRENT_SCORE = "currentScore";
 	protected static final String QUESTION_TEXT = "questionText";
 	protected static final String PACKET_TYPE = "packetType";
+	protected static final int PACKET_LENGTH = 20;
 	protected static final String NORMAL = "normal";
 	protected static final String BRANDED = "branded";
 	
@@ -132,7 +133,9 @@ public class SiQuoiaHomeActivity extends Activity {
         leaderboardButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				Log.i("homeScreenButtons", "leaderboardButton clicked");				
+				Intent intent = new Intent();
+				intent.setClass(SiQuoiaHomeActivity.this, SiQuoiaLeaderboardActivity.class);
+				startActivity(intent);				
 			}        	
         });
         
@@ -289,10 +292,13 @@ public class SiQuoiaHomeActivity extends Activity {
     public void onResume()
     {
     	super.onResume();
+
     	
     	//set Current points
     	if(currentPointsTextView != null && user != null)
-        currentPointsTextView.setText("Current Points: " + user.getSiquoiaBucks());
+    	{    		
+    		currentPointsTextView.setText("Current Points: " + user.getSiquoiaBucks());
+    	}
     }
     
     /**

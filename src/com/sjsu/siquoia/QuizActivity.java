@@ -167,7 +167,7 @@ public class QuizActivity extends Activity {
          	}
          	
 	     	/**
-	     	 * If more questions are availble go directly to the next question.
+	     	 * If more questions are available go directly to the next question.
 	     	 */
 	     	if(size < QUIZ_SIZE) 
 	     	{

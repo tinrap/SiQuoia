@@ -37,8 +37,8 @@ public class SiQuoiaLeaderboardActivity extends Activity {
 	        
 	        //initialize variables
 	        questions = new ArrayList<Question>(); 
-
-	       
+	        
+	        new SiQuoiaGetLeaderboardTask().execute();	       
 		}
 		
 		/**
@@ -93,8 +93,6 @@ public class SiQuoiaLeaderboardActivity extends Activity {
 			}
 			
 			protected void onPostExecute(String result) {
-					
-					System.out.println(result);
 					
 					//parse leader board JSON
 					questions = SiQuoiaJSONParser.parseLeaderboard(result);

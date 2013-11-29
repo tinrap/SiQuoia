@@ -55,7 +55,7 @@ public class SiQuoiaLeaderboardAdapter extends ArrayAdapter<Question>
 				
 				//sets the question rank
 				TextView rank = (TextView) v.findViewById(R.id.rankText);
-				rank.setText(question.getRank());
+				rank.setText(question.getRank()+"");
 			}
 			
 			return v;
