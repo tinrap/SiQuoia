@@ -33,7 +33,7 @@ import android.widget.Toast;
 
 /**
  * @author Parnit Sainion
- * @since 27 November 2013
+ * @since 28 November 2013
  * Description: This activity displays a list of questions the use can select to answer
  */
 public class QuizActivity extends Activity {
@@ -157,10 +157,10 @@ public class QuizActivity extends Activity {
          		if(preferences.getString(SiQuoiaHomeActivity.PACKET_TYPE, SiQuoiaHomeActivity.NORMAL).equalsIgnoreCase(SiQuoiaHomeActivity.NORMAL))
          		{
              		//update current scores
-             		currentAnswers+="X";
              		SharedPreferences.Editor perferenceUpdater = preferences.edit();
     				perferenceUpdater.putString(SiQuoiaHomeActivity.CURRENT_SCORE, currentAnswers);
     				perferenceUpdater.commit();
+    				
     				
     				new SiQuoiaUpdatePointsTask().execute(preferences.getString(SiQuoiaHomeActivity.EMAIL,""), numberCorrect+"");    				
          		}

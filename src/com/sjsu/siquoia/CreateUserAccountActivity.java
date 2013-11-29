@@ -201,6 +201,7 @@ public class CreateUserAccountActivity extends Activity{
 				SharedPreferences preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);			
 				SharedPreferences.Editor perferenceUpdater = preferences.edit();
 				perferenceUpdater.putBoolean(SiQuoiaHomeActivity.LOGGED_IN, true);
+				perferenceUpdater.putString(SiQuoiaHomeActivity.EMAIL, email);
 				
 				//commit preference changes
 				perferenceUpdater.commit();	

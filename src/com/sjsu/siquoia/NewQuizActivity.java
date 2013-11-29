@@ -36,7 +36,7 @@ import android.widget.Spinner;
 
 /**
  * @author Parnit Sainion
- * @since 25 November 2013
+ * @since 28 November 2013
  * Description: THis activity allow the user to create a new quiz based on subject, topic, or subtopic.
  */
 public class NewQuizActivity extends Activity {
@@ -424,6 +424,7 @@ public class NewQuizActivity extends Activity {
 				SharedPreferences.Editor perferenceUpdater = preferences.edit();
 				perferenceUpdater.putString(SiQuoiaHomeActivity.QUIZ, quiz);
 				perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, "");
+				perferenceUpdater.putString(SiQuoiaHomeActivity.PACKET_TYPE, SiQuoiaHomeActivity.NORMAL);
 			
 				//commit preference changes
 				perferenceUpdater.commit();
