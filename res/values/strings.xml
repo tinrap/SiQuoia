@@ -3,7 +3,6 @@
 
     <string name= "app_name"> SiQuoia </string>
     <string name= "action_settings"> Settings </string>
-    <string name= "hello_world"> Hello world! </string>
     <string name = "username"> Username </string>
     <string name = "password"> Password </string>
     <string name = "email"> Email </string>
@@ -37,4 +36,10 @@
     <string name = "questionNumber">X: </string>    
     <string name = "rank">Rank</string>
     <string name = "leaderboardMessage">Top Correctly Answered Questions:</string>
+    <string name = "userProfile">User Profile</string>
+    <string name = "siquoiaPoints">SiQuoia Points:</string>
+    <string name = "packetsBought">Packets Bought:</string>
+    <string name = "memorabiliaBought">Memorabilia Bought:</string>    
+    <string name = "totalPointsSpent">Total Points Spent:</string>  
+    <string name = "totalPoints">Total Points Earned:</string>
 </resources>

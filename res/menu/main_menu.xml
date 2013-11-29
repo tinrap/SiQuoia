@@ -1,14 +1,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    
+    <item
+        android:id="@+id/action_user_profile"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/userProfile"/>     
 
     <item
         android:id="@+id/action_redeem"
-        android:orderInCategory="100"
+        android:orderInCategory="101"
         android:showAsAction="never"
         android:title="@string/action_redeem"/>
+       
     <item
         android:id="@+id/action_logout"
-        android:orderInCategory="101"
+        android:orderInCategory="102"
         android:showAsAction="never"
         android:title="@string/action_logout"/>
 

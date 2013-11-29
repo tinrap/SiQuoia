@@ -230,7 +230,6 @@ public class SiQuoiaJSONParser {
 				//increment count and set title (so it starts with #1)
 				question.setTitle(++count +". ");
 				questions.add(question);
-				System.out.println(question.getTitle());
 			}			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

@@ -62,6 +62,7 @@ public class SiQuoiaHomeActivity extends Activity {
 	//preferences
 	protected static final String SIQUOIA_PREF = "SiquoiaPref";
 	protected static final String LOGGED_IN = "loggedIn";
+	protected static final String USER = "user";
 	protected static final String NEW_USER = "newUser";
 	protected static final String EMAIL = "email";
 	protected static final String QUIZ = "currentQuiz";
@@ -254,6 +255,7 @@ public class SiQuoiaHomeActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
+    	Intent intent;
 		switch(item.getItemId())
 		{
 			//user wants to log out
@@ -272,7 +274,7 @@ public class SiQuoiaHomeActivity extends Activity {
 				perferenceUpdater.commit();
 				
 				//finish this activity and take user to login screen
-				Intent intent = new Intent();
+				intent = new Intent();
 	        	intent.setClass(SiQuoiaHomeActivity.this, SiQuoiaLoginActivity.class);
 	        	startActivity(intent);
 	        	finish();
@@ -281,6 +283,13 @@ public class SiQuoiaHomeActivity extends Activity {
 			//user is redeeming a code
 			case R.id.action_redeem:
 				showRedeemCodeAlert();
+				break;
+				
+			case R.id.action_user_profile:
+				intent = new Intent();
+				intent.putExtra(USER, user);
+				intent.setClass(SiQuoiaHomeActivity.this, UserProfileActivity.class);
+				startActivity(intent);
 				break;
 				
 			default:
