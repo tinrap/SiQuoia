@@ -72,6 +72,7 @@ public class SiQuoiaHomeActivity extends Activity {
 	protected static final int PACKET_LENGTH = 20;
 	protected static final String NORMAL = "normal";
 	protected static final String BRANDED = "branded";
+	protected static final String SIQUOIA_POINTS = "points";
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -296,8 +297,9 @@ public class SiQuoiaHomeActivity extends Activity {
     	
     	//set Current points
     	if(currentPointsTextView != null && user != null)
-    	{    		
-    		currentPointsTextView.setText("Current Points: " + user.getSiquoiaBucks());
+    	{   
+    		preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
+    		currentPointsTextView.setText("Current Points: " + preferences.getInt(SIQUOIA_POINTS, 0));
     	}
     }
     
@@ -404,6 +406,7 @@ public class SiQuoiaHomeActivity extends Activity {
 				perferenceUpdater.putString(QUIZ, user.getCurrentQuiz());
 				perferenceUpdater.putString(ANSWERS, user.getAnswers());
 				perferenceUpdater.putString(PACKET_TYPE, user.getPacketType());
+				perferenceUpdater.putInt(SIQUOIA_POINTS, user.getSiquoiaBucks());
 				perferenceUpdater.commit();
 
 		        //set Current points

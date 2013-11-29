@@ -425,6 +425,10 @@ public class NewQuizActivity extends Activity {
 				perferenceUpdater.putString(SiQuoiaHomeActivity.QUIZ, quiz);
 				perferenceUpdater.putString(SiQuoiaHomeActivity.ANSWERS, "");
 				perferenceUpdater.putString(SiQuoiaHomeActivity.PACKET_TYPE, SiQuoiaHomeActivity.NORMAL);
+				
+				//decrease users points by 5
+				perferenceUpdater.putInt(SiQuoiaHomeActivity.SIQUOIA_POINTS, preferences.getInt(SiQuoiaHomeActivity.SIQUOIA_POINTS, 0)-5);
+				
 			
 				//commit preference changes
 				perferenceUpdater.commit();

@@ -159,6 +159,9 @@ public class QuizActivity extends Activity {
              		//update current scores
              		SharedPreferences.Editor perferenceUpdater = preferences.edit();
     				perferenceUpdater.putString(SiQuoiaHomeActivity.CURRENT_SCORE, currentAnswers);
+
+    				//update users total points
+    				perferenceUpdater.putInt(SiQuoiaHomeActivity.SIQUOIA_POINTS, preferences.getInt(SiQuoiaHomeActivity.SIQUOIA_POINTS, 0)+numberCorrect);
     				perferenceUpdater.commit();
     				
     				
