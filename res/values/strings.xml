@@ -42,4 +42,8 @@
     <string name = "memorabiliaBought">Memorabilia Bought:</string>    
     <string name = "totalPointsSpent">Total Points Spent:</string>  
     <string name = "totalPoints">Total Points Earned:</string>
+    
+    <string name = "quizResults">Quiz Results</string>
+    <string name = "numberCorrect">Number Correct:</string>    
+    <string name = "percentCorrect">Percent Correct:</string>
 </resources>

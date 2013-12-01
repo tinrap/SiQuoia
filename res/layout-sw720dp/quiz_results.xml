@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background" >
+
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:gravity = "center"
+         android:padding="10dp"
+         android:text="@string/quizResults"
+         android:textSize="28sp" 
+         android:textColor="@color/white"
+         android:textStyle="bold"/>
+     
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        
+        <TextView
+            android:id="@+id/numberCorrectTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/numberCorrect"
+            android:padding="10dp"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/numberCorrect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="21dp"
+            android:layout_toRightOf="@+id/numberCorrectTextView"
+            android:text="@string/numberCorrect"
+            android:gravity="right"
+            android:padding="10dp"
+            android:textSize="28sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/percentCorrectTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/percentCorrect" 
+            android:padding="10dp"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/percentCorrect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/percentCorrectTextView"
+            android:text="@string/percentCorrect"
+            android:gravity="right"
+            android:padding="10dp"
+            android:textSize="28sp" />
+    </RelativeLayout>
+    
+    
+             
+     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/totalPointsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/totalPoints" 
+            android:padding="10dp"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/totalPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/totalPointsTextView"
+            android:text="@string/totalPoints"
+            android:gravity="right"
+            android:padding="10dp"
+            android:textSize="28sp" />
+    </RelativeLayout>
+
+</LinearLayout>

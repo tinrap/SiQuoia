@@ -73,6 +73,15 @@ public class QuizActivity extends Activity {
 		currentScoreTextView.setText("Current Score: "+numberCorrect+"/20");
 		currentScoreTextView.refreshDrawableState();
 		
+		if(currentAnswers.length() == QUIZ_SIZE)
+		{
+			Intent intent= new Intent();
+			intent.setClass(QuizActivity.this, QuizResultsActivity.class);
+			intent.putExtra(SiQuoiaHomeActivity.CURRENT_SCORE, numberCorrect);
+			startActivity(intent);
+			finish();
+		}
+		
 		//parses the stored quiz into arraylist
 		quiz = SiQuoiaJSONParser.parseQuiz(quizJson,currentAnswers,packetType);
 		
@@ -167,6 +176,12 @@ public class QuizActivity extends Activity {
     				
     				new SiQuoiaUpdatePointsTask().execute(preferences.getString(SiQuoiaHomeActivity.EMAIL,""), numberCorrect+"");    				
          		}
+         		
+         		Intent intent= new Intent();
+    			intent.setClass(QuizActivity.this, QuizResultsActivity.class);
+    			intent.putExtra(SiQuoiaHomeActivity.CURRENT_SCORE, numberCorrect);
+    			startActivity(intent);
+    			finish();
          	}
          	
 	     	/**
