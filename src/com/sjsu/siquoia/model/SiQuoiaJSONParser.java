@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 
 /**
  * @author Parnit Sainion
@@ -191,6 +193,8 @@ public class SiQuoiaJSONParser {
 				
 				//increment count and set question title
 				question.setTitle("Question "+ (++count));
+				
+				Log.i(question.getTitle(),question.getQuestion());
 				
 				quiz.add(question);
 			}			

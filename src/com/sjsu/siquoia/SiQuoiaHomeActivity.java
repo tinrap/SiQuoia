@@ -451,7 +451,7 @@ public class SiQuoiaHomeActivity extends Activity {
 		
 		protected void onPostExecute(String result) {		
 			
-				if(!result.equalsIgnoreCase("[]"))
+				if(!result.trim().equalsIgnoreCase("[]"))
 				{
 					//update user's quiz
 					preferences = getSharedPreferences(SiQuoiaHomeActivity.SIQUOIA_PREF, 0);
