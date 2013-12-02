@@ -9,7 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 
 
 /**
@@ -193,9 +192,7 @@ public class SiQuoiaJSONParser {
 				
 				//increment count and set question title
 				question.setTitle("Question "+ (++count));
-				
-				Log.i(question.getTitle(),question.getQuestion());
-				
+								
 				quiz.add(question);
 			}			
 		} catch (JSONException e) {

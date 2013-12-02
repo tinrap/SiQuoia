@@ -37,7 +37,7 @@ public class SiQuoiaLeaderboardAdapter extends ArrayAdapter<Question>
 			{
 				//inflate new question row
 				LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				v = vi.inflate(R.layout.leaderboard_row, null, false);
+				v = vi.inflate(R.layout.leaderboard_row, parent, false);
 			}  		 		
 			
 			//get Question object

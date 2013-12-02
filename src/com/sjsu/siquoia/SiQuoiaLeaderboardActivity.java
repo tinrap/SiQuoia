@@ -98,7 +98,7 @@ public class SiQuoiaLeaderboardActivity extends Activity {
 					questions = SiQuoiaJSONParser.parseLeaderboard(result);
 					
 					//sets my listAdapter to the list
-			        leaderboardAdapter = new SiQuoiaLeaderboardAdapter(SiQuoiaLeaderboardActivity.this,R.layout.leaderboard_row,questions);
+			        leaderboardAdapter = new SiQuoiaLeaderboardAdapter(SiQuoiaLeaderboardActivity.this,R.layout.leaderboard_list,questions);
 			        leaderboardList = (ListView) findViewById(R.id.leaderboardList);
 			        leaderboardList.setAdapter(leaderboardAdapter); 
 					
