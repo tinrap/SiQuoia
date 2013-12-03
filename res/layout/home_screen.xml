@@ -13,7 +13,8 @@
             android:layout_below="@+id/continueButton"
             android:layout_marginTop="22dp"
             android:text="@string/newGame"
-            android:padding="10dp"  />
+            android:padding="10dp"
+            android:background="@color/transparentWhite"  />
 
         <Button
             android:id="@+id/submitQuesButton"
@@ -23,7 +24,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="36dp"
             android:text="@string/submitQuestion"
-            android:padding="10dp"  />
+            android:padding="10dp"
+            android:background="@color/transparentWhite"  />
 
         <Button
             android:id="@+id/leaderboardButton"
@@ -34,7 +36,8 @@
             android:layout_below="@+id/submitQuesButton"
             android:layout_marginTop="33dp"
             android:text="@string/leaderboard"
-            android:padding="10dp"  />
+            android:padding="10dp"
+            android:background="@color/transparentWhite"  />
 
         <Button
             android:id="@+id/quitButton"
@@ -45,7 +48,8 @@
             android:layout_below="@+id/leaderboardButton"
             android:layout_marginTop="26dp"
             android:padding="10dp"
-            android:text="@string/quit" />
+            android:text="@string/quit"
+            android:background="@color/transparentWhite" />
 
         <Button
             android:id="@+id/continueButton"
@@ -56,7 +60,8 @@
             android:layout_alignRight="@+id/newGameButton"
             android:layout_marginTop="105dp"
             android:padding="10dp"
-            android:text="@string/continueString" />
+            android:text="@string/continueString"
+            android:background="@color/transparentWhite" />
 
         <TextView
             android:id="@+id/currentPointsText"

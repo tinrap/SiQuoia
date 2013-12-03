@@ -54,7 +54,8 @@
         android:layout_alignRight="@+id/passwordTwo"
         android:layout_below="@+id/passwordTwo"
         android:layout_marginTop="28dp"
-        android:text="@string/create" />
+        android:text="@string/create"
+        android:background="@color/transparentWhite" />
 
     <TextView
         android:id="@+id/enterEmail"

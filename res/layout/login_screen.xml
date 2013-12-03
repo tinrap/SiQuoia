@@ -43,7 +43,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/passwordField"
         android:layout_marginBottom="173dp"
-        android:text="@string/login" />
+        android:text="@string/login"
+        android:background="@color/transparentWhite" />
 
     <TextView
         android:id="@+id/createUserText"

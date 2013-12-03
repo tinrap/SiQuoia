@@ -80,6 +80,8 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="61dp"
         android:layout_toRightOf="@+id/selectSubTopic"
-        android:text="@string/createQuiz" />
+        android:text="@string/createQuiz"
+        android:padding="10dp"
+        android:background="@color/transparentWhite" />
 
 </RelativeLayout>

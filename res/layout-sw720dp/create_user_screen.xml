@@ -57,7 +57,8 @@
         android:layout_below="@+id/passwordTwo"
         android:layout_marginTop="28dp"
         android:text="@string/create" 
-        android:textSize="28sp" />
+        android:textSize="28sp" 
+        android:background="@color/transparentWhite"/>
 
     <TextView
         android:id="@+id/enterPass2"

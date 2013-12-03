@@ -81,6 +81,8 @@
         android:layout_below="@+id/subtopicSpinner"
         android:layout_marginTop="22dp"
         android:layout_toRightOf="@+id/selectSubTopic"
-        android:text="@string/createQuiz" />
+        android:text="@string/createQuiz"
+        android:padding="10dp"
+        android:background="@color/transparentWhite" />
 
 </RelativeLayout>

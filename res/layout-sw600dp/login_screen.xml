@@ -27,7 +27,8 @@
         android:layout_below="@+id/passwordField"
         android:layout_marginTop="36dp"
         android:text="@string/login" 
-        android:textSize="22sp"/>
+        android:textSize="22sp"
+        android:background="@color/transparentWhite"/>
 
     <EditText
         android:id="@+id/usernameField"
