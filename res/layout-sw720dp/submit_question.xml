@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background" >
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="7dp"
+    android:orientation="vertical">
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:text="@string/submitQuestionText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:text="@string/question" />
+
+    <EditText
+        android:id="@+id/questionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:inputType="text"
+        android:background="@color/transparentWhite"
+        android:hint="@string/question"/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:text="@string/answerOne" />
+
+    <EditText
+        android:id="@+id/answerOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:inputType="text"
+        android:background="@color/transparentWhite"
+        android:hint="@string/answerOne"/> 
+           
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:text="@string/answerTwo" />
+
+    <EditText
+        android:id="@+id/answerTwo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:inputType="text"
+        android:background="@color/transparentWhite"
+        android:hint="@string/answerTwo"/>
+               
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:text="@string/answerThree" />
+
+    <EditText
+        android:id="@+id/answerThree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:inputType="text"
+        android:background="@color/transparentWhite"
+        android:hint="@string/answerThree"/>    
+                   
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:text="@string/answerFour" />
+
+    <EditText
+        android:id="@+id/answerFour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:inputType="text"
+        android:background="@color/transparentWhite"
+        android:hint="@string/answerFour"/>  
+                   
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:text="@string/correctAnswer" />
+
+    <EditText
+        android:id="@+id/correctAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparentWhite"
+        android:ems="10"
+        android:hint="@string/correctAnswer"
+        android:inputType="text"
+        android:padding="7dp"
+        android:textSize="24sp" />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:text="@string/subject" />
+
+    <EditText
+        android:id="@+id/subject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparentWhite"
+        android:ems="10"
+        android:hint="@string/subject"
+        android:inputType="text"
+        android:padding="7dp"
+        android:textSize="24sp" />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:text="@string/topic" />
+
+    <EditText
+        android:id="@+id/topic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparentWhite"
+        android:ems="10"
+        android:hint="@string/topic"
+        android:inputType="text"
+        android:padding="7dp"
+        android:textSize="24sp" />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:textSize="24sp"
+        android:text="@string/subtopic" />
+
+    <EditText
+        android:id="@+id/subtopic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparentWhite"
+        android:ems="10"
+        android:hint="@string/subtopic"
+        android:inputType="text"
+        android:padding="7dp"
+        android:textSize="24sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
+
+	    <Button
+	        android:id="@+id/submitButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_centerVertical="true"
+	        android:background="@color/transparentWhite"
+	        android:padding="7dp"
+	        android:text="@string/submit" />
+    </RelativeLayout>
+
+
+	</LinearLayout>	
+</ScrollView>

@@ -46,4 +46,15 @@
     <string name = "quizResults">Quiz Results</string>
     <string name = "numberCorrect">Number Correct:</string>    
     <string name = "percentCorrect">Percent Correct:</string>
+    <string name = "submitQuestionText">Enter question information:</string>
+    
+    <string name = "answerOne">First Answer:</string>
+    <string name = "answerTwo">Second Answer:</string>
+    <string name = "answerThree">Third Answer:</string>
+    <string name = "answerFour">Fourth Answer:</string>
+    <string name = "correctAnswer">Current Answer Number:</string>
+    <string name = "submit">Submit Question</string>
+    <string name = "subject">Subject</string>
+    <string name = "topic">Topic</string>
+    <string name = "subtopic">Subtopic</string>
 </resources>

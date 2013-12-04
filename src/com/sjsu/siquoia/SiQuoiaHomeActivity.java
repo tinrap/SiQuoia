@@ -29,7 +29,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -145,7 +144,9 @@ public class SiQuoiaHomeActivity extends Activity {
         submitQuestionButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
-				Log.i("homeScreenButtons", "submitQuestionButton clicked");				
+				Intent intent = new Intent();
+				intent.setClass(SiQuoiaHomeActivity.this, SubmitQuestionActivity.class);
+				startActivity(intent);					
 			}        	
         });
         
