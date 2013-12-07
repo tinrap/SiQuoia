@@ -57,7 +57,12 @@ public class SubmitQuestionActivity extends Activity {
 						intent.putExtra(Intent.EXTRA_EMAIL, EMAIL);
 						intent.putExtra(Intent.EXTRA_SUBJECT, SUBJECT);
 						intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(message)).toString();
-						startActivity(intent);
+						try{
+
+							startActivity(Intent.createChooser(intent, "Choose Email"));
+						}catch(android.content.ActivityNotFoundException exception){
+							Toast.makeText(getApplicationContext(), "No Email Client Found", Toast.LENGTH_SHORT).show();
+						}
 												
 						//finish this activity
 						finish();
