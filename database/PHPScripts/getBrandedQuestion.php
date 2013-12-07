@@ -9,8 +9,8 @@ if (isset($_POST['code'])) {
     $json = array();
 
     $query = "select * from BrandedQuestion where code = '" . "$code" . "'";
-    $result = $link->query($query);
 
+    $result = $link->query($query);
     if ($result->num_rows !== false) {
         while ($row = $result->fetch_assoc()) {
             array_push($json, $row);
@@ -19,20 +19,21 @@ if (isset($_POST['code'])) {
     }
 
     // Update current Quiz
-    $query = "update `Users` set currentQuiz = '" . json_encode($json);
-    $query .= "'" . "where email = '" . "$email" . "'";
-    $link->query($query);
+    $stmt = $link->prepare("update Users set currentQuiz = ? where email = ?");
+    $stmt->bind_param("ss", json_encode($json), $email);
+    $stmt->execute();
 
     // Update current Ans
-    $query = "update `Users` set currentAns = '" . "'";
-    $query .= "where email = '" . "$email" . "'";
-    $link->query($query);
+    $stmt = $link->prepare("update Users set currentAns = ? where email = ?");
+    $sillyVar = "";
+    $stmt->bind_param("ss", $sillyVar, $email);
+    $stmt->execute();
 
     // Update user's packet type "branded"
     $type = "branded";
-    $query = "update `Users` set packetType = '" . "$type";
-    $query .= "'" . "where email = '" . "$email" . "'";
-    $link->query($query);
+    $stmt = $link->prepare("update Users set packetType = ? where email = ?");
+    $stmt->bind_param("s", $type, $email);
+    $stmt->execute();
 }
 ?>
 
