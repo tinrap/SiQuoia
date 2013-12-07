@@ -13,6 +13,15 @@
         android:text="@string/currentScore"
         android:textSize="20sp" 
         android:gravity="right"/>
+    
+    <TextView
+        android:id="@+id/questionNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="20sp"        
+        android:text="@string/question" 
+        android:gravity="left"/>
 
     <ImageView
         android:id="@+id/questionImage"

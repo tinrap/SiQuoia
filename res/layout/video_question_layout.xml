@@ -14,6 +14,15 @@
         android:text="@string/currentScore" 
         android:gravity="right"/>
     
+   <TextView
+        android:id="@+id/questionNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="20sp"        
+        android:text="@string/question" 
+        android:gravity="left"/>
+    
     <RelativeLayout 
         android:layout_width="match_parent"
    		android:layout_height="0dip"
@@ -38,7 +47,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/questionTest"
+        android:id="@+id/questionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"

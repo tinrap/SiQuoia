@@ -43,7 +43,7 @@ import android.widget.VideoView;
  * @since 27 November 2013
  *  Description: This activity displays the question for the user to answer.
  */
-public class SiQuoiaQuestionActivity extends Activity 
+public class SiQuoiaQuestionActivity extends Activity implements MediaController.MediaPlayerControl
 {
 	private ListView myListView;
     private static ArrayAdapter<String> myAdapter;
@@ -69,11 +69,15 @@ public class SiQuoiaQuestionActivity extends Activity
 		//get question text
 		String question = selectedQuestion.getQuestion();
 		
+		
 		//test url for image
 		//question = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/images/branded9.png";
 		
 		//test url for video
 		//question = "http://www.tools4movies.com/dvd_catalyst_profile_samples/Harold%20Kumar%203%20Christmas%20bionic.mp4";
+		
+		//test url for audio
+		//question = "http://www.glowingpigs.com/audioclip/10.mp3";
 		
 		//set layout based on type of question
 		if(question.contains(".png"))
@@ -83,13 +87,19 @@ public class SiQuoiaQuestionActivity extends Activity
 			
 			new SiQuoiaDownloadImageTask().execute(question);				
 		}
-		else if(question.contains(".mp4"))
+		else if(question.contains(".mp4")||question.contains(".mp3"))
 		{
 			//set layout to video layout
 			setContentView(R.layout.video_question_layout);
 			
-			VideoView videoView = (VideoView) findViewById(R.id.videoView);
+			if(question.contains(".mp3"))
+			{
+				 questionText = (TextView) findViewById(R.id.questionText);
+				 questionText.setText("Answer Based On Audio.");	
+			}
 			
+			VideoView videoView = (VideoView) findViewById(R.id.videoView);
+
 			//set media controls
 			MediaController mediaController = new MediaController(this);
 			mediaController.setAnchorView(videoView);
@@ -109,7 +119,7 @@ public class SiQuoiaQuestionActivity extends Activity
 
 			//start video
 			videoView.start();
-		}
+		}	
 		else
 		{
 			//set layout to question text
@@ -123,6 +133,10 @@ public class SiQuoiaQuestionActivity extends Activity
 		//set current Score
 		currentScoreTextView = (TextView) findViewById(R.id.currentScore);
 		currentScoreTextView.setText("Current Score: " + currentScore + "/20");		
+		
+
+		TextView questionNumber = (TextView) findViewById(R.id.questionNum);
+		questionNumber.setText("Question "+ (selectedPosition + 1) +":");
 				
 		//gets the listview
 		myListView = (ListView) findViewById(R.id.answerList);
@@ -310,4 +324,64 @@ public class SiQuoiaQuestionActivity extends Activity
 			progressDialog.dismiss();
     	}
     }
+
+	@Override
+	public boolean canPause() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canSeekBackward() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canSeekForward() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int getBufferPercentage() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getCurrentPosition() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDuration() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean isPlaying() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void seekTo(int pos) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -12,19 +12,16 @@
         android:text="@string/currentScore"
         android:textSize="20sp" 
         android:gravity="right"/>
-
-   	<TextView
-   	    android:id="@+id/questionText"
-   	    android:layout_width="match_parent"
-   	    android:layout_height="wrap_content"
-   	    android:layout_alignParentLeft="true"
-   	    android:layout_alignParentTop="true"
-   	    android:layout_marginTop="45dp"
-   	    android:padding="10dp"
-   	    android:text="@string/question"
-   	    android:textStyle="bold"
-   	    android:textSize="20sp"
-   	    android:textColor="@color/purple" />
+    
+    <TextView
+        android:id="@+id/questionNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/currentScore"
+        android:gravity="left"
+        android:padding="10dp"
+        android:text="@string/question"
+        android:textSize="20sp" />
 
    	<ListView
    	    android:id="@+id/answerList"
@@ -37,5 +34,17 @@
    	    android:dividerHeight="1dp">
 
    	</ListView>
+
+   	<TextView
+   	    android:id="@+id/questionText"
+   	    android:layout_width="match_parent"
+   	    android:layout_height="wrap_content"
+   	    android:layout_alignParentLeft="true"
+   	    android:layout_below="@+id/questionNum"
+   	    android:padding="10dp"
+   	    android:text="@string/question"
+   	    android:textColor="@color/purple"
+   	    android:textSize="20sp"
+   	    android:textStyle="bold" />
     
    </RelativeLayout>
