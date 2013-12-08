@@ -1,4 +1,8 @@
 <?php
+/**
+ * Author: Akshay Hegde
+ * Last Modified: 7 December 2013
+ */
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
 require_once('database_info.php');
