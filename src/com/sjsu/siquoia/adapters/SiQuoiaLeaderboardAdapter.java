@@ -15,11 +15,11 @@ import com.sjsu.siquoia.model.Question;
 /** 
  * @author Parnit Sainion
  * @since 28 November 2013
- * Description: This adapter takes an arraylist of questions and sets them to the listview
+ * Description: This adapter takes an arraylist of questions for leaderboard and sets them to the listview
  */
 public class SiQuoiaLeaderboardAdapter extends ArrayAdapter<Question>
 	{	
-		//dec'are variable
+		//declare variable
 		private ArrayList<Question> questions;
 		
 		public SiQuoiaLeaderboardAdapter(Context context, int textViewResourceId, ArrayList<Question> questions)

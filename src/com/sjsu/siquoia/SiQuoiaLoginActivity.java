@@ -66,7 +66,7 @@ public class SiQuoiaLoginActivity extends Activity
 			@Override
 			public void onClick(View arg0) 
 			{
-				//get inputer username and password
+				//get inputed username and password
 				email = userNameInput.getText().toString().trim();
 				String password = passwordInput.getText().toString().trim();
 				

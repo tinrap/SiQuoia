@@ -8,18 +8,23 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
+/**
+ * @author Parnit Sainion
+ * @since 8 December 2013
+ * Description: This activity displays the logged in user's information.
+ *
+ */
 public class UserProfileActivity extends Activity {
 
 	//Declare variable
 	private TextView email, siquoiaPoints, packetsBought, memorabiliaBought, totalPointsSpent, totalPoints; 
 	private final int INITIAL_POINTS = 20;
+	private int totalPointsEarned;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_profile_screen);
-		
-		int totalPointsEarned;
 	
 		//get textviews
 		email = (TextView) findViewById(R.id.email);
@@ -29,7 +34,7 @@ public class UserProfileActivity extends Activity {
 		totalPointsSpent = (TextView) findViewById(R.id.totalPointsSpent);
 		totalPoints = (TextView) findViewById(R.id.totalPoints);
 		
-		//get intent
+		//get intent and user
 		Intent intent = getIntent();
 		User user = (User) intent.getSerializableExtra(SiQuoiaHomeActivity.USER);
 		

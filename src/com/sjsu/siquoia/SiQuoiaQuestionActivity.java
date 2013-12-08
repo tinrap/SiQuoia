@@ -40,7 +40,7 @@ import android.widget.VideoView;
 /**
  * 
  * @author Parnit Sainion
- * @since 27 November 2013
+ * @since 8 December 2013
  *  Description: This activity displays the question for the user to answer.
  */
 public class SiQuoiaQuestionActivity extends Activity implements MediaController.MediaPlayerControl
@@ -69,25 +69,15 @@ public class SiQuoiaQuestionActivity extends Activity implements MediaController
 		//get question text
 		String question = selectedQuestion.getQuestion();
 		
-		
-		//test url for image
-		//question = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/images/branded9.png";
-		
-		//test url for video
-		//question = "http://www.tools4movies.com/dvd_catalyst_profile_samples/Harold%20Kumar%203%20Christmas%20bionic.mp4";
-		
-		//test url for audio
-		//question = "http://www.glowingpigs.com/audioclip/10.mp3";
-		
 		//set layout based on type of question
-		if(question.contains(".png"))
+		if(question.contains(".png")) //for picture based question
 		{
 			//set layout to image layout
 			setContentView(R.layout.picture_question_layout);	
 			
 			new SiQuoiaDownloadImageTask().execute(question);				
 		}
-		else if(question.contains(".mp4")||question.contains(".mp3"))
+		else if(question.contains(".mp4")||question.contains(".mp3")) //for video and audio question
 		{
 			//set layout to video layout
 			setContentView(R.layout.video_question_layout);
@@ -98,6 +88,7 @@ public class SiQuoiaQuestionActivity extends Activity implements MediaController
 				 questionText.setText("Answer Based On Audio.");	
 			}
 			
+			//get videoview
 			VideoView videoView = (VideoView) findViewById(R.id.videoView);
 
 			//set media controls
@@ -120,7 +111,7 @@ public class SiQuoiaQuestionActivity extends Activity implements MediaController
 			//start video
 			videoView.start();
 		}	
-		else
+		else //for regular text based questions
 		{
 			//set layout to question text
 			setContentView(R.layout.question_layout);
@@ -134,11 +125,11 @@ public class SiQuoiaQuestionActivity extends Activity implements MediaController
 		currentScoreTextView = (TextView) findViewById(R.id.currentScore);
 		currentScoreTextView.setText("Current Score: " + currentScore + "/20");		
 		
-
+		//set current question number
 		TextView questionNumber = (TextView) findViewById(R.id.questionNum);
 		questionNumber.setText("Question "+ (selectedPosition + 1) +":");
 				
-		//gets the listview
+		//get the listview
 		myListView = (ListView) findViewById(R.id.answerList);
 	    myAdapter = new ArrayAdapter<String>(this,  android.R.layout.simple_list_item_1, android.R.id.text1);
         
@@ -167,7 +158,7 @@ public class SiQuoiaQuestionActivity extends Activity implements MediaController
 		        //update current answers
 				SharedPreferences.Editor perferenceUpdater = preferences.edit();
 				
-				if(position==correctAnswer)
+				if(position==correctAnswer) //if user chose correct answer
 				{
 					selectedQuestion.setStatus(Question.CORRECT);
 					currentAnswers =currentAnswers.concat(""+Question.CORRECT);
@@ -179,7 +170,7 @@ public class SiQuoiaQuestionActivity extends Activity implements MediaController
 						new SiQuoiaUpdateTask().execute(SiQuoiaHomeActivity.QUESTION_TEXT, selectedQuestion.getQuestion());
 					
 				}
-				else
+				else //incorrect answer
 				{
 					selectedQuestion.setStatus(Question.INCORRECT);
 					currentAnswers =currentAnswers.concat(""+Question.INCORRECT);
@@ -190,9 +181,10 @@ public class SiQuoiaQuestionActivity extends Activity implements MediaController
 				//commit preference changes
 				perferenceUpdater.commit();
 				
+				//update users answer in db
 				new SiQuoiaUpdateTask().execute(SiQuoiaHomeActivity.ANSWERS, preferences.getString(SiQuoiaHomeActivity.EMAIL,""),currentAnswers);
 				
-				//prepare intent to send back to homw activity
+				//prepare intent to send back to home activity
 			    intent.putExtra("position", selectedPosition);
 			    setResult(RESULT_OK, intent);
 			    finish();				
