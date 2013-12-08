@@ -1,5 +1,8 @@
 <?php
 /**
+ * File: createUser.php
+ * Description: creates a new user account for the Quiz game.
+ *              Gives the user 20 siquoia points to play with.
  * Author: Akshay Hegde
  * Last Modified: 7 December 2013
  */

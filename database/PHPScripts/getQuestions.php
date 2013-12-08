@@ -1,5 +1,8 @@
 <?php
 /**
+ * File: getQuestions.php
+ * Description: Gets the normal (read: not branded) questions from the database 
+ * and sets the relavant user information for the current quiz.
  * Author: Akshay Hegde
  * Last Modified: 7 December 2013
  */

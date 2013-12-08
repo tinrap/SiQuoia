@@ -1,5 +1,8 @@
 <?php
 /**
+ * File: getBrandedQuestion.php
+ * Description: Retrieves the branded questions from the database and sets the 
+ *                        relavant User information for game resumption
  * Author: Akshay Hegde
  * Last Modified: 7 December 2013
  */

@@ -1,5 +1,8 @@
 <?php
 /**
+ * File: addQuestion.php
+ * Adds a question to the database
+ *
  * Author: Akshay Hegde
  * Last Modified: 7 December 2013
  */

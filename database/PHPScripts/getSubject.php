@@ -1,5 +1,7 @@
 <?php
 /**
+ * File: getSubject.php
+ * Description: Gets all the subjects from the database.
  * Author: Akshay Hegde
  * Last Modified: 7 December 2013
  */
