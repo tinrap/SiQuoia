@@ -4,11 +4,12 @@ import java.io.Serializable;
 
 /**
  * @author Parnit Sainion
- * @since 27 Novemeber 2013
- * Class create a user object and store his information.
+ * @since 8 December 2013
+ * Description: Class create a user object and store his information.
  */
 public class User implements Serializable{
 
+	//variables declared
 	private static final long serialVersionUID = 397625286527811769L;
 	private String email;	
 	private int userId;
@@ -189,18 +190,23 @@ public class User implements Serializable{
 	
 
 	/**
-	 * @return true if user has enough points ot buys a quiz, else false
+	 * @return true if user has enough points to buys a quiz, else false
 	 */	
-	public boolean buyPacket()
+	public boolean canBuyPacket()
 	{
 		if(siquoiaBucks <5)
 			return false;
 		else
-		{
-			siquoiaBucks -= 5;
-			packetsBought++;
 			return true;
-		}
+	}
+	
+	/**
+	 * Users buys a packets using 5 of their points. 
+	 */
+	public void buyPacket()
+	{
+		siquoiaBucks -= 5;
+		packetsBought++;		
 	}
 	
 	/**

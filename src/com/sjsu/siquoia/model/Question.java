@@ -6,8 +6,8 @@ import java.util.ArrayList;
 /**
  * @author Parnit Sainion
  * @since  November 2013
- * Class is used to create a question object with its question, answer choices, correct answer, and the current status of 
- * whether it was answer or not.
+ * Description: Class is used to create a question object with its question, answer choices, correct answer, and the current status of 
+ * 				whether it was answer or not.
  */
 public class Question implements Serializable{	
 	

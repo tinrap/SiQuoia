@@ -11,6 +11,11 @@ import android.widget.TextView;
 import com.sjsu.siquoia.R;
 import com.sjsu.siquoia.model.Question;
 
+/** 
+ * @author Parnit Sainion
+ * @since 8 December 2013
+ * Description: This adapter takes an arraylist of questions and sets them to the listview for the quiz
+ */
 public class SiQuoiaQuizAdapter extends ArrayAdapter<Question>
 {
 	private ArrayList<Question> quiz;

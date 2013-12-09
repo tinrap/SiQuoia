@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sjsu.siquoia.model;
 
 import java.util.ArrayList;
@@ -8,8 +5,6 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
 
 /**
  * @author Parnit Sainion
@@ -19,10 +14,9 @@ import org.json.JSONObject;
 public class SiQuoiaJSONParser {
 
 	/**
-	 * 
+	 * Empty constructor
 	 */
 	public SiQuoiaJSONParser() {
-		// TODO Auto-generated constructor stub
 	}
 
 	

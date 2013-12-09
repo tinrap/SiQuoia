@@ -177,11 +177,12 @@ public class SiQuoiaHomeActivity extends Activity {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {						
-				if(user.buyPacket())
+				if(user.canBuyPacket())
 				{
 					//if user has enough points to buy quiz, start New Quiz Activity
 					Intent intent = new Intent();
 					intent.setClass(SiQuoiaHomeActivity.this, NewQuizActivity.class);
+					intent.putExtra(USER, user);
 					startActivity(intent);
 				}
 				else

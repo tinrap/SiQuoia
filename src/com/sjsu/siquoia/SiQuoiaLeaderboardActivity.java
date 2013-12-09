@@ -21,6 +21,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ListView;
 
+/**
+ * 
+ * @author Parnit Sainion
+ * @since 8 December 2013
+ * Description: This activity displays the top 20 correctly answered questions.
+ */
 public class SiQuoiaLeaderboardActivity extends Activity {
 
 	private ProgressDialog progressBar;
@@ -38,6 +44,7 @@ public class SiQuoiaLeaderboardActivity extends Activity {
 	        //initialize variables
 	        questions = new ArrayList<Question>(); 
 	        
+	        //get leader-board from database
 	        new SiQuoiaGetLeaderboardTask().execute();	       
 		}
 		

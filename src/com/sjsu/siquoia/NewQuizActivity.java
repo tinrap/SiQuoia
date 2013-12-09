@@ -19,6 +19,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.sjsu.siquoia.model.SiQuoiaJSONParser;
+import com.sjsu.siquoia.model.User;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -52,6 +53,7 @@ public class NewQuizActivity extends Activity {
 	private final String TOPIC = "topic";
 	private final String SUBTOPIC ="subtopic";
 	private String quiz;
+	private User user;
 	
 	//url to get data from database
 	private final String  SUBJECT_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getSubject.php";
@@ -75,6 +77,9 @@ public class NewQuizActivity extends Activity {
 		topicSpinner= (Spinner) findViewById(R.id.topicSpinner);
 		subtopicSpinner= (Spinner) findViewById(R.id.subtopicSpinner);
 		createButton = (Button) findViewById(R.id.createQuizButton);
+		
+		Intent intent = getIntent();
+		user = (User) intent.getSerializableExtra(SiQuoiaHomeActivity.USER);
 		
 		//add initial values to arrays
 		new SiQuoiaGetInfoTask().execute(SUBJECT);
@@ -237,7 +242,7 @@ public class NewQuizActivity extends Activity {
     }
 	
 	/**
-	 * Gets subtopics based on subject and topi
+	 * Gets subtopics based on subject and topic
 	 * @param subject over-arching subject whose subtopics are desired
 	 * @param topic topics whose subtopics are desired
 	 * @return JSON contain subtopics based on subject and topic
@@ -435,6 +440,9 @@ public class NewQuizActivity extends Activity {
 			
 				//close progress dialog
 				progressBar.dismiss();
+				
+				//update user object
+				user.buyPacket();
 				
 				Intent intent = new Intent();
 				intent.setClass(newQuizActivity, QuizActivity.class);
