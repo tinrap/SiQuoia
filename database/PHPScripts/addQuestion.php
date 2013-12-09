@@ -22,6 +22,7 @@ if (isset($_POST['txtQuestion'])) {
   $subTopic = $_POST['txtSubTopic'];
   $rank = $_POST['txtRank'];
 
+  // Inserts a new question into the Question table.
   $stmt = $link->prepare("insert into `Question`
     (questionText, answerOne, answerTwo, answerThree, answerFour, correctAns, topic, subTopic, rank)
      values (?, ?, ?, ?, ?, ?, ?, ?, ?);");

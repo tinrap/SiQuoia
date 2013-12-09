@@ -2,7 +2,6 @@
 /**
  * File: createUser.php
  * Description: creates a new user account for the Quiz game.
- *              Gives the user 20 siquoia points to play with.
  * Author: Akshay Hegde
  * Last Modified: 7 December 2013
  */
@@ -21,6 +20,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['emai
   $numMemro = 0;
   $siquoiaPoints = 0;
 
+  // Creates a new user account.
   $stmt = $link->prepare("insert into Users (email, password, currentQuiz, currentAnswers, siquoiaPoints, numPackets, numMemro) 
                         values (?, ?, ?, ?, ?, ?, ?);");
   $stmt->bind('ssssddd', $email, $password, $currQuiz, $currAnswers, $currQuiz, $currAnswers, $numPackets, $numMemro);

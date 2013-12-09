@@ -14,6 +14,7 @@ $query = "select questionText, rank from Question order by rank desc limit 20";
 $result = $link->query($query);
 $json = array();
 
+// Create a json array that holds 20 questions that have the highest rank.
 if ($result->num_rows !== false) {
     while ($row = $result->fetch_assoc()) {
         array_push($json, $row);

@@ -17,6 +17,7 @@ if (isset($_POST['code'])) {
 
     $query = "select * from BrandedQuestion where code = '" . "$code" . "'";
 
+    // Create a json array of the Branded Questions
     $result = $link->query($query);
     if ($result->num_rows !== false) {
         while ($row = $result->fetch_assoc()) {
