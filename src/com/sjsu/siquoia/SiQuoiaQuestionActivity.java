@@ -166,8 +166,8 @@ public class SiQuoiaQuestionActivity extends Activity implements MediaController
 					intent.putExtra("chosenAnswer", 1);
 					
 					//if the packet type is normal, update question rank
-					if(preferences.getString(SiQuoiaHomeActivity.PACKET_TYPE, SiQuoiaHomeActivity.NORMAL).equals(SiQuoiaHomeActivity.NORMAL))
-						new SiQuoiaUpdateTask().execute(SiQuoiaHomeActivity.QUESTION_TEXT, selectedQuestion.getQuestion());
+					//if(preferences.getString(SiQuoiaHomeActivity.PACKET_TYPE, SiQuoiaHomeActivity.NORMAL).equals(SiQuoiaHomeActivity.NORMAL))
+					//	new SiQuoiaUpdateTask().execute(SiQuoiaHomeActivity.QUESTION_TEXT, selectedQuestion.getQuestion());
 					
 				}
 				else //incorrect answer
@@ -182,7 +182,7 @@ public class SiQuoiaQuestionActivity extends Activity implements MediaController
 				perferenceUpdater.commit();
 				
 				//update users answer in db
-				new SiQuoiaUpdateTask().execute(SiQuoiaHomeActivity.ANSWERS, preferences.getString(SiQuoiaHomeActivity.EMAIL,""),currentAnswers);
+				//new SiQuoiaUpdateTask().execute(SiQuoiaHomeActivity.ANSWERS, preferences.getString(SiQuoiaHomeActivity.EMAIL,""),currentAnswers);
 				
 				//prepare intent to send back to home activity
 			    intent.putExtra("position", selectedPosition);

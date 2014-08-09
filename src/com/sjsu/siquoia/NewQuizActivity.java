@@ -340,12 +340,13 @@ public class NewQuizActivity extends Activity {
     	@Override
 		protected String doInBackground(String... input) {
     		task = input[0];
-    		if(task.equalsIgnoreCase(SUBJECT))
+    		/*if(task.equalsIgnoreCase(SUBJECT))
     			return getSubject();
     		else if(task.equalsIgnoreCase(TOPIC))
     			return getTopic(input[1]);
     		else
-    			return getSubtopic(input[1],input[2]);
+    			return getSubtopic(input[1],input[2]);*/
+    		return "dummy";
 		}
 		
 		protected void onPostExecute(String result) {
@@ -353,7 +354,8 @@ public class NewQuizActivity extends Activity {
 				if(task.equalsIgnoreCase(SUBJECT)) //case where subject is changeg
     			{
 					//set subject topics
-					subjects = SiQuoiaJSONParser.parseSubject(result);
+					//subjects = SiQuoiaJSONParser.parseSubject(result);
+					subjects.add("any");
 					subjectAdapter = new ArrayAdapter<String>(newQuizActivity, android.R.layout.simple_list_item_1, subjects);
 					subjectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					subjectSpinner.setAdapter(subjectAdapter);
@@ -374,7 +376,8 @@ public class NewQuizActivity extends Activity {
     			}
 	    		else if(task.equalsIgnoreCase(TOPIC)) //case where topic is changed
 	    		{
-	    			topics = SiQuoiaJSONParser.parseTopics(result);
+	    			//topics = SiQuoiaJSONParser.parseTopics(result);
+	    			topics.add("any");
 	    			topicAdapter = new ArrayAdapter<String>(newQuizActivity, android.R.layout.simple_list_item_1, topics);
 	    			topicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    			topicSpinner.setAdapter(topicAdapter);
@@ -387,7 +390,8 @@ public class NewQuizActivity extends Activity {
 	    		}
 	    		else //case where subtopic is changed
 	    		{ 
-	    			subtopics = SiQuoiaJSONParser.parseSubtopics(result);
+	    			//subtopics = SiQuoiaJSONParser.parseSubtopics(result);
+	    			subtopics.add("any");
 	    			subtopicAdapter = new ArrayAdapter<String>(newQuizActivity, android.R.layout.simple_list_item_1, subtopics);
 	    			subtopicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    			subtopicSpinner.setAdapter(subtopicAdapter);

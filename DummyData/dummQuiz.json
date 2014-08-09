@@ -5,7 +5,7 @@
 		"answerTwo":"2",
 		"answerThree":"3",
 		"answerFour":"4",
-		"correctAns":1,
+		"correctAns":2,
 		"rank":1
 	},
 	{
@@ -14,7 +14,7 @@
 		"answerTwo":"6",
 		"answerThree":"4",
 		"answerFour":"2",
-		"correctAns":2,
+		"correctAns":3,
 		"rank":1
 	},
 	{
@@ -23,7 +23,7 @@
 		"answerTwo":"33",
 		"answerThree":"81",
 		"answerFour":"88",
-		"correctAns":2,
+		"correctAns":3,
 		"rank":1
 	},
 	{
@@ -32,7 +32,7 @@
 		"answerTwo":"1",
 		"answerThree":"3",
 		"answerFour":"7",
-		"correctAns":0,
+		"correctAns":1,
 		"rank":1
 	},
 	{
@@ -41,7 +41,7 @@
 		"answerTwo":"2",
 		"answerThree":"7",
 		"answerFour":"0",
-		"correctAns":3,
+		"correctAns":4,
 		"rank":1
 	},
 	{
@@ -50,7 +50,7 @@
 		"answerTwo":"2",
 		"answerThree":"30",
 		"answerFour":"5",
-		"correctAns":1,
+		"correctAns":2,
 		"rank":1
 	},
 	{
@@ -59,7 +59,7 @@
 		"answerTwo":"4",
 		"answerThree":"14",
 		"answerFour":"0",
-		"correctAns":0,
+		"correctAns":1,
 		"rank":1
 	},
 	{
@@ -68,7 +68,7 @@
 		"answerTwo":"68",
 		"answerThree":"69",
 		"answerFour":"67",
-		"correctAns":3,
+		"correctAns":4,
 		"rank":1
 	},
 	{
@@ -77,7 +77,7 @@
 		"answerTwo":"101",
 		"answerThree":"102",
 		"answerFour":"103",
-		"correctAns":1,
+		"correctAns":2,
 		"rank":1
 	},
 	{
@@ -86,7 +86,7 @@
 		"answerTwo":"11",
 		"answerThree":"16",
 		"answerFour":"24",
-		"correctAns":3,
+		"correctAns":4,
 		"rank":1
 	},
 	{
@@ -95,66 +95,66 @@
 		"answerTwo":"20",
 		"answerThree":"9",
 		"answerFour":"11",
-		"correctAns":2,
-		"rank":1
-	},
-	{
-		"questionText":"1+1",
-		"answerOne":"1",
-		"answerTwo":"2",
-		"answerThree":"3",
-		"answerFour":"4",
-		"correctAns":1,
-		"rank":1
-	},
-	{
-		"questionText":"2+2",
-		"answerOne":"8",
-		"answerTwo":"6",
-		"answerThree":"4",
-		"answerFour":"2",
-		"correctAns":2,
-		"rank":1
-	},
-	{
-		"questionText":"9X9",
-		"answerOne":"18",
-		"answerTwo":"33",
-		"answerThree":"81",
-		"answerFour":"88",
-		"correctAns":2,
-		"rank":1
-	},
-	{
-		"questionText":"7-3",
-		"answerOne":"4",
-		"answerTwo":"1",
-		"answerThree":"3",
-		"answerFour":"7",
-		"correctAns":0,
-		"rank":1
-	},
-	{
-		"questionText":"0X0",
-		"answerOne":"1",
-		"answerTwo":"2",
-		"answerThree":"7",
-		"answerFour":"0",
 		"correctAns":3,
 		"rank":1
 	},
 	{
-		"questionText":"34-32",
-		"answerOne":"3",
-		"answerTwo":"2",
-		"answerThree":"30",
-		"answerFour":"5",
+		"questionText":"14+1",
+		"answerOne":"15",
+		"answerTwo":"21",
+		"answerThree":"141",
+		"answerFour":"2",
 		"correctAns":1,
 		"rank":1
 	},
 	{
-		"questionText":"12-2",
-		"answerOne":"10",
+		"questionText":"2x2",
+		"answerOne":"8",
+		"answerTwo":"6",
+		"answerThree":"4",
+		"answerFour":"2",
+		"correctAns":3,
+		"rank":1
+	},
+	{
+		"questionText":"9X11",
+		"answerOne":"18",
+		"answerTwo":"33",
+		"answerThree":"99",
+		"answerFour":"88",
+		"correctAns":2,
+		"rank":3
+	},
+	{
+		"questionText":"3-3",
+		"answerOne":"0",
+		"answerTwo":"1",
+		"answerThree":"3",
+		"answerFour":"7",
+		"correctAns":1,
+		"rank":1
+	},
+	{
+		"questionText":"3X0",
+		"answerOne":"1",
+		"answerTwo":"2",
+		"answerThree":"7",
+		"answerFour":"0",
+		"correctAns":4,
+		"rank":1
+	},
+	{
+		"questionText":"37-32",
+		"answerOne":"3",
+		"answerTwo":"5",
+		"answerThree":"30",
+		"answerFour":"5",
+		"correctAns":2,
+		"rank":1
+	},
+	{
+		"questionText":"19-2",
+		"answerOne":"17",
 		"answerTwo":"4",
 		"answerThree":"14",
 		"answerFour":"0",
@@ -162,36 +162,36 @@
 		"rank":1
 	},
 	{
-		"questionText":"66+1",
+		"questionText":"66+9",
 		"answerOne":"66",
 		"answerTwo":"68",
-		"answerThree":"69",
+		"answerThree":"75",
 		"answerFour":"67",
 		"correctAns":3,
 		"rank":1
 	},
 	{
-		"questionText":"99+2",
+		"questionText":"91+2",
 		"answerOne":"100",
 		"answerTwo":"101",
 		"answerThree":"102",
-		"answerFour":"103",
-		"correctAns":1,
+		"answerFour":"93",
+		"correctAns":4,
 		"rank":1
 	},
 	{
-		"questionText":"8x3",
+		"questionText":"5x3",
 		"answerOne":"8",
-		"answerTwo":"11",
+		"answerTwo":"15",
 		"answerThree":"16",
 		"answerFour":"24",
-		"correctAns":3,
+		"correctAns":2,
 		"rank":1
 	},
 	{
-		"questionText":"4+5",
+		"questionText":"9-5",
 		"answerOne":"10",
-		"answerTwo":"20",
+		"answerTwo":"4",
 		"answerThree":"9",
 		"answerFour":"11",
 		"correctAns":2,
