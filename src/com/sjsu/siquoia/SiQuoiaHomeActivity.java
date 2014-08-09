@@ -52,8 +52,11 @@ public class SiQuoiaHomeActivity extends Activity {
 	private Button continueButton, newGameButton, leaderboardButton, submitQuestionButton, quitButton;
 	private ProgressDialog progressBar;
 	private SharedPreferences preferences;
-	private final String USER_INFO_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getUser.php";
+	//private final String USER_INFO_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getUser.php";
+	//private final String REDEEM_CODE_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getBrandedQuestion.php";
+	private final String USER_INFO_URL = "http://github.com/tinrap/siquoia/dummyData/dummyUser.json";
 	private final String REDEEM_CODE_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getBrandedQuestion.php";
+	
 	private TextView currentPointsTextView; 
 	protected User user;
 	private AlertDialog alertDialog;

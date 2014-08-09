@@ -61,6 +61,7 @@ public class SiQuoiaJSONParser {
 		//declare variables
 		ArrayList<String> subjects = new ArrayList<String>();
 		subjects.add("Any");
+		/*
 		JSONObject jsonObj = new JSONObject();
 		int size =0;
 		
@@ -78,7 +79,7 @@ public class SiQuoiaJSONParser {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		return subjects;
 	}
 	
@@ -91,6 +92,7 @@ public class SiQuoiaJSONParser {
 		//declare variables
 		ArrayList<String> topics = new ArrayList<String>();
 		topics.add("Any");
+		/*
 		JSONObject jsonObj = new JSONObject();
 		int size =0;
 		
@@ -108,7 +110,7 @@ public class SiQuoiaJSONParser {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		return topics;
 	}
 	
@@ -121,6 +123,7 @@ public class SiQuoiaJSONParser {
 		//declare variables
 		ArrayList<String> subtopics = new ArrayList<String>();
 		subtopics.add("Any");
+		/*
 		JSONObject jsonObj = new JSONObject();
 		int size =0;
 		
@@ -138,7 +141,7 @@ public class SiQuoiaJSONParser {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		return subtopics;
 	}
 	
