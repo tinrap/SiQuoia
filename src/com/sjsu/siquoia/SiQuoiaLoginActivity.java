@@ -44,6 +44,7 @@ public class SiQuoiaLoginActivity extends Activity
 	private TextView createUserText;
 	private SharedPreferences preferences;
 	private String loginUrl = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/login.php";
+	//private String loginUrl = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/login.php";
 	private String email;
 	
     @Override
@@ -161,7 +162,8 @@ public class SiQuoiaLoginActivity extends Activity
 		protected String doInBackground(String... input) {
     		//input[0] = username
     		//input[1] = password
-			return login(input[0], input[1]);
+			//return login(input[0], input[1]);
+    		return "true";
 		}
 		
 		protected void onPostExecute(String result) {

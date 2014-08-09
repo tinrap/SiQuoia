@@ -59,7 +59,8 @@ public class NewQuizActivity extends Activity {
 	private final String  SUBJECT_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getSubject.php";
 	private final String  TOPIC_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getTopic.php";
 	private final String  SUBTOPIC_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getSubtopic.php";
-	private final String  QUIZ_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getQuestions.php";
+	//private final String  QUIZ_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getQuestions.php";
+	private final String  QUIZ_URL = "https://raw.githubusercontent.com/tinrap/SiQuoia/master/DummyData/dummQuiz.json";
 	
 	public void onCreate(Bundle savedInstanceState)
 	{

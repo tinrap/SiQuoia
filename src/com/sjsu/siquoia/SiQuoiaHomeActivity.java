@@ -54,8 +54,8 @@ public class SiQuoiaHomeActivity extends Activity {
 	private SharedPreferences preferences;
 	//private final String USER_INFO_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getUser.php";
 	//private final String REDEEM_CODE_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getBrandedQuestion.php";
-	private final String USER_INFO_URL = "http://github.com/tinrap/siquoia/dummyData/dummyUser.json";
-	private final String REDEEM_CODE_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getBrandedQuestion.php";
+	private final String USER_INFO_URL = "https://raw.githubusercontent.com/tinrap/SiQuoia/master/DummyData/dummyUser.json";
+	private final String REDEEM_CODE_URL = "https://raw.githubusercontent.com/tinrap/SiQuoia/master/DummyData/dummQuiz.json";
 	
 	private TextView currentPointsTextView; 
 	protected User user;

@@ -174,7 +174,7 @@ public class QuizActivity extends Activity {
     				perferenceUpdater.commit();
     				
     				
-    				new SiQuoiaUpdatePointsTask().execute(preferences.getString(SiQuoiaHomeActivity.EMAIL,""), numberCorrect+"");    				
+    				//new SiQuoiaUpdatePointsTask().execute(preferences.getString(SiQuoiaHomeActivity.EMAIL,""), numberCorrect+"");    				
          		}
          		
          		Intent intent= new Intent();

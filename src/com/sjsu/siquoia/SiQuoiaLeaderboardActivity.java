@@ -33,7 +33,8 @@ public class SiQuoiaLeaderboardActivity extends Activity {
 	private ArrayList<Question> questions;
 	private SiQuoiaLeaderboardAdapter leaderboardAdapter;
 	private ListView leaderboardList;
-	private final String LEADERBOARD_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getLeaderboard.php";
+	//private final String LEADERBOARD_URL = "http://ec2-54-201-65-140.us-west-2.compute.amazonaws.com/getLeaderboard.php";
+	private final String LEADERBOARD_URL = "https://raw.githubusercontent.com/tinrap/SiQuoia/master/DummyData/dummyLeaderBoard.json";
 	
 		
 		@Override
